@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace Sales.Dominio.Entities
 {
-    sealed internal class ClassProducto:ClassCategoria
+    sealed internal class Producto: BaseEntity
     {
+        public string? Descripcion { get; set; }
+        public bool? EsActivo { get; set; }
         public string? CodigoBarra { get; set; }
         public string? Marca { get; set; }
         public int? IdCategoria { get; set; }

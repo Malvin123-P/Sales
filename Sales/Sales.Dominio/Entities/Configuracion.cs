@@ -5,13 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace Sales.Dominio.Entities
 {
-    sealed internal class ClassRolMenu: ClassBase
+    public class Configuracion: BaseEntity
     {
-        public int? IdRol { get; set; }
-        public int? IdMenu { get; set; }
-      
+        public string? Recurso { get; set; }
+        public string? Propiedad { get; set; }
+        public string? Valor { get; set; }
     }
 }

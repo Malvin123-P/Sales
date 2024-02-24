@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace Sales.Dominio.Entities
 {
-    sealed internal class ClassUsuario:ClassCategoria
+    public class Usuario: BaseEntity
     {
+        public string? Descripcion { get; set; }
+        public bool? EsActivo { get; set; }
         public string? Nombre { get; set; }
         public string? Correo { get; set; }
         public string? Telefono { get; set; }

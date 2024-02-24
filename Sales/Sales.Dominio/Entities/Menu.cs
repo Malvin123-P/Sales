@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace Editorial.Dominio.Entities
 {
-    sealed internal class ClassMenu:ClassCategoria
+    public class Menu: BaseEntity
     {
+        public string? Descripcion { get; set; }
+        public bool? EsActivo { get; set; }
         public int? IdMenuPadre {  get; set; }
         public string? Icono {  get; set; }
         public string? Controlador {  get; set; }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Editorial.Dominio.Entities
 {
-    sealed internal class ClassDetalleVenta:ClassBase
+    public class DetalleVenta:BaseEntity
     {
         public int? IdVenta {  get; set; }
         public int? IdProducto { get; set; }

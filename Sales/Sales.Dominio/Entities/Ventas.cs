@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sales.Dominio.Entities
 {
-    sealed internal class ClassVentas:ClassBase
+    public  class Ventas:BaseEntity
     {
         public string? NumeroVenta { get; set; }
         public int? IdTipoDocumentoVenta { get; set; }

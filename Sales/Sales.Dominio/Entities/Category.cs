@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace Sales.Dominio.Entities
 {
-    sealed internal class ClassConfiguracion:ClassBase
+    public class Category:BaseEntity
     {
-        public string? Recurso { get; set; }
-        public string? Propiedad { get; set; }
-        public string? Valor { get; set; }
+        public string? Descripcion { get; set; }
+        public bool? EsActivo { get; set; }
     }
 }

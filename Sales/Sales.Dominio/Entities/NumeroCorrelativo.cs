@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sales.Dominio.Entities
 {
-    sealed internal class ClassNumeroCorrelativo:ClassBase
+    public class NumeroCorrelativo: BaseEntity
     {
         public int? UltimoNumero { get; set; }
         public int? CantidadDigitos { get; set; }

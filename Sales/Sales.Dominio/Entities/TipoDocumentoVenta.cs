@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace Sales.Dominio.Entities
 {
-    sealed internal class ClassTipoDocumentoVenta:ClassCategoria
+    public class TipoDocumentoVenta: BaseEntity
     {
-    
+        public string? Descripcion { get; set; }
+        public bool? EsActivo { get; set; }
+
+
     }
 }
