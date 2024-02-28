@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sales.Dominio.Entities
 {
-    sealed internal class Producto: BaseEntity
+    public class Producto: BaseEntity
     {
         public string? Descripcion { get; set; }
         public bool? EsActivo { get; set; }
