@@ -17,11 +17,6 @@
 
   <ItemGroup>
     <Folder Include="Core\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Models\" />
-    <Folder Include="Exceptions\" />
-    <Folder Include="Extentions\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>

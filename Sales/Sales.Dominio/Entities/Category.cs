@@ -9,6 +9,7 @@ namespace Sales.Dominio.Entities
 {
     public class Category:BaseEntity
     {
+        public string nombre {  get; set; }
         public string? Descripcion { get; set; }
         public bool? EsActivo { get; set; }
     }
