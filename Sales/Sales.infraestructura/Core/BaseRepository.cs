@@ -11,7 +11,6 @@ namespace Sales.Infraestructura.Core
 {
     public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
-
         private readonly SalesContext context;
         private readonly DbSet<TEntity> DbEntity;
 
@@ -45,12 +44,10 @@ namespace Sales.Infraestructura.Core
         {
             DbEntity.Remove(entity);
             this.context.SaveChanges();
-
         }
 
         public virtual void Save(TEntity entity)
         {
-
             DbEntity.Add(entity);
             context.SaveChanges();
         }
