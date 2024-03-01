@@ -1,4 +1,6 @@
 ﻿using Sales.Dominio.Entities;
+using Sales.Dominio.Repository;
+using Sales.Infraestructura.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +9,9 @@ using System.Threading.Tasks;
 
 namespace Sales.Infraestructura.Interfaces
 {
-    public interface IProductoRepository
+    public interface IProductoRepository : IBaseRepository<Producto>
     {
-        void Create(Producto producto);
-        void Update(Producto producto);
-        void Remove(Producto producto);
-        List<Producto> GetProductos();
-        Producto GetProducto(int productId);
+        List<ProductoModel> GetProductsByCategory(int categoryId);
+
     }
 }

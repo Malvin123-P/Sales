@@ -1,93 +1,119 @@
-﻿using Sales.Dominio.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Sales.Dominio.Entities;
 using Sales.Infraestructura.Context;
+using Sales.Infraestructura.Core;
 using Sales.Infraestructura.Interfaces;
+using Sales.Infraestructura.Models;
 
 namespace Sales.Infraestructura.Repositories
 {
-    public class ProductRepository : IProductoRepository
+    public class ProductRepository :BaseRepository<Producto>, IProductoRepository
     {
         private readonly SalesContext context;
+        private readonly ILogger<ProductRepository> logger;
 
-        public ProductRepository(SalesContext context)
+        public ProductRepository(SalesContext context, ILogger<ProductRepository> logger): base(context)
         {
             this.context = context;
+            this.logger = logger;
         }
 
-        public void Create(Producto producto)
+        public  List<ProductoModel> GetProductsByCategory(int categoryId)
         {
+            List<ProductoModel> products = new List<ProductoModel>();
+
+            try
+            {
+                // Corrected and optimized query:
+                products = (from pro in this.context.Products
+                             join ca in this.context.Categories on pro.IdCategoria equals ca.id
+                             where pro.IdCategoria == categoryId
+                             select new ProductoModel()
+                             {
+                                 Marca = pro.Marca,
+                                 Nombre = ca.nombre,
+                                 Stock = (int)pro.Stock,
+                                 Precio = (decimal)pro.Precio,
+                                 IdProducto = pro.id, 
+                             }).ToList();
+
+                return products;
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError("Error obteniendo los productos", ex.ToString());
+            }
+
+        }
+        public override void Save(Producto entity)
+        {
+
             try
             {
                 // Check for existing product id (optional)
-                 if (context.Products.Any(p => p.id == producto.id))
-                 {
-                      throw new ProductoException("Ya existe un producto con el id ingresado.");
-                 }
-
-                this.context.Products.Add(producto);
-                this.context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new ProductoException("Error al crear el producto", ex);
-            }
-        }
-
-        public Producto GetProducto(int productId)
-        {
-            return this.context.Products.Find(productId);
-        }
-
-        public List<Producto> GetProductos()
-        {
-            return this.context.Products.ToList();
-        }
-
-        public void Remove(Producto producto)
-        {
-            try
-            {
-                Producto productToRemove = this.GetProducto(producto.id);
-
-                if (productToRemove == null)
+                if (context.Products.Any(p => p.id == entity.id))
                 {
-                    throw new ProductoException("El producto no existe");
+                    this.logger.LogWarning("Ya existe un producto con ese id");
                 }
 
-                this.context.Products.Remove(productToRemove);
+                this.context.Products.Add(entity);
                 this.context.SaveChanges();
             }
             catch (Exception ex)
             {
-                throw new ProductoException("Error al eliminar el producto", ex);
+                this.logger.LogError("Error al crear el producto", ex.ToString());
             }
         }
 
-        public void Update(Producto producto)
+        public override Producto GetEntity(int id)
+        {
+            return this.context.Products.Find(id);
+        }
+
+        public override void Update(Producto entity)
         {
             try
             {
-                Producto productToUpdate = this.GetProducto(producto.id);
+                var productToUpdate = this.GetEntity(entity.id);
 
                 if (productToUpdate == null)
                 {
-                    throw new ProductoException("El producto no existe");
+                    this.logger.LogWarning("El producto no existe");
                 }
 
-                productToUpdate.Descripcion = producto.Descripcion;
-                productToUpdate.FechaMod = producto.FechaMod;
-                productToUpdate.IdCategoria = producto.IdCategoria;
-                productToUpdate.Precio = producto.Precio;
-                productToUpdate.Stock = producto.Stock;
-                productToUpdate.Marca = producto.Marca;
-                productToUpdate.IdUsuarioMod = producto.IdUsuarioMod;
+                productToUpdate.Descripcion = entity.Descripcion;
+                productToUpdate.FechaMod = entity.FechaMod;
+                productToUpdate.IdCategoria = entity.IdCategoria;
+                productToUpdate.Precio = entity.Precio;
+                productToUpdate.Stock = entity.Stock;
+                productToUpdate.Marca = entity.Marca;
+                productToUpdate.IdUsuarioMod = entity.IdUsuarioMod;
 
                 this.context.Products.Update(productToUpdate);
                 this.context.SaveChanges();
             }
             catch (Exception ex)
             {
-                throw new ProductoException("Error al actualizar el producto", ex);
+                this.logger.LogError("Error al actualizar el producto", ex.ToString());
             }
         }
+
+        public override List<Producto> GetEntities()
+        {
+            return base.GetEntities().Where(p => !p.Eliminado).ToList();
+        }
+
+        public override List<Producto> FinAll(Func<Producto, bool> filter)
+        {
+            return this.context.Products.Where(filter).ToList();
+        }
+
+        public override bool Exists(Func<Producto, bool> filter)
+        {
+            return this.context.Products.Any(filter);
+        }
+
+        
     }
 }

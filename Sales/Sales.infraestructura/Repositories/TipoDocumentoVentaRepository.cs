@@ -1,90 +1,89 @@
-﻿using Sales.Dominio.Entities;
+﻿using Microsoft.Extensions.Logging;
+using Sales.Dominio.Entities;
+using Sales.Dominio.Repository;
 using Sales.Infraestructura.Context;
+using Sales.Infraestructura.Core;
+using Sales.Infraestructura.Extentions;
 using Sales.Infraestructura.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using TipoDocumentoVenta = Sales.Dominio.Entities.TipoDocumentoVenta;
 
 namespace Sales.Infraestructura.Repositories
 {
-    public class TipoDocumentoVentaRepository : ITipoDocumentoVentaRepository
+    public class TipoDocumentoVentaRepository : BaseRepository<TipoDocumentoVenta>, ITipoDocumentoVentaRepository
     {
         private readonly SalesContext context;
+        private readonly ILogger<TipoDocumentoVentaRepository> logger;
 
-        public TipoDocumentoVentaRepository(SalesContext context)
+        public TipoDocumentoVentaRepository(SalesContext context, ILogger<TipoDocumentoVentaRepository> logger) : base(context)
         {
             this.context = context;
+            this.logger = logger;
         }
 
-        public void Create(TipoDocumentoVenta tipoDocumentoVenta)
+        public override void Save(TipoDocumentoVenta entity)
         {
             try
             {
-                // Check for existing code (optional)
-                if (context.TipoDocumentosVenta.Any(t => t.id == tipoDocumentoVenta.id))
+                if (context.TipoDocumentosVenta.Any(t => t.id == entity.id))
                 {
-                     throw new TipoDocumentoVentaException("Ya existe un tipo de documento con el id ingresado.");
+                    this.logger.LogWarning("Ya existe un tipo de documento con el id ingresado.");
                 }
 
-                this.context.TipoDocumentosVenta.Add(tipoDocumentoVenta);
+                this.context.TipoDocumentosVenta.Add(entity);
                 this.context.SaveChanges();
             }
             catch (Exception ex)
             {
-                throw new TipoDocumentoVentaException("Error al crear el tipo de documento", ex);
+                this.logger.LogError("Error al crear el tipo de documento", ex);
             }
         }
 
-        public TipoDocumentoVenta GetTipoDocumento(int tipoDocumentId)
-        {
-            return this.context.TipoDocumentosVenta.Find(tipoDocumentId);
-        }
-
-        public List<TipoDocumentoVenta> GetTipoDocumentoVentas()
-        {
-            return this.context.TipoDocumentosVenta.ToList();
-        }
-
-        public void Remove(TipoDocumentoVenta tipoDocumentoVenta)
+        public override void Update(TipoDocumentoVenta entity)
         {
             try
             {
-                TipoDocumentoVenta documentToRemove = this.GetTipoDocumento(tipoDocumentoVenta.id);
-
-                if (documentToRemove == null)
-                {
-                    throw new TipoDocumentoVentaException("El tipo de documento no existe");
-                }
-
-                this.context.TipoDocumentosVenta.Remove(documentToRemove);
-                this.context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new TipoDocumentoVentaException("Error al eliminar el tipo de documento", ex);
-            }
-        }
-
-        public void Update(TipoDocumentoVenta tipoDocumentoVenta)
-        {
-            try
-            {
-                TipoDocumentoVenta documentToUpdate = this.GetTipoDocumento(tipoDocumentoVenta.id);
+                var documentToUpdate = this.GetEntity(entity.id);
 
                 if (documentToUpdate == null)
                 {
-                    throw new TipoDocumentoVentaException("El tipo de documento no existe");
+                    this.logger.LogWarning("El tipo de documento no existe");
                 }
 
-                documentToUpdate.Descripcion = tipoDocumentoVenta.Descripcion;
-                documentToUpdate.FechaMod = tipoDocumentoVenta.FechaMod;
-                documentToUpdate.IdUsuarioMod = tipoDocumentoVenta.IdUsuarioMod;
-                documentToUpdate.EsActivo = tipoDocumentoVenta.EsActivo;
+                documentToUpdate.Descripcion = entity.Descripcion;
+                documentToUpdate.FechaMod = entity.FechaMod;
+                documentToUpdate.IdUsuarioMod = entity.IdUsuarioMod;
+                documentToUpdate.EsActivo = entity.EsActivo;
 
                 this.context.TipoDocumentosVenta.Update(documentToUpdate);
                 this.context.SaveChanges();
             }
             catch (Exception ex)
             {
-                throw new TipoDocumentoVentaException("Error al actualizar el tipo de documento", ex);
+                this.logger.LogError("Error al actualizar el tipo de documento", ex);
             }
+        }
+
+        public override List<TipoDocumentoVenta> GetEntities()
+        {
+            return base.GetEntities().Where(ca => !ca.Eliminado).ToList();
+        }
+
+        public override TipoDocumentoVenta GetEntity(int id)
+        {
+            return this.context.TipoDocumentosVenta.Find(id);
+        }
+
+        public override bool Exists(Func<TipoDocumentoVenta, bool> filter)
+        {
+            return base.Exists(filter);
+        }
+
+        public override List<TipoDocumentoVenta> FinAll(Func<TipoDocumentoVenta, bool> filter)
+        {
+            return base.FinAll(filter);
         }
     }
 }

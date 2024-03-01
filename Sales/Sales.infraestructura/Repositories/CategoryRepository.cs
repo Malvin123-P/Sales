@@ -1,78 +1,43 @@
-﻿using Sales.Dominio.Entities;
+﻿using Microsoft.Extensions.Logging;
+using Sales.Dominio.Entities;
 using Sales.Infraestructura.Context;
+using Sales.Infraestructura.Core;
 using Sales.Infraestructura.Interfaces;
 
 namespace Sales.Infraestructura.Repositories
 {
-    public class CategoryRepository : ICategoryRepository
+    public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
     {
         private readonly SalesContext context;
+        private readonly ILogger<CategoryRepository> logger;
 
-        public CategoryRepository(SalesContext context)
+        public CategoryRepository(SalesContext context, ILogger<CategoryRepository> logger) : base(context)
         {
             this.context = context;
+            this.logger = logger;
         }
 
-        public void Create(Category category)
+        public override List<Category> GetEntities()
+        {
+            return this.GetEntities().Where(ca => !ca.Eliminado).ToList();
+        }
+
+        public override void Update(Category entity)
         {
             try
             {
-                if (context.Categories.Any(c => c.id == category.id))
-                {
-                    throw new CategoryException("La categoría ya se encuentra registrada");
-                }
-
-                context.Categories.Add(category);
-                context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new CategoryException("Error al crear la categoría", ex);
-            }
-        }
-
-        public List<Category> GetCategories()
-        {
-            return context.Categories
-                .Where(c => !c.Eliminado)
-                .ToList();
-        }
-
-        public Category GetCategory(int categoryId)
-        {
-            return context.Categories.Find(categoryId);
-        }
-
-        public void Remove(Category category)
-        {
-            try
-            {
-                Category categoryRemove = this.GetCategory(category.id);
-                this.context.Categories.Remove(categoryRemove);
-                this.context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new CategoryException("Error al eliminar la categoría", ex);
-            }
-        }
-
-        public void Update(Category category)
-        {
-            try
-            {
-                Category categoryToUpdate = context.Categories.Find(category.id);
+                var categoryToUpdate = this.GetEntity(entity.id);
 
                 if (categoryToUpdate == null)
                 {
                     throw new CategoryException("La categoría no existe");
                 }
 
-                categoryToUpdate.nombre = category.nombre;
-                categoryToUpdate.IdUsuarioMod = category.IdUsuarioMod;
-                categoryToUpdate.Descripcion = category.Descripcion;
-                categoryToUpdate.FechaMod = category.FechaMod;
-                categoryToUpdate.EsActivo = category.EsActivo;
+                categoryToUpdate.nombre = entity.nombre;
+                categoryToUpdate.IdUsuarioMod = entity.IdUsuarioMod;
+                categoryToUpdate.Descripcion = entity.Descripcion;
+                categoryToUpdate.FechaMod = entity.FechaMod;
+                categoryToUpdate.EsActivo = entity.EsActivo;
 
 
                 this.context.Categories.Update(categoryToUpdate);
@@ -80,8 +45,44 @@ namespace Sales.Infraestructura.Repositories
             }
             catch (Exception ex)
             {
-                throw new CategoryException("Error al actualizar la categoría", ex);
+                this.logger.LogError("Error al actualizar la categoría", ex.ToString());
             }
         }
+
+        public override void Save(Category entity)
+        {
+            try
+            {
+                if (context.Categories.Any(c => c.id == entity.id))
+                {
+                    this.logger.LogWarning("La categoría ya se encuentra registrada");
+                }
+
+                context.Categories.Add(entity);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError("Error al registrar la categoría", ex.ToString());
+            }
+        }
+
+        public override Category GetEntity(int id)
+        {
+            return this.context.Categories.Find(id);
+        }
+
+        public override bool Exists(Func<Category, bool> filter)
+        {
+            return base.Exists(filter);
+        }
+
+        public override List<Category> FinAll(Func<Category, bool> filter)
+        {
+            return base.FinAll(filter);
+        }
+
+        
     }
+    
 }
