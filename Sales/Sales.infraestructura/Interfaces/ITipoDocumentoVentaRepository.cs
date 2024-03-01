@@ -1,4 +1,5 @@
 ﻿using Sales.Dominio.Entities;
+using Sales.Dominio.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +8,8 @@ using System.Threading.Tasks;
 
 namespace Sales.Infraestructura.Interfaces
 {
-    public interface ITipoDocumentoVentaRepository
+    public interface ITipoDocumentoVentaRepository : IBaseRepository<TipoDocumentoVenta> 
     {
-        void Create(TipoDocumentoVenta tipoDocumentoVenta);
-        void Update(TipoDocumentoVenta tipoDocumentoVenta);
-        void Remove(TipoDocumentoVenta tipoDocumentoVenta);
-        List<TipoDocumentoVenta> GetTipoDocumentoVentas();
-        TipoDocumentoVenta GetTipoDocumento(int tipoDocumentId);
+
     }
 }
