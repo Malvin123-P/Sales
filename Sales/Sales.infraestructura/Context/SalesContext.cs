@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Sales.Dominio.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,11 @@ namespace Sales.Infraestructura.Context
     {
         
         public SalesContext(DbContextOptions<SalesContext> options) : base(options)
-        { 
-        }
+        {
+        public DbSet<NumeroCorrelativo> NumeroCorrelativo { get; set; }
+        public DbSet<RolMenu> RolMenu { get; set; }
+        
+    }
     
         
     }
