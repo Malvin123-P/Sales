@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Editorial.Dominio.Entities;
+using Microsoft.EntityFrameworkCore;
 using Sales.Dominio.Entities;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,15 @@ namespace Sales.Infraestructura.Context
         public DbSet<Category> Categories {get; set;}
         public DbSet<Producto> Products { get; set;}
         public DbSet<TipoDocumentoVenta> TipoDocumentosVenta { get; set;}
+
+        #region "DbSets 2021-0189"
+        public DbSet<DetalleVenta> DetalleVenta { get;set;}
+        public DbSet<Menu> Menu { get; set;}
+        public DbSet<Negocio> Negocio { get; set;}
+        #endregion
+
+        #region " Store Procedure 2021-0189"
+        #endregion
 
     }
 }
