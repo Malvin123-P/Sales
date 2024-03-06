@@ -1,81 +1,81 @@
-﻿using Editorial.Dominio.Entities;
-using Sales.Dominio.Entities;
-using Sales.Infraestructura.Context;
-using Sales.Infraestructura.Interfaces;
+﻿using Sales.Dominio.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+//Agregadas
+
+using Editorial.Dominio.Entities;
+using Microsoft.Extensions.Logging;
+using Sales.Infraestructura.Context;
+using Sales.Infraestructura.Core;
+using Sales.Infraestructura.Exceptions;
+using Sales.Infraestructura.Interfaces;
+
 namespace Sales.Infraestructura.Repositories
 {
-    public class MenuRepository : IMenuRepository
+    public class MenuRepository :BaseRepository<Menu>, IMenuRepository
     {
         private readonly SalesContext context;
-        public MenuRepository(SalesContext context)
+        private readonly ILogger<MenuRepository> logger;
+
+        public MenuRepository(SalesContext context,ILogger<MenuRepository> logger) :base(context) 
         {
             this.context = context;
-
+            this.logger = logger;
         }
 
-        public void Create(Menu menu)
+        public override List<Menu> GetEntities()
+        {
+            return base.GetEntities().Where(ca => ca.Eliminado).ToList();
+        }
+
+        public override void Update(Menu entity)
         {
             try
             {
-                this.context.Menu.Add(menu);
-                this.context.SaveChanges();
+                Menu menuUpdate = this.GetEntity(entity.id);
 
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
+                menuUpdate.Descripcion = entity.Descripcion;
+                menuUpdate.EsActivo = entity.EsActivo;
+                menuUpdate.PaginaAccion = entity.PaginaAccion;
+                menuUpdate.Icono = entity.Icono;
+                menuUpdate.Controlador = entity.Controlador;
 
-        public Menu GetMenu(int Id)
-        {
-            return this.context.Menu.Find(Id);
-        }
-
-        public List<Menu> GetMenus()
-        {
-            return this.context.Menu.ToList();
-        }
-
-        public void Remove(Menu menu)
-        {
-            try
-            {
-                Menu menuRemueve = this.GetMenu(menu.id);
-                this.context.Menu.Remove(menuRemueve);
-                this.context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public void Update(Menu menu)
-        {
-            try
-            {
-                Menu menuUpdate = this.GetMenu(menu.id);
-
-                menuUpdate.Descripcion = menu.Descripcion;
-                menuUpdate.EsActivo = menu.EsActivo;
-                menuUpdate.PaginaAccion = menu.PaginaAccion;
-                menuUpdate.Icono = menu.Icono;
-                menuUpdate.Controlador = menu.Controlador;
-            
                 this.context.Menu.Update(menuUpdate);
                 this.context.SaveChanges();
             }
             catch (Exception e)
             {
-                throw e;
+                this.logger.LogError("Error actualizando el menu", e.ToString());
             }
         }
+
+        public override void Save(Menu entity)
+        {
+            try
+            {
+                if (context.Menu.Any(de => de.id == entity.id))
+                {
+                    throw new MenuExcenption("El menu se encuetra registrado.");
+                }
+
+                this.context.Menu.Add(entity);
+                this.context.SaveChanges();
+
+            }
+            catch (Exception e)
+            {
+                this.logger.LogError("Error creando el detalle de la venta", e.ToString());
+            }
+        }
+        public override bool Exists(Func<Menu, bool> filter)
+        {
+            return base.Exists(filter);
+        }
+
     }
 }

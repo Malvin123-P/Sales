@@ -17,6 +17,7 @@ namespace Sales.Dominio.Entities
         public decimal? SubTotal { get; set; }
         public decimal? ImpuestoTotal { get; set; }
         public decimal? Total { get; set; }
+       
 
     }
 }

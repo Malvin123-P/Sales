@@ -16,5 +16,8 @@ namespace Sales.Infraestructura.Models
         public decimal? Precio { get; set; }
         public decimal? Total { get; set; }
 
+        public string? CategoriaProducto { get; set; }
+
+
     }
 }

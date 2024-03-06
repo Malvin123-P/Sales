@@ -16,5 +16,6 @@ namespace Editorial.Dominio.Entities
         public int? Cantidad { get; set; }
         public decimal? Precio { get; set; }
         public decimal? Total { get; set; }
+        public string? CategoriaProducto { get; set; }
     }
 }
