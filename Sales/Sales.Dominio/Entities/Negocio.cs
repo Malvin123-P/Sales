@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Sales.Dominio.Entities
 {
-    public class Negocio: BaseEntity
+    public class Negocio:BaseEntity
     {
+       
         public string? UrlLogo { get; set; }
         public string? NombreLogo {  get; set; }
         public string? NumeroDocumento { get; set; }
@@ -18,6 +19,7 @@ namespace Sales.Dominio.Entities
         public string? Telefono { get; set; }
         public decimal? PorcentajeImpuesto { get; set;}
         public string? SimboloMoneda { get; set;}
+       
 
     }
 }

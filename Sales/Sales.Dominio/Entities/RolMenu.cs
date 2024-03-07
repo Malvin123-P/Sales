@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Sales.Dominio.Entities
 {
-    public class RolMenu: BaseEntity
+    public class RolMenu:BaseEntity
     {
-
+       
         public int? IdRol { get; set; }
         public int? IdMenu { get; set; }
-      
+       
     }
 }

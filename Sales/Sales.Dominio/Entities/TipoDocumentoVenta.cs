@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace Sales.Dominio.Entities
 {
-    public class TipoDocumentoVenta: BaseEntity
+    public class TipoDocumentoVenta : BaseEntity
     {
+       
         public string? Descripcion { get; set; }
         public bool? EsActivo { get; set; }
+       
 
 
     }

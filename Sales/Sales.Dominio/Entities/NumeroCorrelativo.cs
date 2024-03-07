@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Sales.Dominio.Entities
 {
-    public class NumeroCorrelativo: BaseEntity
+    public class NumeroCorrelativo:BaseEntity
     {
+
         public int? UltimoNumero { get; set; }
         public int? CantidadDigitos { get; set; }
         public string? Gestion { get; set; }

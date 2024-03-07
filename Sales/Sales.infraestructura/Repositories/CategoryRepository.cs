@@ -68,7 +68,7 @@ namespace Sales.Infraestructura.Repositories
                     throw new CategoryException("La categoría no existe");
                 }
 
-                categoryToUpdate.nombre = category.nombre;
+               // categoryToUpdate.Nombre = category.Nombre;
                 categoryToUpdate.IdUsuarioMod = category.IdUsuarioMod;
                 categoryToUpdate.Descripcion = category.Descripcion;
                 categoryToUpdate.FechaMod = category.FechaMod;

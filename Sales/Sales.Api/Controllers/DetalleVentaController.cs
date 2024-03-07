@@ -52,18 +52,18 @@ namespace Sales.Api.Controllers
              });
         }
 
-        // PUT api/<DetalleVentaController>/5
+        //PUT api/<DetalleVentaController>/5
         //[HttpPut("{id}")]
         //public void Put(int id, [FromBody] string value)
         //{
 
         //}
 
-        //// DELETE api/<DetalleVentaController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
+        // DELETE api/<DetalleVentaController>/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
 
-        //}
+        }
     }
 }

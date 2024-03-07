@@ -9,6 +9,7 @@ namespace Sales.Dominio.Entities
 {
     public  class Ventas:BaseEntity
     {
+      
         public string? NumeroVenta { get; set; }
         public int? IdTipoDocumentoVenta { get; set; }
         public int? IdUsuario { get; set; }
@@ -18,6 +19,8 @@ namespace Sales.Dominio.Entities
         public decimal? ImpuestoTotal { get; set; }
         public decimal? Total { get; set; }
        
+
+
 
     }
 }

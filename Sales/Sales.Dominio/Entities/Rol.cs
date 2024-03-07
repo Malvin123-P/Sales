@@ -10,8 +10,10 @@ namespace Sales.Dominio.Entities
 {
     public class Rol:BaseEntity
     {
+       
         public string? Descripcion { get; set; }
         public bool? EsActivo { get; set; }
+       
 
     }
 }

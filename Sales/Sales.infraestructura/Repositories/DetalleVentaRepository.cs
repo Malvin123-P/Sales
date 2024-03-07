@@ -30,7 +30,8 @@ namespace Sales.Infraestructura.Repositories
         }
         public override List<DetalleVenta> GetEntities()
         {
-            return base.GetEntities().Where(ca => ca.Eliminado).ToList();
+            return base.GetEntities().
+                Where(ca => !ca.Eliminado).ToList();
         }
         public override void Update(DetalleVenta entity)
         {

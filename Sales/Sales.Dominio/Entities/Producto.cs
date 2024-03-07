@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace Sales.Dominio.Entities
 {
-    public class Producto: BaseEntity
+    public class Producto:BaseEntity
     {
+       
         public string? Descripcion { get; set; }
         public bool? EsActivo { get; set; }
         public string? CodigoBarra { get; set; }
@@ -20,5 +21,6 @@ namespace Sales.Dominio.Entities
         public string? NombreImagen { get; set; }
         public decimal? Precio { get; set; }
         
+
     }
 }
