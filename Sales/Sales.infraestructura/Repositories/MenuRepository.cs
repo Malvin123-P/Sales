@@ -30,14 +30,14 @@ namespace Sales.Infraestructura.Repositories
 
         public override List<Menu> GetEntities()
         {
-            return base.GetEntities().Where(ca => ca.Eliminado).ToList();
+            return base.GetEntities().Where(ca => !ca.Eliminado).ToList();
         }
 
         public override void Update(Menu entity)
         {
             try
             {
-                Menu menuUpdate = this.GetEntity(entity.id);
+                Menu menuUpdate = this.GetEntity(entity.Id);
 
                 menuUpdate.Descripcion = entity.Descripcion;
                 menuUpdate.EsActivo = entity.EsActivo;
@@ -58,7 +58,7 @@ namespace Sales.Infraestructura.Repositories
         {
             try
             {
-                if (context.Menu.Any(de => de.id == entity.id))
+                if (context.Menu.Any(de => de.  Id == entity.Id))
                 {
                     throw new MenuExcenption("El menu se encuetra registrado.");
                 }

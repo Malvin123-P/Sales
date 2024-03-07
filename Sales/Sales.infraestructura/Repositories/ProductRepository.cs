@@ -18,7 +18,7 @@ namespace Sales.Infraestructura.Repositories
             try
             {
                 // Check for existing product id (optional)
-                 if (context.Products.Any(p => p.id == producto.id))
+                 if (context.Products.Any(p => p.Id == producto.Id))
                  {
                       throw new ProductoException("Ya existe un producto con el id ingresado.");
                  }
@@ -46,7 +46,7 @@ namespace Sales.Infraestructura.Repositories
         {
             try
             {
-                Producto productToRemove = this.GetProducto(producto.id);
+                Producto productToRemove = this.GetProducto(producto.Id);
 
                 if (productToRemove == null)
                 {
@@ -66,7 +66,7 @@ namespace Sales.Infraestructura.Repositories
         {
             try
             {
-                Producto productToUpdate = this.GetProducto(producto.id);
+                Producto productToUpdate = this.GetProducto(producto.Id);
 
                 if (productToUpdate == null)
                 {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 //Agregadas
-using Editorial.Dominio.Entities;
+using Sales.Dominio.Entities;
 using Sales.Dominio.Repository;
 using Sales.Infraestructura.Models;
 

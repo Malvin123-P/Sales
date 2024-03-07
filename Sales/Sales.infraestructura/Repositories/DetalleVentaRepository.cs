@@ -36,10 +36,10 @@ namespace Sales.Infraestructura.Repositories
         {
             try
             {
-                var DetalleVentaUpdate = this.GetEntity(entity.id);
+                var DetalleVentaUpdate = this.GetEntity(entity.Id);
 
                 DetalleVentaUpdate.Precio = entity.Precio;
-                DetalleVentaUpdate.DescripconProducto = entity.DescripconProducto;
+                DetalleVentaUpdate.DescripcionProducto = entity.DescripcionProducto;
                 DetalleVentaUpdate.Cantidad = entity.Cantidad;
                 DetalleVentaUpdate.MarcaProducto = entity.MarcaProducto;
                 DetalleVentaUpdate.Total = entity.Total;
@@ -56,7 +56,7 @@ namespace Sales.Infraestructura.Repositories
         {
             try
             {
-                if (context.DetalleVenta.Any(de => de.id == entity.id))
+                if (context.DetalleVenta.Any(de => de.Id == entity.Id))
                 {
                     throw new DetalleVentaExcenption("El Detalle de la venta se encuetra registrado.");
                 }
@@ -82,17 +82,18 @@ namespace Sales.Infraestructura.Repositories
             try
             {
                 detalleVentas = (from detalle in this.context.DetalleVenta
-                            join venta in this.context.Ventas on detalle.IdVenta equals venta.id
+                            join venta in this.context.Ventas on detalle.IdVenta equals venta.Id
                             where  detalle.IdVenta == idVentas
                             select new DetalleVentaModel()
                             { 
-                                IdVenta = venta.id,
-                                IdProducto = venta.id,
+                                IdVenta = venta.Id,
+                                IdProducto = detalle.IdProducto,
                                 MarcaProducto = detalle.MarcaProducto,
-                                DescripconProducto = detalle.DescripconProducto,
+                                DescripcionProducto = detalle.DescripcionProducto,
                                 Cantidad = detalle.Cantidad,
                                 Precio = detalle.Precio,
-                                Total = detalle.Total
+                                Total = detalle.Total,
+                                CategoriaProducto = detalle.CategoriaProducto
                                
 
                             }).ToList();
@@ -111,11 +112,20 @@ namespace Sales.Infraestructura.Repositories
             try
             {
                 detalleVentas = (from detalle in this.context.DetalleVenta
-                                 join producto in this.context.Products on detalle.IdVenta equals producto.id
+                                 join producto in this.context.Products on detalle.IdProducto equals producto.Id
                                  where detalle.IdProducto == idProducto
                                  select new DetalleVentaModel()
                                  {
-                                     
+                                    
+                                     IdProducto = producto.Id,
+                                     IdVenta = detalle.Id,
+                                     MarcaProducto = detalle.MarcaProducto,
+                                     DescripcionProducto = detalle.DescripcionProducto,
+                                     Cantidad = detalle.Cantidad,
+                                     Precio = detalle.Precio,
+                                     Total = detalle.Total,
+                                     CategoriaProducto = detalle.CategoriaProducto
+
 
                                  }).ToList();
 
@@ -126,6 +136,8 @@ namespace Sales.Infraestructura.Repositories
             }
             return detalleVentas;
         }
+
+        
     }
 
 }

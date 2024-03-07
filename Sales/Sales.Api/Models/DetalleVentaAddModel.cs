@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sales.Infraestructura.Models
+﻿namespace Sales.Api.Models
 {
-    public class DetalleVentaModel
+    public class DetalleVentaAddModel
     {
         public int? IdVenta { get; set; }
         public int? IdProducto { get; set; }
@@ -16,7 +10,5 @@ namespace Sales.Infraestructura.Models
         public decimal? Precio { get; set; }
         public decimal? Total { get; set; }
         public string? CategoriaProducto { get; set; }
-
-
     }
 }

@@ -8,7 +8,7 @@ namespace Sales.Dominio.Repository
 {
         public interface IBaseRepository<TEntity> where TEntity : class
         {
-          TEntity GetEntity(int id);
+          TEntity GetEntity(int Id);
           List<TEntity> GetEntities();
           List<TEntity> FinndAll(Func<TEntity, bool> filter);
           bool Exists (Func<TEntity, bool> filter);

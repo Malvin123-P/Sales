@@ -18,7 +18,7 @@ namespace Sales.Infraestructura.Repositories
             try
             {
                 // Check for existing code (optional)
-                if (context.TipoDocumentosVenta.Any(t => t.id == tipoDocumentoVenta.id))
+                if (context.TipoDocumentosVenta.Any(t => t.Id == tipoDocumentoVenta.Id))
                 {
                      throw new TipoDocumentoVentaException("Ya existe un tipo de documento con el id ingresado.");
                 }
@@ -46,7 +46,7 @@ namespace Sales.Infraestructura.Repositories
         {
             try
             {
-                TipoDocumentoVenta documentToRemove = this.GetTipoDocumento(tipoDocumentoVenta.id);
+                TipoDocumentoVenta documentToRemove = this.GetTipoDocumento(tipoDocumentoVenta.Id);
 
                 if (documentToRemove == null)
                 {
@@ -66,7 +66,7 @@ namespace Sales.Infraestructura.Repositories
         {
             try
             {
-                TipoDocumentoVenta documentToUpdate = this.GetTipoDocumento(tipoDocumentoVenta.id);
+                TipoDocumentoVenta documentToUpdate = this.GetTipoDocumento(tipoDocumentoVenta.Id);
 
                 if (documentToUpdate == null)
                 {

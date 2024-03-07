@@ -10,6 +10,7 @@ using Sales.Dominio.Repository;
 using Sales.Infraestructura.Context;
 
 
+
 namespace Sales.Infraestructura.Core
 {
     public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
@@ -37,16 +38,23 @@ namespace Sales.Infraestructura.Core
         public virtual List<TEntity> FinndAll(Func<TEntity, bool> filter)
         {
             return Dbentities.Where(filter).ToList();
-        } 
+        }
 
         public virtual List<TEntity> GetEntities()
         {
-            return Dbentities.ToList();
+            try
+            {
+                return Dbentities.ToList();
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
         }
 
-        public virtual TEntity GetEntity(int id)
+        public virtual TEntity GetEntity(int Id)
         {
-            return Dbentities.Find(id);
+            return Dbentities.Find(Id);
         }
 
         public virtual void Save(TEntity entity)

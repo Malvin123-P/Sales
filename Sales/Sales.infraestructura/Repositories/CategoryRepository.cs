@@ -17,7 +17,7 @@ namespace Sales.Infraestructura.Repositories
         {
             try
             {
-                if (context.Categories.Any(c => c.id == category.id))
+                if (context.Categories.Any(c => c.Id == category.Id))
                 {
                     throw new CategoryException("La categoría ya se encuentra registrada");
                 }
@@ -47,7 +47,7 @@ namespace Sales.Infraestructura.Repositories
         {
             try
             {
-                Category categoryRemove = this.GetCategory(category.id);
+                Category categoryRemove = this.GetCategory(category.Id);
                 this.context.Categories.Remove(categoryRemove);
                 this.context.SaveChanges();
             }
@@ -61,7 +61,7 @@ namespace Sales.Infraestructura.Repositories
         {
             try
             {
-                Category categoryToUpdate = context.Categories.Find(category.id);
+                Category categoryToUpdate = context.Categories.Find(category.Id);
 
                 if (categoryToUpdate == null)
                 {

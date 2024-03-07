@@ -12,10 +12,8 @@ namespace Sales.Infraestructura.Models
         public string? ProductoName { get; set;}
         public string? CategoryName  { get; set;}
         public decimal Precio {  get; set; }
-        public string Marca {  get; set; }
+        public string? Marca {  get; set; }
         public int Stock {  get; set; }
-
-        public CategoriaModel Categoria { get; set; }
 
     }
 }

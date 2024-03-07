@@ -29,14 +29,14 @@ namespace Sales.Infraestructura.Repositories
 
         public override List<Negocio> GetEntities()
         {
-            return base.GetEntities().Where(ca => ca.Eliminado).ToList();
+            return base.GetEntities().Where(ca => !ca.Eliminado).ToList();
         }
 
         public override void Update(Negocio entity)
         {
             try
             {
-                Negocio negocioUpdate = this.GetEntity(entity.id);
+                Negocio negocioUpdate = this.GetEntity(entity.Id);
 
                 negocioUpdate.Correo = entity.Correo;
                 negocioUpdate.Telefono = entity.Telefono;
@@ -61,7 +61,7 @@ namespace Sales.Infraestructura.Repositories
         {
             try
             {
-                if (context.Negocio.Any(de => de.id == entity.id))
+                if (context.Negocio.Any(de => de.Nombre == entity.Nombre))
                 {
                     throw new NegocioExcenption("El negocio se encuetra registrado.");
                 }
