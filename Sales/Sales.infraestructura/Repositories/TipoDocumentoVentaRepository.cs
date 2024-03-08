@@ -18,12 +18,12 @@ namespace Sales.Infraestructura.Repositories
             try
             {
                 // Check for existing code (optional)
-                if (context.TipoDocumentosVenta.Any(t => t.Id == tipoDocumentoVenta.Id))
+                if (context.TipoDocumentoVenta.Any(t => t.Id == tipoDocumentoVenta.Id))
                 {
                      throw new TipoDocumentoVentaException("Ya existe un tipo de documento con el id ingresado.");
                 }
 
-                this.context.TipoDocumentosVenta.Add(tipoDocumentoVenta);
+                this.context.TipoDocumentoVenta.Add(tipoDocumentoVenta);
                 this.context.SaveChanges();
             }
             catch (Exception ex)
@@ -34,12 +34,12 @@ namespace Sales.Infraestructura.Repositories
 
         public TipoDocumentoVenta GetTipoDocumento(int tipoDocumentId)
         {
-            return this.context.TipoDocumentosVenta.Find(tipoDocumentId);
+            return this.context.TipoDocumentoVenta.Find(tipoDocumentId);
         }
 
         public List<TipoDocumentoVenta> GetTipoDocumentoVentas()
         {
-            return this.context.TipoDocumentosVenta.ToList();
+            return this.context.TipoDocumentoVenta.ToList();
         }
 
         public void Remove(TipoDocumentoVenta tipoDocumentoVenta)
@@ -53,7 +53,7 @@ namespace Sales.Infraestructura.Repositories
                     throw new TipoDocumentoVentaException("El tipo de documento no existe");
                 }
 
-                this.context.TipoDocumentosVenta.Remove(documentToRemove);
+                this.context.TipoDocumentoVenta.Remove(documentToRemove);
                 this.context.SaveChanges();
             }
             catch (Exception ex)
@@ -78,7 +78,7 @@ namespace Sales.Infraestructura.Repositories
                 documentToUpdate.IdUsuarioMod = tipoDocumentoVenta.IdUsuarioMod;
                 documentToUpdate.EsActivo = tipoDocumentoVenta.EsActivo;
 
-                this.context.TipoDocumentosVenta.Update(documentToUpdate);
+                this.context.TipoDocumentoVenta.Update(documentToUpdate);
                 this.context.SaveChanges();
             }
             catch (Exception ex)

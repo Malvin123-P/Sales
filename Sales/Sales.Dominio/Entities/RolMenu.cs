@@ -13,6 +13,7 @@ namespace Sales.Dominio.Entities
        
         public int? IdRol { get; set; }
         public int? IdMenu { get; set; }
-       
+        public bool? EsActivo { get; set; }
+
     }
 }

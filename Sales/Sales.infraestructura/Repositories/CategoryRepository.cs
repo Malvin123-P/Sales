@@ -17,12 +17,12 @@ namespace Sales.Infraestructura.Repositories
         {
             try
             {
-                if (context.Categories.Any(c => c.Id == category.Id))
+                if (context.Categoria.Any(c => c.Id == category.Id))
                 {
                     throw new CategoryException("La categoría ya se encuentra registrada");
                 }
 
-                context.Categories.Add(category);
+                context.Categoria.Add(category);
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -33,14 +33,14 @@ namespace Sales.Infraestructura.Repositories
 
         public List<Category> GetCategories()
         {
-            return context.Categories
+            return context.Categoria
                 .Where(c => !c.Eliminado)
                 .ToList();
         }
 
         public Category GetCategory(int categoryId)
         {
-            return context.Categories.Find(categoryId);
+            return context.Categoria.Find(categoryId);
         }
 
         public void Remove(Category category)
@@ -48,7 +48,7 @@ namespace Sales.Infraestructura.Repositories
             try
             {
                 Category categoryRemove = this.GetCategory(category.Id);
-                this.context.Categories.Remove(categoryRemove);
+                this.context.Categoria.Remove(categoryRemove);
                 this.context.SaveChanges();
             }
             catch (Exception ex)
@@ -61,7 +61,7 @@ namespace Sales.Infraestructura.Repositories
         {
             try
             {
-                Category categoryToUpdate = context.Categories.Find(category.Id);
+                Category categoryToUpdate = context.Categoria.Find(category.Id);
 
                 if (categoryToUpdate == null)
                 {
@@ -75,7 +75,7 @@ namespace Sales.Infraestructura.Repositories
                 categoryToUpdate.EsActivo = category.EsActivo;
 
 
-                this.context.Categories.Update(categoryToUpdate);
+                this.context.Categoria.Update(categoryToUpdate);
                 this.context.SaveChanges();
             }
             catch (Exception ex)

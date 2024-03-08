@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Sales.Dominio.Entities
 {
-    public class Configuracion
+    public class Configuracion:BaseEntity
     {
         
         public string? Recurso { get; set; }
         public string? Propiedad { get; set; }
         public string? Valor { get; set; }
-        public int Id { get; set; }
+       
  
     }
 }

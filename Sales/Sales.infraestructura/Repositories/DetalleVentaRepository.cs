@@ -83,7 +83,7 @@ namespace Sales.Infraestructura.Repositories
             try
             {
                 detalleVentas = (from detalle in this.context.DetalleVenta
-                            join venta in this.context.Ventas on detalle.IdVenta equals venta.Id
+                            join venta in this.context.Venta on detalle.IdVenta equals venta.Id
                             where  detalle.IdVenta == idVentas
                             select new DetalleVentaModel()
                             { 
@@ -113,7 +113,7 @@ namespace Sales.Infraestructura.Repositories
             try
             {
                 detalleVentas = (from detalle in this.context.DetalleVenta
-                                 join producto in this.context.Products on detalle.IdProducto equals producto.Id
+                                 join producto in this.context.Producto on detalle.IdProducto equals producto.Id
                                  where detalle.IdProducto == idProducto
                                  select new DetalleVentaModel()
                                  {

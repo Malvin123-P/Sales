@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sales.Dominio.Entities
 {
-    public  class Ventas:BaseEntity
+    public  class Venta:BaseEntity
     {
       
         public string? NumeroVenta { get; set; }

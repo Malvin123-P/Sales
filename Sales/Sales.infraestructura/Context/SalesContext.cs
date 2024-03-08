@@ -18,9 +18,9 @@ namespace Sales.Infraestructura.Context
         {
         }
 
-        public DbSet<Category> Categories {get; set;}
-        public DbSet<Producto> Products { get; set;}
-        public DbSet<TipoDocumentoVenta> TipoDocumentosVenta { get; set;}
+        public DbSet<Category> Categoria {get; set;}
+        public DbSet<Producto> Producto { get; set;}
+        public DbSet<TipoDocumentoVenta> TipoDocumentoVenta { get; set;}
 
         #region "DbSets 2021-0189"
         public DbSet<DetalleVenta> DetalleVenta { get;set;}
@@ -32,6 +32,6 @@ namespace Sales.Infraestructura.Context
         #region " Store Procedure 2021-0189"
         #endregion
 
-        public DbSet<Ventas> Ventas { get; set; }
+        public DbSet<Venta> Venta { get; set; }
     }
 }

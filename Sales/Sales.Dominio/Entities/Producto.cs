@@ -2,6 +2,7 @@
 using Sales.Dominio.Core;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,6 @@ namespace Sales.Dominio.Entities
         public string? UrlImagen { get; set; }
         public string? NombreImagen { get; set; }
         public decimal? Precio { get; set; }
-        
-
+       
     }
 }

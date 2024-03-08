@@ -18,12 +18,12 @@ namespace Sales.Infraestructura.Repositories
             try
             {
                 // Check for existing product id (optional)
-                 if (context.Products.Any(p => p.Id == producto.Id))
+                 if (context.Producto.Any(p => p.Id == producto.Id))
                  {
                       throw new ProductoException("Ya existe un producto con el id ingresado.");
                  }
 
-                this.context.Products.Add(producto);
+                this.context.Producto.Add(producto);
                 this.context.SaveChanges();
             }
             catch (Exception ex)
@@ -34,12 +34,12 @@ namespace Sales.Infraestructura.Repositories
 
         public Producto GetProducto(int productId)
         {
-            return this.context.Products.Find(productId);
+            return this.context.Producto.Find(productId);
         }
 
         public List<Producto> GetProductos()
         {
-            return this.context.Products.ToList();
+            return this.context.Producto.ToList();
         }
 
         public void Remove(Producto producto)
@@ -53,7 +53,7 @@ namespace Sales.Infraestructura.Repositories
                     throw new ProductoException("El producto no existe");
                 }
 
-                this.context.Products.Remove(productToRemove);
+                this.context.Producto.Remove(productToRemove);
                 this.context.SaveChanges();
             }
             catch (Exception ex)
@@ -81,7 +81,7 @@ namespace Sales.Infraestructura.Repositories
                 productToUpdate.Marca = producto.Marca;
                 productToUpdate.IdUsuarioMod = producto.IdUsuarioMod;
 
-                this.context.Products.Update(productToUpdate);
+                this.context.Producto.Update(productToUpdate);
                 this.context.SaveChanges();
             }
             catch (Exception ex)
