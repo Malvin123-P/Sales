@@ -15,9 +15,16 @@ namespace Sales.Infraestructura.Context
         {
         }
 
-        public DbSet<Category> Categories {get; set;}
+        public DbSet<Categoria> Categories {get; set;}
         public DbSet<Producto> Products { get; set;}
         public DbSet<TipoDocumentoVenta> TipoDocumentosVenta { get; set;}
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Producto>()
+                .Property(p => p.Precio)
+                .HasColumnType("decimal(10,2)");
+        }
 
     }
 }

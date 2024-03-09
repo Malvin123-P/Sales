@@ -6,7 +6,7 @@ using Sales.Infraestructura.Interfaces;
 
 namespace Sales.Infraestructura.Repositories
 {
-    public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
+    public class CategoryRepository : BaseRepository<Categoria>, ICategoryRepository
     {
         private readonly SalesContext context;
         private readonly ILogger<CategoryRepository> logger;
@@ -17,12 +17,12 @@ namespace Sales.Infraestructura.Repositories
             this.logger = logger;
         }
 
-        public override List<Category> GetEntities()
+        public override List<Categoria> GetEntities()
         {
             return this.GetEntities().Where(ca => !ca.Eliminado).ToList();
         }
 
-        public override void Update(Category entity)
+        public override void Update(Categoria entity)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace Sales.Infraestructura.Repositories
             }
         }
 
-        public override void Save(Category entity)
+        public override void Save(Categoria entity)
         {
             try
             {
@@ -67,17 +67,17 @@ namespace Sales.Infraestructura.Repositories
             }
         }
 
-        public override Category GetEntity(int id)
+        public override Categoria GetEntity(int id)
         {
             return this.context.Categories.Find(id);
         }
 
-        public override bool Exists(Func<Category, bool> filter)
+        public override bool Exists(Func<Categoria, bool> filter)
         {
             return base.Exists(filter);
         }
 
-        public override List<Category> FinAll(Func<Category, bool> filter)
+        public override List<Categoria> FinAll(Func<Categoria, bool> filter)
         {
             return base.FinAll(filter);
         }

@@ -19,7 +19,7 @@ namespace Sales.Infraestructura.Repositories
             this.logger = logger;
         }
 
-        public  List<ProductoModel> GetProductsByCategory(int categoryId)
+        public List<ProductoModel> GetProductsByCategory(int categoryId)
         {
             List<ProductoModel> products = new List<ProductoModel>();
 
@@ -27,25 +27,31 @@ namespace Sales.Infraestructura.Repositories
             {
                 // Corrected and optimized query:
                 products = (from pro in this.context.Products
-                             join ca in this.context.Categories on pro.IdCategoria equals ca.id
-                             where pro.IdCategoria == categoryId
-                             select new ProductoModel()
-                             {
-                                 Marca = pro.Marca,
-                                 Nombre = ca.nombre,
-                                 Stock = (int)pro.Stock,
-                                 Precio = (decimal)pro.Precio,
-                                 IdProducto = pro.id, 
-                             }).ToList();
+                            join ca in this.context.Categories on pro.IdCategoria equals ca.id
+                            where pro.IdCategoria == categoryId
+                            select new ProductoModel()
+                            {
+                                Marca = pro.Marca,
+                                Nombre = ca.nombre,
+                                Stock = (int)pro.Stock,
+                                Precio = (decimal)pro.Precio,
+                                IdProducto = pro.id,
+                            }).ToList();
 
                 return products;
             }
             catch (Exception ex)
             {
                 this.logger.LogError("Error obteniendo los productos", ex.ToString());
+                // Aquí puedes decidir qué hacer en caso de error, como lanzar una excepción o devolver una lista vacía
+                throw; // O lanzar la excepción para propagarla
             }
 
+            // Agrega una declaración de retorno fuera del bloque try-catch
+            // Esta declaración se ejecutará si no hay excepciones
+            return products;
         }
+
         public override void Save(Producto entity)
         {
 

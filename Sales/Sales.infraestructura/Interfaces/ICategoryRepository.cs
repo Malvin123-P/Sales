@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sales.Infraestructura.Interfaces
 {
-    public interface ICategoryRepository : IBaseRepository<Category>
+    public interface ICategoryRepository : IBaseRepository<Categoria>
     {
 
     }

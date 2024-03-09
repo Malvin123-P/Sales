@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sales.Dominio.Entities
 {
-    public class Category:BaseEntity
+    public class Categoria:BaseEntity
     {
         public string nombre {  get; set; }
         public string? Descripcion { get; set; }

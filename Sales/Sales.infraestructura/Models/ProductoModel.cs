@@ -16,7 +16,7 @@ namespace Sales.Infraestructura.Models
         public string Marca { get; set; }
         public int Stock { get; set; }
 
-        public Category Categoria { get; set; } // Navigation pr
+        public Categoria Categoria { get; set; } // Navigation pr
 
     }
 }

@@ -1,7 +1,24 @@
+using Microsoft.EntityFrameworkCore;
+using Sales.Infraestructura.Context;
+using Sales.Infraestructura.Interfaces;
+using Sales.Infraestructura.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+// Conn Strings
+builder.Services.AddDbContext<SalesContext>(opcions => 
+opcions.UseSqlServer(builder.Configuration.GetConnectionString("SalesContext")));
+
+//Repositories
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+// config services cors
+
+
+// App Services
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -15,6 +32,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseAuthorization();
 
