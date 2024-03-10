@@ -1,6 +1,6 @@
 ﻿namespace Sales.Api.Dtos.Negocio
 {
-    public class MenuUpdateDto
+    public class NegocioUpdateDto
     {
     }
 }
