@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Sales.Api.Models;
 using Sales.Infraestructura.Interfaces;
 using Sales.Dominio.Entities;
+using Sales.Api.Models;
+using Sales.Api.Dtos.DetalleVenta;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,42 +23,65 @@ namespace Sales.Api.Controllers
         [HttpGet("GetDetalleVenta")]
         public IActionResult Get()
         {
-            var detalleventa = this.detalleVentaRepository.GetEntities();
-            return Ok(detalleventa);
+            var detallevent = this.detalleVentaRepository.GetEntities().Select(dv => new DetalleVentaGetModel()
+            {
+                IdProducto = dv.IdProducto,
+                MarcaProducto = dv.MarcaProducto,
+                DescripcionProducto = dv.DescripcionProducto,
+                CategoriaProducto = dv.CategoriaProducto,
+                Cantidad = dv.Cantidad,
+                Precio = dv.Precio,
+                Total = dv.Total,
+            });
+            return Ok(detallevent);
         }
 
         // GET api/<DetalleVentaController>/5
         [HttpGet("GetDetalleVentaById")]
-        public IActionResult  Get(int id)
+        public IActionResult Get(int id)
         {
-            var detalleVenta = this.detalleVentaRepository.GetEntity(id);
-           return Ok(detalleVenta);
+           var detalleVenta = this.detalleVentaRepository.GetEntity(id);
+
+            DetalleVentaGetModel detalleVentaGetModel = new DetalleVentaGetModel()
+            {
+                IdProducto = detalleVenta.IdProducto,
+                MarcaProducto = detalleVenta.MarcaProducto,
+                DescripcionProducto = detalleVenta.DescripcionProducto,
+                CategoriaProducto = detalleVenta.CategoriaProducto,
+                Cantidad = detalleVenta.Cantidad,
+                Precio = detalleVenta.Precio,
+                Total = detalleVenta.Total
+            };
+
+           return Ok(detalleVentaGetModel);
         }
 
         // POST api/<DetalleVentaController>
         [HttpPost("SaveDetalleVenta")]
-        public void Post([FromBody] DetalleVentaAddModel detalleVentaAddModel)
+        public void Post([FromBody] DetalleVentaAddDto detalleVentaAddModel)
         {
             this.detalleVentaRepository.Save(new Dominio.Entities.DetalleVenta()
             {
-                IdVenta = detalleVentaAddModel.IdVenta,
-                IdProducto = detalleVentaAddModel.IdProducto,
+                
+                IdProducto=detalleVentaAddModel.IdProducto,
                 MarcaProducto = detalleVentaAddModel.MarcaProducto,
                 DescripcionProducto = detalleVentaAddModel.DescripcionProducto,
+                CategoriaProducto = detalleVentaAddModel.CategoriaProducto,
                 Cantidad = detalleVentaAddModel.Cantidad,
                 Precio = detalleVentaAddModel.Precio,
                 Total = detalleVentaAddModel.Total,
-                CategoriaProducto = detalleVentaAddModel.CategoriaProducto
+                
 
              });
+
+    }
+
+       // PUT api/<DetalleVentaController>/5
+        [HttpPut("{id}")]
+        public void Put([FromBody] string value)
+        {
+
         }
-
-        //PUT api/<DetalleVentaController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-
-        //}
 
         // DELETE api/<DetalleVentaController>/5
         [HttpDelete("{id}")]

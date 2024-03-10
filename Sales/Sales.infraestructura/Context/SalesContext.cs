@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-//Agregadas
-using Editorial.Dominio.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿//Agregadas
 using Sales.Dominio.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sales.Infraestructura.Context
 {

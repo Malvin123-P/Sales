@@ -9,7 +9,7 @@ namespace Sales.Infraestructura.Models
     public class CategoriaModel
     {
         public int? IdCategoria { get; set; }
-        public string Descripcion {  get; set; }
+        public string? Descripcion {  get; set; }
         public int? FechaCreacion { get; set; }
     }
 }

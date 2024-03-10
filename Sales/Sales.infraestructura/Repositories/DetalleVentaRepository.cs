@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//Agregadas
 
-//Agregadas
-using Editorial.Dominio.Entities;
+
+
+using Microsoft.Extensions.Logging;
+using Sales.Dominio.Entities;
 using Sales.Infraestructura.Context;
 using Sales.Infraestructura.Core;
-using Sales.Infraestructura.Interfaces;
 using Sales.Infraestructura.Exceptions;
-using Microsoft.Extensions.Logging;
+using Sales.Infraestructura.Interfaces;
 using Sales.Infraestructura.Models;
-using Sales.Dominio.Entities;
 
 
 namespace Sales.Infraestructura.Repositories
@@ -30,22 +26,21 @@ namespace Sales.Infraestructura.Repositories
         }
         public override List<DetalleVenta> GetEntities()
         {
-            return base.GetEntities().
-                Where(ca => !ca.Eliminado).ToList();
+            return base.GetEntities().Where(dv => !dv.Eliminado).ToList();
         }
         public override void Update(DetalleVenta entity)
         {
             try
             {
-                var DetalleVentaUpdate = this.GetEntity(entity.Id);
+                DetalleVenta detalleVentaUpdate = this.GetEntity(entity.Id);
 
-                DetalleVentaUpdate.Precio = entity.Precio;
-                DetalleVentaUpdate.DescripcionProducto = entity.DescripcionProducto;
-                DetalleVentaUpdate.Cantidad = entity.Cantidad;
-                DetalleVentaUpdate.MarcaProducto = entity.MarcaProducto;
-                DetalleVentaUpdate.Total = entity.Total;
+                detalleVentaUpdate.Precio = entity.Precio;
+                detalleVentaUpdate.DescripcionProducto = entity.DescripcionProducto;
+                detalleVentaUpdate.Cantidad = entity.Cantidad;
+                detalleVentaUpdate.MarcaProducto = entity.MarcaProducto;
+                detalleVentaUpdate.Total = entity.Total;
 
-                this.context.DetalleVenta.Update(DetalleVentaUpdate);
+                this.context.DetalleVenta.Update(detalleVentaUpdate);
                 this.context.SaveChanges();
             }
             catch (Exception ex)
@@ -57,9 +52,9 @@ namespace Sales.Infraestructura.Repositories
         {
             try
             {
-                if (context.DetalleVenta.Any(de => de.Id == entity.Id))
+                if (context.DetalleVenta.Any(dv => dv.Id == entity.Id))
                 {
-                    throw new DetalleVentaExcenption("El Detalle de la venta se encuetra registrado.");
+                    throw new MenuExcenption("El detalle se encuetra registrado.");
                 }
 
                 this.context.DetalleVenta.Add(entity);
@@ -68,9 +63,10 @@ namespace Sales.Infraestructura.Repositories
             }
             catch (Exception e)
             {
-                this.logger.LogError("Error creando el detalle de la venta", e.ToString());
+                this.logger.LogError("Error creando el detalle", e.ToString());
             }
         }
+
         public override bool Exists(Func<DetalleVenta, bool> filter)
         {
             return base.Exists(filter);
@@ -83,21 +79,21 @@ namespace Sales.Infraestructura.Repositories
             try
             {
                 detalleVentas = (from detalle in this.context.DetalleVenta
-                            join venta in this.context.Venta on detalle.IdVenta equals venta.Id
-                            where  detalle.IdVenta == idVentas
-                            select new DetalleVentaModel()
-                            { 
-                                IdVenta = venta.Id,
-                                IdProducto = detalle.IdProducto,
-                                MarcaProducto = detalle.MarcaProducto,
-                                DescripcionProducto = detalle.DescripcionProducto,
-                                Cantidad = detalle.Cantidad,
-                                Precio = detalle.Precio,
-                                Total = detalle.Total,
-                                CategoriaProducto = detalle.CategoriaProducto
-                               
+                                 join Venta in this.context.Venta on detalle.IdVenta equals Venta.Id
+                                 where detalle.IdVenta == idVentas
+                                 select new DetalleVentaModel()
+                                 {
+                                     IdVenta = Venta.Id,
+                                     IdProducto = detalle.IdProducto,
+                                     MarcaProducto = detalle.MarcaProducto,
+                                     DescripcionProducto = detalle.DescripcionProducto,
+                                     Cantidad = detalle.Cantidad,
+                                     Precio = detalle.Precio,
+                                     Total = detalle.Total,
+                                     CategoriaProducto = detalle.CategoriaProducto
 
-                            }).ToList();
+
+                                 }).ToList();
 
             }
             catch (Exception e)
@@ -117,7 +113,7 @@ namespace Sales.Infraestructura.Repositories
                                  where detalle.IdProducto == idProducto
                                  select new DetalleVentaModel()
                                  {
-                                    
+
                                      IdProducto = producto.Id,
                                      IdVenta = detalle.Id,
                                      MarcaProducto = detalle.MarcaProducto,
@@ -138,7 +134,7 @@ namespace Sales.Infraestructura.Repositories
             return detalleVentas;
         }
 
-        
+
     }
 
 }

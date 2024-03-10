@@ -1,14 +1,6 @@
-﻿using Sales.Dominio.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
+﻿
 //Agregadas
-
-using Editorial.Dominio.Entities;
+using Sales.Dominio.Entities;
 using Microsoft.Extensions.Logging;
 using Sales.Infraestructura.Context;
 using Sales.Infraestructura.Core;
@@ -47,7 +39,8 @@ namespace Sales.Infraestructura.Repositories
 
                 this.context.Menu.Update(menuUpdate);
                 this.context.SaveChanges();
-            }
+
+    }
             catch (Exception e)
             {
                 this.logger.LogError("Error actualizando el menu", e.ToString());
@@ -58,7 +51,7 @@ namespace Sales.Infraestructura.Repositories
         {
             try
             {
-                if (context.Menu.Any(de => de.  Id == entity.Id))
+                if (context.Menu.Any(me => me.Id == entity.Id))
                 {
                     throw new MenuExcenption("El menu se encuetra registrado.");
                 }
@@ -69,7 +62,7 @@ namespace Sales.Infraestructura.Repositories
             }
             catch (Exception e)
             {
-                this.logger.LogError("Error creando el detalle de la venta", e.ToString());
+                this.logger.LogError("Error creando el Menu", e.ToString());
             }
         }
         public override bool Exists(Func<Menu, bool> filter)

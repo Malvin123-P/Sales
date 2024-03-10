@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Sales.Infraestructura.Context;
 using Sales.Infraestructura.Interfaces;
 using Sales.Infraestructura.Repositories;
@@ -15,6 +14,9 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("SalesContext")))
 
 //repositorios
 builder.Services.AddScoped<IDetalleVentaRepository, DetalleVentaRepository>();
+builder.Services.AddScoped<IMenuRepository, MenuRepository>();
+builder.Services.AddScoped<INegocioRepository, NegocioRepository>();
+
 
 //app services
 

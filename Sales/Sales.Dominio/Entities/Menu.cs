@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Editorial.Dominio.Entities
+namespace Sales.Dominio.Entities
 {
    public class Menu:BaseEntity
     {      

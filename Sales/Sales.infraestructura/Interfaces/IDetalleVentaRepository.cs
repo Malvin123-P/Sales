@@ -15,10 +15,10 @@ namespace Sales.Infraestructura.Interfaces
     {
 
         //Si hay relacion con otras tablas
-      List<DetalleVentaModel> GetDetalleVentasByVentas(int idVentas);
-      List<DetalleVentaModel> GetDetalleVentasbyProducto(int idProducto);
+        List<DetalleVentaModel> GetDetalleVentasByVentas(int idVentas);
+        List<DetalleVentaModel> GetDetalleVentasbyProducto(int idProducto);
 
 
-       
+
     }
 }

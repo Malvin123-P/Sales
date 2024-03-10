@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sales.Infraestructura.Models
+﻿namespace Sales.Api.Dtos.Menu
 {
-    public class MenuModel
+    public class MenuAddDto:DtoBase
     {
-      
+
         public DateTime FechaRegistro { get; set; }
         public string? Descripcion { get; set; }
         public bool? EsActivo { get; set; }
@@ -16,5 +10,6 @@ namespace Sales.Infraestructura.Models
         public string? Icono { get; set; }
         public string? Controlador { get; set; }
         public string? PaginaAccion { get; set; }
+
     }
 }
