@@ -8,16 +8,22 @@ using System.Threading.Tasks;
 
 namespace Sales.Infraestructura.Context
 {
-    public class SalesContext: DbContext
+    public class SalesContext : DbContext
     {
         
-        public SalesContext(DbContextOptions<SalesContext> options) : base(options)
+        public class SalesContext(DbContextOptions<SalesContext> options) : base(options)
         {
-        public DbSet<NumeroCorrelativo> NumeroCorrelativo { get; set; }
-        public DbSet<RolMenu> RolMenu { get; set; }
+        }
+
+    public DbSet<Categoria> Categories { get; set; }
+    public DbSet<Producto> Products { get; set; }
+    public DbSet<TipoDocumentoVenta> TipoDocumentosVenta { get; set; }
         
-    }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Producto>()
+            .Property(p => p.Precio)
+            .HasColumnType("decimal(10,2)");
     
         
     }
-}
