@@ -9,6 +9,8 @@ namespace Sales.Dominio.Entities
 {
     public class Authors : BaseEntity
     {
+        public string nombre;
+
         public int? phone { get; set; }
         public string? state { get; set; }
         public string? city { get; set; }

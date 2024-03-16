@@ -8,8 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 // Conn Strings
-builder.Services.AddDbContext<SalesContext>(opcions => 
-opcions.UseSqlServer(builder.Configuration.GetConnectionString("SalesContext")));
+builder.Services.AddDbContext<SalesContext>(options => 
+options.UseSqlServer(builder.Configuration.GetConnectionString("SalesContext")));
 
 //Repositories
 

@@ -26,8 +26,8 @@ namespace Sales.Infraestructura.Repositories
             try
             {
                 // Corrected and optimized query:
-                products = (from pro in this.context.Products
-                            join ca in this.context.Categories on pro.IdCategoria equals ca.id
+                products = (from pro in this.context.Producto
+                            join ca in this.context.Categoria on pro.IdCategoria equals ca.id
                             where pro.IdCategoria == categoryId
                             select new ProductoModel()
                             {
@@ -58,12 +58,12 @@ namespace Sales.Infraestructura.Repositories
             try
             {
                 // Check for existing product id (optional)
-                if (context.Products.Any(p => p.id == entity.id))
+                if (context.Producto.Any(p => p.id == entity.id))
                 {
                     this.logger.LogWarning("Ya existe un producto con ese id");
                 }
 
-                this.context.Products.Add(entity);
+                this.context.Producto.Add(entity);
                 this.context.SaveChanges();
             }
             catch (Exception ex)
@@ -74,7 +74,7 @@ namespace Sales.Infraestructura.Repositories
 
         public override Producto GetEntity(int id)
         {
-            return this.context.Products.Find(id);
+            return this.context.Producto.Find(id);
         }
 
         public override void Update(Producto entity)
@@ -96,7 +96,7 @@ namespace Sales.Infraestructura.Repositories
                 productToUpdate.Marca = entity.Marca;
                 productToUpdate.IdUsuarioMod = entity.IdUsuarioMod;
 
-                this.context.Products.Update(productToUpdate);
+                this.context.Producto.Update(productToUpdate);
                 this.context.SaveChanges();
             }
             catch (Exception ex)
@@ -112,12 +112,12 @@ namespace Sales.Infraestructura.Repositories
 
         public override List<Producto> FinAll(Func<Producto, bool> filter)
         {
-            return this.context.Products.Where(filter).ToList();
+            return this.context.Producto.Where(filter).ToList();
         }
 
         public override bool Exists(Func<Producto, bool> filter)
         {
-            return this.context.Products.Any(filter);
+            return this.context.Producto.Any(filter);
         }
 
         

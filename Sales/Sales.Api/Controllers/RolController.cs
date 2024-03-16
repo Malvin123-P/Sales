@@ -8,6 +8,9 @@ namespace Sales.Api.Controllers
     [ApiController]
     public class RolController : ControllerBase
     {
+
+        public RolController() { }
+
         // GET: api/<RolController>
         [HttpGet]
         public IEnumerable<string> Get()

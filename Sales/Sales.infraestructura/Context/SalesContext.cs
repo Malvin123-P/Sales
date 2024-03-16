@@ -15,8 +15,12 @@ namespace Sales.Infraestructura.Context
         {
         }
 
-        public DbSet<Categoria> Categories {get; set;}
-        public DbSet<Producto> Products { get; set;}
+        public DbSet<Categoria> Categoria {get; set;}
+        public DbSet<Producto> Producto { get; set;}
+        public DbSet<Rol> Rol { get; set;}
+        public DbSet<Authors> Authors { get; set;}
+        public DbSet<Configuracion> Configuracion { get; set;}
+
         public DbSet<TipoDocumentoVenta> TipoDocumentosVenta { get; set;}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
