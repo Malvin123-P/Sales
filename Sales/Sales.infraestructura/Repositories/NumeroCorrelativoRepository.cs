@@ -3,6 +3,7 @@ using Sales.Dominio.Entities;
 using Sales.Infraestructura.Context;
 using Sales.Infraestructura.Core;
 using Sales.Infraestructura.Interfaces;
+using Sales.Infraestructura.Models;
 
 namespace Sales.Infraestructura.Repositories
 {
@@ -11,32 +12,32 @@ namespace Sales.Infraestructura.Repositories
         private readonly SalesContext context;
         private readonly ILogger<NumeroCorrelativoRepository> logger;
 
-        public NumeroCorrelativo(SalesContext context, ILogger<NumeroCorrelativoRepository> logger) : base(context)
+        public NumeroCorrelativoRepository(SalesContext context, ILogger<NumeroCorrelativoRepository> logger) : base(context)
         {
             this.context = context;
             this.logger = logger;
         }
 
-        public override List<NumeroCorrelativo> GetEntities()
+        public List<NumeroCorrelativoModels> GetNumeroCorrelativo(int UltimoNumero)
         {
-            return this.GetEntities().Where(ca => !ca.Eliminado).ToList();
+            List<NumeroCorrelativoModels> numeroCorrelativos = new List<NumeroCorrelativoModels>();
         }
 
-        public override void Update(NumeroCorrelativo entity)
+        public void Update(NumeroCorrelativo entity)
         {
             try
             {
-                var NumeroCorrelativoToUpdate = this.GetEntity(entity.id);
+                var NumeroCorrelativoToUpdate = this.GetEntity(entity. UltimoNumero);
 
                 if (NumeroCorrelativoToUpdate == null)
                 {
                     throw new NumeroCorrelativoException("El numero correlativo no existe");
                 }
 
-                NumeroCorrelativoToUpdate.nombre = entity.nombre;
-                NumeroCorrelativoToUpdate.IdUsuarioMod = entity.IdUsuarioMod;
-                NumeroCorrelativoToUpdate.FechaMod = entity.FechaMod;
-                NumeroCorrelativoToUpdate.EsActivo = entity.EsActivo;
+                NumeroCorrelativoToUpdate.UltimoNumero = entity.UltimoNumero;
+                NumeroCorrelativoToUpdate.CantidadDigitos = entity.CantidadDigitos;
+                NumeroCorrelativoToUpdate.Gestion = entity.Gestion;
+                NumeroCorrelativoToUpdate.FechaActualizacion = entity.FechaActualizacion;
 
 
                 this.context.NumeroCorrelativo.Update(NumeroCorrelativoToUpdate);
@@ -52,7 +53,7 @@ namespace Sales.Infraestructura.Repositories
         {
             try
             {
-                if (context.NumeroCorrelativo.Any(c => c.id == entity.id))
+                if (context.NumeroCorrelativo.Any(c => c.UltimoNumero == entity.UltimoNumero))
                 {
                     this.logger.LogWarning("La categoría ya se encuentra registrada");
                 }
@@ -66,9 +67,9 @@ namespace Sales.Infraestructura.Repositories
             }
         }
 
-        public override Category GetEntity(int id)
+        public  NumeroCorrelativo GetEntity(int id)
         {
-            return this.context.Categories.Find(id);
+            return this.context.NumeroCorrelativo.Find(id);
         }
 
         public override bool Exists(Func<NumeroCorrelativo, bool> filter)

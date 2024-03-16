@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sales.Infraestructura.Interfaces
 {
-    public interface INumeroCorrelativoRepository : IBaseRepository<Category>
+    public interface INumeroCorrelativoRepository : IBaseRepository<NumeroCorrelativo>
     {
 
     }

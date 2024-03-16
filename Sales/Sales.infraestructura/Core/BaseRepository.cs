@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Sales.Dominio.Repository;
+using Sales.Infraestructura.Context;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sales.Infraestructura.Core
 {
-    public abstract class BaseRepository<TEntity> : IBaseRepository where TEntity : class
+    public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
-
         private readonly SalesContext context;
         private readonly DbSet<TEntity> DbEntity;
 
@@ -27,6 +27,7 @@ namespace Sales.Infraestructura.Core
         {
             return DbEntity.Where(filter).ToList();
         }
+
 
         public virtual List<TEntity> GetEntities()
         {
@@ -55,37 +56,5 @@ namespace Sales.Infraestructura.Core
             DbEntity.Update(entity);
             context.SaveChanges();
         }
-
-        public bool Exists(Func<TEntity, bool> filter)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public List<TEntity> FinAll(Func<TEntity, bool> filter)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<TEntity> GetEntities()
-        {
-            throw new NotImplementedException();
-        }
-
-        public TEntity GetEntity(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save(TEntity entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(TEntity entity)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

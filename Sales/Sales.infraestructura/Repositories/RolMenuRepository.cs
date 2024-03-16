@@ -12,34 +12,31 @@ namespace Sales.Infraestructura.Repositories
         private readonly SalesContext context;
         private readonly ILogger<RolMenuRepository> logger;
 
-        public NumeroCorrelativo(SalesContext context, ILogger<RolMenuRepository> logger) : base(context)
+        public RolMenuRepository(SalesContext context, ILogger<RolMenuRepository> logger) : base(context)
         {
             this.context = context;
             this.logger = logger;
         }
 
-        public override List<RolMenu> GetEntities()
+        public  List<RolMenuModels> GetRolMenuByRolMenu(int Id)
         {
-            return this.GetEntities().Where(ca => !ca.Eliminado).ToList();
+            List<RolMenuModels> rolmenus = new List<RolMenuModels>();
         }
 
-        public override void Update(RolMenu entity)
+        public  void Update(RolMenu entity)
         {
             try
             {
-                var RolMenuToUpdate = this.GetEntity(entity.id);
+                var RolMenuToUpdate = this.GetEntity(int.Id);
 
                 if (RolMenuToUpdate == null)
                 {
                     throw new RolMenuException("El Menu que busca no existe");
                 }
 
-                RolMenuToUpdate.nombre = entity.nombre;
-                RolMenuToUpdate.IdUsuarioMod = entity.IdUsuarioMod;
-                RolMenuToUpdate.IdUsuarioCreacion = entity.IdUsuarioCreacion;
-                RolMenuToUpdate.FechaMod = entity.FechaMod;
-                RolMenuToUpdate.EsActivo = entity.EsActivo;
+                RolMenuToUpdate.Id = entity.Id;
                 RolMenuToUpdate.IdMenu = entity.IdMenu;
+                
 
 
                 this.context.RolMenu.Update(RolMenuToUpdate);
@@ -51,11 +48,11 @@ namespace Sales.Infraestructura.Repositories
             }
         }
 
-        public override void Save(RolMenu entity)
+        public void Save(RolMenu entity)
         {
             try
             {
-                if (context.RolMenu.Any(c => c.id == entity.id))
+                if (context.RolMenu.Any(c => c.Id == entity.Id))
                 {
                     this.logger.LogWarning("El menu que intentas registrar ya se encuentra registrada");
                 }
@@ -69,17 +66,17 @@ namespace Sales.Infraestructura.Repositories
             }
         }
 
-        public override Category GetEntity(int id)
+        public override RolMenu GetEntity(int id)
         {
             return this.context.RolMenu.Find(id);
         }
 
-        public override bool Exists(Func<RolMenu, bool> filter)
+        public bool Exists(Func<RolMenu, bool> filter)
         {
             return base.Exists(filter);
         }
 
-        public override List<RolMenu> FinAll(Func<RolMenu, bool> filter)
+        public List<RolMenu> FinAll(Func<RolMenu, bool> filter)
         {
             return base.FinAll(filter);
         }

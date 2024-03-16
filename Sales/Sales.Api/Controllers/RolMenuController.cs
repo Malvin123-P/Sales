@@ -8,33 +8,33 @@ namespace Sales.Api.Controllers
     [ApiController]
     public class RolMenuController : ControllerBase
     {
-        // GET: api/<NumeroCorrelativoController>
+        // GET: api/<RolMenuController>
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<NumeroCorrelativoController>/5
+        // GET api/<RolMenuController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<NumeroCorrelativoController>
+        // POST api/<RolMenuController>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/<NumeroCorrelativoController>/5
+        // PUT api/<RolMenuController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<NumeroCorrelativoController>/5
+        // DELETE api/<RolMenuController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
