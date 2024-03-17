@@ -7,13 +7,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+
+
+
 // Conn Strings
 builder.Services.AddDbContext<SalesContext>(options => 
 options.UseSqlServer(builder.Configuration.GetConnectionString("SalesContext")));
 
 //Repositories
 
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IAuthorsRepository, AuthorsRepository>();
 
 // config services cors
 

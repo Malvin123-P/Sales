@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Sales.Api.Models;
+using Sales.Dominio.Entities;
+using Sales.Infraestructura.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,24 +11,40 @@ namespace Sales.Api.Controllers
     [ApiController]
     public class ConfiguracionController : ControllerBase
     {
-        // GET: api/<ConfiguracionController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+
+        private readonly IConfiguracionRepository configuracionRepository;
+
+        public ConfiguracionController(IConfiguracionRepository configuracionRepository)
         {
-            return new string[] { "value1", "value2" };
+            this.configuracionRepository = configuracionRepository;
+        }
+
+        // GET: api/<ConfiguracionController>
+        [HttpGet("GetConfiguraciones")]
+        public IActionResult Get()
+        {
+            var configuraciones = this.configuracionRepository.GetEntities();
+            return Ok(configuraciones);
         }
 
         // GET api/<ConfiguracionController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("GetConfiguracionById")]
+        public IActionResult Get(int id)
         {
-            return "value";
+            var configuracion = this.configuracionRepository.GetEntity(id);
+            return Ok(configuracion);
         }
 
         // POST api/<ConfiguracionController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("SaveConfiguracion")]
+        public void Post([FromBody] ConfiguracionAddModel configuracionAddModel)
         {
+            this.configuracionRepository.Save(new Dominio.Entities.Configuracion()
+            {
+                Recurso = configuracionAddModel.recurso,
+                Propiedad = configuracionAddModel.propiedad,
+                Valor = configuracionAddModel.valor,
+            });
         }
 
         // PUT api/<ConfiguracionController>/5

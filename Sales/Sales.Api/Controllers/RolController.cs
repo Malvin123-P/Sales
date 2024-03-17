@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Sales.Api.Models;
+using Sales.Infraestructura.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -9,26 +11,41 @@ namespace Sales.Api.Controllers
     public class RolController : ControllerBase
     {
 
-        public RolController() { }
+        private readonly IRolRepository rolRepository;
+
+        public RolController(IRolRepository rolRepository)
+        {
+            this.rolRepository = rolRepository;
+        }
 
         // GET: api/<RolController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("GetRol")]
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            var roles = this.rolRepository.GetEntities();
+            return Ok(roles);
         }
 
         // GET api/<RolController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("GetRolById")]
+        public IActionResult Get(int id)
         {
-            return "value";
+            var rol = this.rolRepository.GetEntity(id);
+            return Ok(rol);
         }
 
         // POST api/<RolController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("SaveProduct")]
+        public void Post([FromBody] RolAddModel rolAddModel)
         {
+            this.rolRepository.Save(new Dominio.Entities.Rol()
+            {
+                EsActivo = rolAddModel.EsActivo,
+                FechaRegistro = rolAddModel.FechaRegistro,
+                IdUsuario = rolAddModel.IdUsuario,
+                FechaEliminar = rolAddModel.FechaEliminar,
+                IdUsuarioEliminar = rolAddModel.IdUsuarioEliminar,
+            });
         }
 
         // PUT api/<RolController>/5

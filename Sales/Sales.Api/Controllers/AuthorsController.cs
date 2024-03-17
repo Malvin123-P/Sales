@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Sales.Api.Models;
+using Sales.Infraestructura.Interfaces;
+using System.DirectoryServices.ActiveDirectory;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,24 +11,40 @@ namespace Sales.Api.Controllers
     [ApiController]
     public class AuthorsController : ControllerBase
     {
-        // GET: api/<AuthorsController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IAuthorsRepository authorsRepository;
+
+        public AuthorsController(IAuthorsRepository authorsRepository)
         {
-            return new string[] { "value1", "value2" };
+            this.authorsRepository = authorsRepository;
+        }
+
+        // GET: api/<AuthorsController>
+        [HttpGet("GetAuthors")]
+        public IActionResult Get()
+        {
+            var authors = this.authorsRepository.GetEntities();
+            return Ok(authors);
         }
 
         // GET api/<AuthorsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("GetAuthorById")]
+        public IActionResult Get(int id)
         {
-            return "value";
+            var author = this.authorsRepository.GetEntity(id);
+            return Ok(author);
         }
 
         // POST api/<AuthorsController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("SaveProduct")]
+        public void Post([FromBody] AuthorsAddModel authorsAddModel)
         {
+            this.authorsRepository.Save(new Dominio.Entities.Authors()
+            {
+                phone = authorsAddModel.Phone,
+                state = authorsAddModel.State,
+                city = authorsAddModel.City,
+                zip = authorsAddModel.Zip
+            }) ;
         }
 
         // PUT api/<AuthorsController>/5
