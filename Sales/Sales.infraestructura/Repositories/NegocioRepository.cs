@@ -38,6 +38,12 @@ namespace Sales.Infraestructura.Repositories
             {
                 Negocio negocioUpdate = this.GetEntity(entity.Id);
 
+                if (negocioUpdate is null)
+                {
+                    throw new NegocioExcenption("El negocio no existe.");
+                }
+
+                negocioUpdate.UrlLogo = entity.UrlLogo;
                 negocioUpdate.Correo = entity.Correo;
                 negocioUpdate.Telefono = entity.Telefono;
                 negocioUpdate.Direccion = entity.Direccion;
@@ -46,7 +52,8 @@ namespace Sales.Infraestructura.Repositories
                 negocioUpdate.NombreLogo = entity.NombreLogo;
                 negocioUpdate.PorcentajeImpuesto = entity.PorcentajeImpuesto;
                 negocioUpdate.SimboloMoneda = entity.SimboloMoneda;
-                negocioUpdate.FechaRegistro = entity.FechaRegistro;
+                negocioUpdate.FechaMod = entity.FechaMod;
+                negocioUpdate.IdUsuarioMod = entity.IdUsuarioMod;
 
                 this.context.Negocio.Update(negocioUpdate);
                 this.context.SaveChanges();
@@ -61,7 +68,7 @@ namespace Sales.Infraestructura.Repositories
         {
             try
             {
-                if (context.Negocio.Any(de => de.Nombre == entity.Nombre))
+                if (context.Negocio.Any(ne => ne.Id == entity.Id))
                 {
                     throw new NegocioExcenption("El negocio se encuetra registrado.");
                 }
@@ -81,5 +88,32 @@ namespace Sales.Infraestructura.Repositories
             return base.Exists(filter);
         }
 
+        public override void Delete(Negocio entity)
+        {
+            try
+            {
+                Negocio negocioRemueve = this.GetEntity(entity.Id);
+                if (negocioRemueve is null)
+                {
+                    throw new NegocioExcenption("El Negocio no existe.");
+                }
+
+                negocioRemueve.FechaElimino = entity.FechaElimino;
+                negocioRemueve.IdUsuarioElimino = entity.IdUsuarioElimino;
+                negocioRemueve.Eliminado = true;
+
+                this.context.Negocio.Update(negocioRemueve);
+                this.context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError("Error Eliminado  Negocio", ex.ToString());
+            }
+        }
+
     }
 }
+
+
+
+

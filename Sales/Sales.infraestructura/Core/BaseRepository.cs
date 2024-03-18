@@ -24,12 +24,6 @@ namespace Sales.Infraestructura.Core
             this.Dbentities = context.Set<TEntity>();
         }
 
-        public void Delete(TEntity entity)
-        { 
-                Dbentities.Update(entity);
-                this.context.SaveChanges();            
-        }
-
         public virtual bool Exists(Func<TEntity, bool> filter)
         {
             return Dbentities.Any(filter);
@@ -68,6 +62,12 @@ namespace Sales.Infraestructura.Core
         {
             Dbentities.Update (entity);
             context.SaveChanges();    
+        }
+
+        public virtual void Delete(TEntity entity)
+        {
+            Dbentities.Update(entity);
+           this.context.SaveChanges();
         }
     }
 
