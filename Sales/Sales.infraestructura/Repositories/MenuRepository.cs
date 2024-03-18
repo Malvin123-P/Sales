@@ -51,7 +51,7 @@ namespace Sales.Infraestructura.Repositories
     }
             catch (Exception e)
             {
-                this.logger.LogError("Error actualizando el menu", e.ToString());
+                this.logger.LogError("ERROR ACTUALIZANDO EL MENU.", e.ToString());
             }
         }
 
@@ -61,7 +61,7 @@ namespace Sales.Infraestructura.Repositories
             {
                 if (context.Menu.Any(me => me.Id == entity.Id))
                 {
-                    throw new MenuExcenption("El menu se encuentra registrado.");
+                    throw new MenuExcenption("EL MENU SE ENCUENTRA REGISTRADO.");
                 }
 
                 this.context.Menu.Add(entity);
@@ -70,7 +70,7 @@ namespace Sales.Infraestructura.Repositories
             }
             catch (Exception e)
             {
-                this.logger.LogError("Error creando el Menu", e.ToString());
+                this.logger.LogError("ERROR CREANDO EL MENU.", e.ToString());
             }
         }
         public override bool Exists(Func<Menu, bool> filter)
@@ -85,7 +85,7 @@ namespace Sales.Infraestructura.Repositories
                 Menu menuRemueve = this.GetEntity(entity.Id);
                 if (menuRemueve is null)
                 {
-                    throw new MenuExcenption("El Menu no existe.");
+                    throw new MenuExcenption("El MENU NO EXISTE.");
                 }
 
                 menuRemueve.FechaElimino = entity.FechaElimino;
@@ -97,7 +97,7 @@ namespace Sales.Infraestructura.Repositories
             }
             catch (Exception ex)
             {
-                this.logger.LogError("Error Eliminado el Menu", ex.ToString());
+                this.logger.LogError("ERROR ELIMINANDO EL MENU.", ex.ToString());
             }
         }
 
