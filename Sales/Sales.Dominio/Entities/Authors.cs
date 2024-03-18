@@ -11,7 +11,9 @@ namespace Sales.Dominio.Entities
     {
         public string? nombre;
 
-        public int? phone { get; set; }
+        public int phone { get; set; }
+
+        public string? address { get; set; }
         public string? state { get; set; }
         public string? city { get; set; }
         public string? zip { get; set; }

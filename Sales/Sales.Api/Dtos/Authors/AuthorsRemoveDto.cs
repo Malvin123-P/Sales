@@ -1,8 +1,8 @@
-﻿namespace Sales.Api.Models
+﻿namespace Sales.Api.Dtos.Authors
 {
-    public class AuthorsAddModel
+    public class AuthorsRemoveDto : DtosBase
     {
-        public int? phone { get; set; }
+        public int phone { get; set; }
 
         public string? address { get; set; }
 

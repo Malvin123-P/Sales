@@ -10,6 +10,6 @@ namespace Sales.Infraestructura.Interfaces
 {
     public interface IAuthorsRepository : IBaseRepository<Authors>
     {
-
+        void Remove(Authors entity);
     }
 }

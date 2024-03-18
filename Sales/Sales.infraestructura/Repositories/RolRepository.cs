@@ -82,7 +82,34 @@ namespace Sales.Infraestructura.Repositories
             return base.FinAll(filter);
         }
 
-        
+        public override void Remove(Rol entity)
+        {
+            try
+            {
+                Rol rolToRemove = this.GetEntity(entity.Descripcion);
+
+                if (rolToRemove is null)
+                    throw new RolException("El rol no existe.");
+
+                rolToRemove.Descripcion = entity.Descripcion;
+                rolToRemove.EsActivo = entity.EsActivo;
+                rolToRemove.IdUsuario = entity.IdUsuario;
+                rolToRemove.FechaEliminar = entity.FechaEliminar;
+
+
+                this.context.Rol.Update(rolToRemove);
+                this.context.SaveChanges();
+
+
+            }
+            catch (Exception ex)
+            {
+
+                this.logger.LogError("", ex.ToString());
+            };
+        }
     }
-    
 }
+        
+    
+

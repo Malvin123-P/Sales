@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Sales.Api.Dtos.Authors;
+using Sales.Api.Dtos.Rol;
 using Sales.Api.Models;
 using Sales.Infraestructura.Interfaces;
 
@@ -22,16 +24,33 @@ namespace Sales.Api.Controllers
         [HttpGet("GetRol")]
         public IActionResult Get()
         {
-            var roles = this.rolRepository.GetEntities();
-            return Ok(roles);
+            var rol = this.rolRepository.GetEntities().Select(cd => new RolGetModel()
+            {
+                Descripcion = cd.Descripcion,
+                EsActivo = cd.EsActivo,
+                IdUsuario = cd.IdUsuario,
+                FechaEliminar = cd.FechaEliminar,
+            });
+
+
+
+            return Ok(rol);
         }
 
         // GET api/<RolController>/5
-        [HttpGet("GetRolById")]
+        [HttpGet("GetAuthorById")]
         public IActionResult Get(int id)
         {
             var rol = this.rolRepository.GetEntity(id);
-            return Ok(rol);
+            RolGetModel rolGetModel = new RolGetModel()
+            {
+                Descripcion = rol.Descripcion,
+                EsActivo = rol.EsActivo,
+                IdUsuario = rol.IdUsuario,
+                FechaEliminar = rol.FechaEliminar,
+            };
+
+            return Ok(rolGetModel);
         }
 
         // POST api/<RolController>
@@ -46,18 +65,43 @@ namespace Sales.Api.Controllers
                 FechaEliminar = rolAddModel.FechaEliminar,
                 IdUsuarioEliminar = rolAddModel.IdUsuarioEliminar,
             });
+
+            return Ok("Rol Guardado correctamente");
         }
 
         // PUT api/<RolController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpDelete("UpdateRol")]
+        public IActionResult Put([FromBody] RolUpdateDto rolUpdate)
         {
+            this.rolRepository.Update(new Dominio.Entities.Rol()
+            {
+                Descripcion = rolUpdate.Descripcion,
+                EsActivo = rolUpdate.EsActivo,
+                IdUsuario = rolUpdate.IdUsuario,
+                FechaEliminar = rolUpdate.FechaEliminar,
+            });
+            return Ok();
         }
 
+
         // DELETE api/<RolController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPost("RemoveRol")]
+        public IActionResult Remove([FromBody] RolRemoveDto rolRemove)
         {
+            this.rolRepository.Remove(new Dominio.Entities.Rol()
+            {
+                Descripcion = rolRemove.Descripcion,
+                EsActivo = rolRemove.EsActivo,
+                IdUsuario = rolRemove.IdUsuario,
+                FechaEliminar = rolRemove.FechaEliminar,
+            });
+
+            return Ok("Rol eliminado correctamente");
         }
+
     }
+
+
+
+
 }

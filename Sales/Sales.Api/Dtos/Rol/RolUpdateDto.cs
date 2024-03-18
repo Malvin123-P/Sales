@@ -1,14 +1,6 @@
-﻿
-using Sales.Dominio.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sales.Dominio.Entities
+﻿namespace Sales.Api.Dtos.Rol
 {
-    public class Rol:BaseEntity
+    public class RolUpdateDto : RolDtoBase
     {
         public string nombre;
 
@@ -18,3 +10,4 @@ namespace Sales.Dominio.Entities
         public string? FechaEliminar { get; set; }
     }
 }
+

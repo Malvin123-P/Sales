@@ -82,7 +82,35 @@ namespace Sales.Infraestructura.Repositories
             return base.FinAll(filter);
         }
 
-        
+        public override void Remove(Authors entity)
+        {
+            try
+            {
+                Authors authorToRemove = this.GetEntity(entity.phone);
+
+                if (authorToRemove is null)
+                    throw new AuthorException("El autor no existe.");
+
+                authorToRemove.phone = entity.phone;
+                authorToRemove.address = entity.address;
+                authorToRemove.state = entity.state;
+                authorToRemove.zip = entity.zip;
+                authorToRemove.city = entity.city;
+
+                this.context.Authors.Update(authorToRemove);
+                this.context.SaveChanges();
+
+
+            }
+            catch (Exception ex)
+            {
+
+                this.logger.LogError("", ex.ToString());
+            };
+
+        }
+
+
     }
     
 }
