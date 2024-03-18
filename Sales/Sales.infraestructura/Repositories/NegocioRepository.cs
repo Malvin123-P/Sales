@@ -40,7 +40,7 @@ namespace Sales.Infraestructura.Repositories
 
                 if (negocioUpdate is null)
                 {
-                    throw new NegocioExcenption("EL NEGOCIO NO EXISTE.");
+                    throw new NegocioExcenption("El negocio no existe.");
                 }
 
                 negocioUpdate.UrlLogo = entity.UrlLogo;
@@ -60,7 +60,7 @@ namespace Sales.Infraestructura.Repositories
             }
             catch (Exception ex)
             {
-                this.logger.LogError("ERROR ACTUALIZANDO EL NEGOCIO.", ex.ToString());
+                this.logger.LogError("Error actualizando el negocio", ex.ToString());
             }
         }
 
@@ -70,7 +70,7 @@ namespace Sales.Infraestructura.Repositories
             {
                 if (context.Negocio.Any(ne => ne.Id == entity.Id))
                 {
-                    throw new NegocioExcenption("EL NEGOCIO SE ENCUENTRA REGISTRADO.");
+                    throw new NegocioExcenption("El negocio se encuetra registrado.");
                 }
 
                 this.context.Negocio.Add(entity);
@@ -79,7 +79,7 @@ namespace Sales.Infraestructura.Repositories
             }
             catch (Exception e)
             {
-                this.logger.LogError("ERROR CREANDO EL NEGOCIO.", e.ToString());
+                this.logger.LogError("Error creando el negocio", e.ToString());
             }
         }
 
@@ -95,7 +95,7 @@ namespace Sales.Infraestructura.Repositories
                 Negocio negocioRemueve = this.GetEntity(entity.Id);
                 if (negocioRemueve is null)
                 {
-                    throw new NegocioExcenption("El NEGOCIO NO EXISTE.");
+                    throw new NegocioExcenption("El Negocio no existe.");
                 }
 
                 negocioRemueve.FechaElimino = entity.FechaElimino;
@@ -107,7 +107,7 @@ namespace Sales.Infraestructura.Repositories
             }
             catch (Exception ex)
             {
-                this.logger.LogError("ERROR ELIMINAOD EL NEGOCIO.", ex.ToString());
+                this.logger.LogError("Error Eliminado  Negocio", ex.ToString());
             }
         }
 

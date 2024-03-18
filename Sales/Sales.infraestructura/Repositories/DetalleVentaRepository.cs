@@ -34,7 +34,7 @@ namespace Sales.Infraestructura.Repositories
 
                 if (detalleVentaUpdate is null)
                 {
-                    throw new DetalleVentaExcenption("EL DETALLE DE LA VENTA NO EXISTE.");
+                    throw new DetalleVentaExcenption("El detalle de la venta no existe.");
                 }
 
                 detalleVentaUpdate.IdVenta = entity.IdVenta;
@@ -54,7 +54,7 @@ namespace Sales.Infraestructura.Repositories
             }
             catch (Exception ex)
             {
-                this.logger.LogError("ERROR ACTUALIZANDO EL DETALLE DE LA VENTA.",ex.ToString());
+                this.logger.LogError("Error actualizando el detalle de la venta",ex.ToString());
             }
         }
         public override void Save(DetalleVenta entity)
@@ -63,7 +63,7 @@ namespace Sales.Infraestructura.Repositories
             {
                 if (context.DetalleVenta.Any(dv => dv.Id == entity.Id))
                 {
-                    throw new DetalleVentaExcenption("EL DETALLE DE LA VENTA SE ENCUENTRA REGISTRADO.");
+                    throw new DetalleVentaExcenption("El detalle se encuentra registrado.");
                 }
 
                 this.context.DetalleVenta.Add(entity);
@@ -72,7 +72,7 @@ namespace Sales.Infraestructura.Repositories
             }
             catch (Exception e)
             {
-                this.logger.LogError("ERROR CREANDO EL DETALLE DE LA VENTA.", e.ToString());
+                this.logger.LogError("Error creando el detalle", e.ToString());
             }
         }
 
@@ -111,7 +111,7 @@ namespace Sales.Infraestructura.Repositories
             }
             catch (Exception e)
             {
-                this.logger.LogError("ERROR OBTENIENDO EL DETALLE DE LA VENTA", e.ToString());
+                this.logger.LogError("Error obteniendo el detalle de la venta", e.ToString());
             }
 
             return detalleVentas;
@@ -126,7 +126,7 @@ namespace Sales.Infraestructura.Repositories
 
                 if (detalleVentaRemueve is null)
                 {
-                    throw new DetalleVentaExcenption("EL DETALLE DE LA VENTA NO EXISTE.");
+                    throw new DetalleVentaExcenption("El detalle de la venta no existe.");
                 }
 
                 detalleVentaRemueve.FechaElimino = entity.FechaElimino;
@@ -139,7 +139,7 @@ namespace Sales.Infraestructura.Repositories
             catch (Exception ex)
             {
 
-                this.logger.LogError("ERROR ELIMINANDO EL DETALLE DE LA VENTA", ex.ToString());
+                this.logger.LogError("Error Eliminado el detalle de la venta", ex.ToString());
             }
         }
 
