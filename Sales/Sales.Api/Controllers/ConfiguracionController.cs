@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Sales.Api.Dtos.Authors;
+using Sales.Api.Dtos.Configuracion;
 using Sales.Api.Models;
 using Sales.Dominio.Entities;
 using Sales.Infraestructura.Interfaces;
@@ -48,15 +50,35 @@ namespace Sales.Api.Controllers
         }
 
         // PUT api/<ConfiguracionController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpDelete("UpdateConfiguracion")]
+        public IActionResult Put([FromBody] ConfiguracionUpdateDto configuracionUpdate)
         {
+            this.configuracionRepository.Update(new Dominio.Entities.Configuracion()
+            {
+                Recurso = configuracionUpdate.Recurso,
+                Propiedad = configuracionUpdate.Propiedad,
+                Valor = configuracionUpdate.Valor,
+            });
+            return Ok();
         }
 
         // DELETE api/<ConfiguracionController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPost("RemoveConfiguracion")]
+        public IActionResult Remove([FromBody] ConfiguracionRemoveDto configuracionRemove)
         {
+            this.configuracionRepository.Remove(new Dominio.Entities.Configuracion()
+            {
+                Recurso = configuracionRemove.Recurso,
+                Propiedad = configuracionRemove.Propiedad,
+                Valor = configuracionRemove.Valor,
+            });
+
+            return Ok("Autor eliminado correctamente");
         }
+
     }
+
+
+
+
 }
