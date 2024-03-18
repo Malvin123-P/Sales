@@ -11,7 +11,7 @@ namespace Sales.Dominio.Entities
 {
     public class Producto:BaseEntity
     {
-        public int Id { get; set; }
+       
         public string? Descripcion { get; set; }
         public bool? EsActivo { get; set; }
         public string? CodigoBarra { get; set; }

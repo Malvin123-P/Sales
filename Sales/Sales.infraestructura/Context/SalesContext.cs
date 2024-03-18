@@ -9,8 +9,11 @@ namespace Sales.Infraestructura.Context
 
         public SalesContext(DbContextOptions<SalesContext> options) : base(options)
         {
-
         }
+
+        public DbSet<Category> Categoria {get; set;}
+        public DbSet<Producto> Producto { get; set;}
+        public DbSet<TipoDocumentoVenta> TipoDocumentoVenta { get; set;}
 
         #region "DbSets 2021-0189"
         public DbSet<DetalleVenta> DetalleVenta { get;set;}
@@ -19,7 +22,9 @@ namespace Sales.Infraestructura.Context
 
         #endregion
 
-        public DbSet<Producto> Producto { get; set; }
+        #region " Store Procedure 2021-0189"
+        #endregion
+
         public DbSet<Venta> Venta { get; set; }
     }
 }

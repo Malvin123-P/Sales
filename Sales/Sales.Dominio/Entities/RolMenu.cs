@@ -10,7 +10,7 @@ namespace Sales.Dominio.Entities
 {
     public class RolMenu:BaseEntity
     {
-        public int Id { get; set; }
+       
         public int? IdRol { get; set; }
         public int? IdMenu { get; set; }
         public bool? EsActivo { get; set; }

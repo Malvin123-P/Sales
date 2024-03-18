@@ -9,7 +9,7 @@ namespace Sales.Dominio.Entities
 {
     public class NumeroCorrelativo:BaseEntity
     {
-        public int Id { get; set; }
+
         public int? UltimoNumero { get; set; }
         public int? CantidadDigitos { get; set; }
         public string? Gestion { get; set; }

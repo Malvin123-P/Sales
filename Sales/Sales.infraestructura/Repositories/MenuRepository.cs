@@ -22,7 +22,7 @@ namespace Sales.Infraestructura.Repositories
 
         public override List<Menu> GetEntities()
         {
-            return base.GetEntities().Where(me => !me.Eliminado).ToList();
+            return base.GetEntities().Where(ca => !ca.Eliminado).ToList();
         }
 
         public override void Update(Menu entity)
@@ -31,19 +31,11 @@ namespace Sales.Infraestructura.Repositories
             {
                 Menu menuUpdate = this.GetEntity(entity.Id);
 
-                if (menuUpdate is null)
-                {
-                    throw new MenuExcenption("El menu no existe.");
-                }
-
                 menuUpdate.Descripcion = entity.Descripcion;
                 menuUpdate.EsActivo = entity.EsActivo;
                 menuUpdate.PaginaAccion = entity.PaginaAccion;
                 menuUpdate.Icono = entity.Icono;
                 menuUpdate.Controlador = entity.Controlador;
-                menuUpdate.IdMenuPadre = entity.IdMenuPadre;
-                menuUpdate.IdUsuarioMod = entity.IdUsuarioMod;
-                menuUpdate.FechaMod = entity.FechaMod;
 
                 this.context.Menu.Update(menuUpdate);
                 this.context.SaveChanges();
@@ -61,7 +53,7 @@ namespace Sales.Infraestructura.Repositories
             {
                 if (context.Menu.Any(me => me.Id == entity.Id))
                 {
-                    throw new MenuExcenption("El menu se encuentra registrado.");
+                    throw new MenuExcenption("El menu se encuetra registrado.");
                 }
 
                 this.context.Menu.Add(entity);
@@ -78,29 +70,5 @@ namespace Sales.Infraestructura.Repositories
             return base.Exists(filter);
         }
 
-        public override void Delete(Menu entity)
-        {
-            try
-            {
-                Menu menuRemueve = this.GetEntity(entity.Id);
-                if (menuRemueve is null)
-                {
-                    throw new MenuExcenption("El Menu no existe.");
-                }
-
-                menuRemueve.FechaElimino = entity.FechaElimino;
-                menuRemueve.IdUsuarioElimino = entity.IdUsuarioElimino;
-                menuRemueve.Eliminado = true;
-
-                this.context.Menu.Update(menuRemueve);
-                this.context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                this.logger.LogError("Error Eliminado el Menu", ex.ToString());
-            }
-        }
-
     }
 }
- 

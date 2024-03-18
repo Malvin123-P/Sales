@@ -9,7 +9,7 @@ namespace Sales.Dominio.Entities
 {
     public class DetalleVenta:BaseEntity
     {
-        public int Id { get; set; }
+
         public int? IdVenta {  get; set; }
         public int? IdProducto { get; set; }
         public string? MarcaProducto { get; set; }

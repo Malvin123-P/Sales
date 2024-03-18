@@ -9,6 +9,9 @@
             this.Eliminado = false;
         }
 
+
+        public int Id { get; set; }
+
         public DateTime FechaRegistro { get; set;}
       
         public DateTime? FechaMod { get;set;}

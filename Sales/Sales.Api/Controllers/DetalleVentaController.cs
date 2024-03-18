@@ -4,8 +4,6 @@ using Sales.Dominio.Entities;
 using Sales.Api.Models;
 using Sales.Api.Dtos.DetalleVenta;
 
-
-
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Sales.Api.Controllers
@@ -25,9 +23,8 @@ namespace Sales.Api.Controllers
         [HttpGet("GetDetalleVenta")]
         public IActionResult Get()
         {
-            var detalleventa = this.detalleVentaRepository.GetEntities().Select(dv => new DetalleVentaGetModel()
+            var detallevent = this.detalleVentaRepository.GetEntities().Select(dv => new DetalleVentaGetModel()
             {
-                Id = dv.Id,
                 IdProducto = dv.IdProducto,
                 MarcaProducto = dv.MarcaProducto,
                 DescripcionProducto = dv.DescripcionProducto,
@@ -35,96 +32,62 @@ namespace Sales.Api.Controllers
                 Cantidad = dv.Cantidad,
                 Precio = dv.Precio,
                 Total = dv.Total,
-                FechaRegistro = dv.FechaRegistro,
-                IdUsuarioCreacion = dv.IdUsuarioCreacion
-
             });
-            return Ok(detalleventa);
+            return Ok(detallevent);
         }
 
         // GET api/<DetalleVentaController>/5
         [HttpGet("GetDetalleVentaById")]
         public IActionResult Get(int id)
         {
-            var detalleVenta = this.detalleVentaRepository.GetEntity(id);
+           var detalleVenta = this.detalleVentaRepository.GetEntity(id);
 
             DetalleVentaGetModel detalleVentaGetModel = new DetalleVentaGetModel()
             {
-
-                Id = detalleVenta.Id,
                 IdProducto = detalleVenta.IdProducto,
                 MarcaProducto = detalleVenta.MarcaProducto,
                 DescripcionProducto = detalleVenta.DescripcionProducto,
                 CategoriaProducto = detalleVenta.CategoriaProducto,
                 Cantidad = detalleVenta.Cantidad,
                 Precio = detalleVenta.Precio,
-                Total = detalleVenta.Total,
-                FechaRegistro = detalleVenta.FechaRegistro,
-                IdUsuarioCreacion = detalleVenta.IdUsuarioCreacion
-
+                Total = detalleVenta.Total
             };
 
-            return Ok(detalleVentaGetModel);
+           return Ok(detalleVentaGetModel);
         }
 
         // POST api/<DetalleVentaController>
         [HttpPost("SaveDetalleVenta")]
-        public IActionResult Post([FromBody] DetalleVentaAddDto detalleVentaAddDto)
+        public void Post([FromBody] DetalleVentaAddDto detalleVentaAddModel)
         {
             this.detalleVentaRepository.Save(new Dominio.Entities.DetalleVenta()
             {
+                
+                IdProducto=detalleVentaAddModel.IdProducto,
+                MarcaProducto = detalleVentaAddModel.MarcaProducto,
+                DescripcionProducto = detalleVentaAddModel.DescripcionProducto,
+                CategoriaProducto = detalleVentaAddModel.CategoriaProducto,
+                Cantidad = detalleVentaAddModel.Cantidad,
+                Precio = detalleVentaAddModel.Precio,
+                Total = detalleVentaAddModel.Total,
+                
 
-                IdProducto = detalleVentaAddDto.IdProducto,
-                MarcaProducto = detalleVentaAddDto.MarcaProducto,
-                DescripcionProducto = detalleVentaAddDto.DescripcionProducto,
-                CategoriaProducto = detalleVentaAddDto.CategoriaProducto,
-                Cantidad = detalleVentaAddDto.Cantidad,
-                Precio = detalleVentaAddDto.Precio,
-                Total = detalleVentaAddDto.Total,
-                FechaRegistro = detalleVentaAddDto.FechaRegistro,
-                IdUsuarioCreacion = detalleVentaAddDto.IdUsuarioCreacion
-            });
+             });
 
-            return Ok("Detalle venta guardada correctamente");
+    }
 
-        }
-
-
-        // PUT api/<DetalleVentaController>/5
-        [HttpPut("UpdateDetalleVenta")]
-        public IActionResult Put([FromBody] DetalleVentaUpdateDto detalleVentaUpdateDto)
+       // PUT api/<DetalleVentaController>/5
+        [HttpPut("{id}")]
+        public void Put([FromBody] string value)
         {
-            this.detalleVentaRepository.Update(new DetalleVenta()
-            {
-              
-                Id=detalleVentaUpdateDto.Id,
-                IdProducto = detalleVentaUpdateDto.IdProducto,
-                MarcaProducto = detalleVentaUpdateDto.MarcaProducto,
-                DescripcionProducto = detalleVentaUpdateDto.DescripcionProducto,
-                CategoriaProducto = detalleVentaUpdateDto.CategoriaProducto,
-                Cantidad = detalleVentaUpdateDto.Cantidad,
-                Precio = detalleVentaUpdateDto.Precio,
-                Total = detalleVentaUpdateDto.Total,
-                FechaMod = detalleVentaUpdateDto.FechaMod,
-                IdUsuarioMod = detalleVentaUpdateDto.IdUsuarioMod
 
-
-            });
-            return Ok("DetalleVenta actualizada correctamente");
         }
 
         // DELETE api/<DetalleVentaController>/5
-        [HttpDelete("RemueveDetalleVenta")]
-        public IActionResult Delete([FromBody] DetalleVentaDtoRemueve detalleVentaRemoveDto)
+        [HttpDelete("{id}")]
+        public void Delete(int id)
         {
-            this.detalleVentaRepository.Delete(new DetalleVenta()
-            {
-                Id = detalleVentaRemoveDto.Id,
-                FechaElimino = detalleVentaRemoveDto.FechaElimino,
-                IdUsuarioElimino = detalleVentaRemoveDto.IdUsuarioElimino
-            });
 
-            return Ok("DetalleVenta eliminado correctamente.");
         }
     }
 }
