@@ -55,7 +55,7 @@ namespace Sales.Api.Controllers
         }
 
         // POST api/<AuthorsController>
-        [HttpPost("SaveProduct")]
+        [HttpPost("SaveAuthor")]
         public IActionResult Post([FromBody] AuthorAddDto authorsAddModel)
         {
             this.authorsRepository.Save(new Dominio.Entities.Authors()

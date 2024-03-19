@@ -54,7 +54,7 @@ namespace Sales.Api.Controllers
         }
 
         // POST api/<RolController>
-        [HttpPost("SaveProduct")]
+        [HttpPost("SaveRol")]
         public void Post([FromBody] RolAddModel rolAddModel)
         {
             this.rolRepository.Save(new Dominio.Entities.Rol()

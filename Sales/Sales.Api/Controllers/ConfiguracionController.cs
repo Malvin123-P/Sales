@@ -25,8 +25,16 @@ namespace Sales.Api.Controllers
         [HttpGet("GetConfiguraciones")]
         public IActionResult Get()
         {
-            var configuraciones = this.configuracionRepository.GetEntities();
-            return Ok(configuraciones);
+            var configuracion = this.configuracionRepository.GetEntities().Select(cd => new ConfiguracionGetModel()
+            {
+                Recurso = cd.Recurso,
+                Propiedad = cd.Propiedad,
+                Valor = cd.Valor,
+            });
+
+
+
+            return Ok(configuracion);
         }
 
         // GET api/<ConfiguracionController>/5
