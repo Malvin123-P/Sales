@@ -24,7 +24,7 @@ namespace Sales.Infraestructura.Core
             this.Dbentities = context.Set<TEntity>();
         }
 
-        public void Delete(TEntity entity)
+        public virtual void Delete(TEntity entity)
         { 
                 Dbentities.Update(entity);
                 this.context.SaveChanges();            

@@ -1,15 +1,14 @@
 ﻿namespace Sales.Api.Dtos.DetalleVenta
 {
-    public class MenuaDtoBase:DtoBase
+    public class MenuaDtoBase
     {
-        public int? IdVenta { get; set; }
-        public int? IdProducto { get; set; }
-        public string? MarcaProducto { get; set; }
-        public string? DescripcionProducto { get; set; }
-        public string? CategoriaProducto { get; set; }
-        public int? Cantidad { get; set; }
-        public decimal? Precio { get; set; }
-        public decimal? Total { get; set; }
+       
+        public string? Descripcion { get; set; }
+        public bool? EsActivo { get; set; }
+        public int? IdMenuPadre { get; set; }
+        public string? Icono { get; set; }
+        public string? Controlador { get; set; }
+        public string? PaginaAccion { get; set; }
 
     }
 }

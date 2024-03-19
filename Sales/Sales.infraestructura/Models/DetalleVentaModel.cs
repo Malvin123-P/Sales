@@ -8,6 +8,9 @@ namespace Sales.Infraestructura.Models
 {
     public class DetalleVentaModel
     {
+        public int Id { get; set; }
+
+        public DateTime FechaRegistro { get; set; }
         public int? IdVenta { get; set; }
         public int? IdProducto { get; set; }
         public string? MarcaProducto { get; set; }

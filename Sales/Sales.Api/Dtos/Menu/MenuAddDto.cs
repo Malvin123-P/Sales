@@ -1,15 +1,12 @@
-﻿namespace Sales.Api.Dtos.Menu
-{
-    public class MenuAddDto:DtoBase
-    {
+﻿using Sales.Api.Dtos.DetalleVenta;
 
+namespace Sales.Api.Dtos.Menu
+{
+    public class MenuAddDto: MenuaDtoBase
+    {
+        public int IdUsuarioCreacion { get; set; }
         public DateTime FechaRegistro { get; set; }
-        public string? Descripcion { get; set; }
-        public bool? EsActivo { get; set; }
-        public int? IdMenuPadre { get; set; }
-        public string? Icono { get; set; }
-        public string? Controlador { get; set; }
-        public string? PaginaAccion { get; set; }
+
 
     }
 }

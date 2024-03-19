@@ -22,7 +22,7 @@ namespace Sales.Infraestructura.Repositories
 
         public override List<Menu> GetEntities()
         {
-            return base.GetEntities().Where(ca => !ca.Eliminado).ToList();
+            return base.GetEntities().Where(me => !me.Eliminado).ToList();
         }
 
         public override void Update(Menu entity)
@@ -31,11 +31,19 @@ namespace Sales.Infraestructura.Repositories
             {
                 Menu menuUpdate = this.GetEntity(entity.Id);
 
+                if (menuUpdate is null)
+                {
+                    throw new MenuExcenption("MENU NO EXISTE.");
+                }
+
+                menuUpdate.IdMenuPadre = entity.IdMenuPadre;
                 menuUpdate.Descripcion = entity.Descripcion;
                 menuUpdate.EsActivo = entity.EsActivo;
                 menuUpdate.PaginaAccion = entity.PaginaAccion;
                 menuUpdate.Icono = entity.Icono;
                 menuUpdate.Controlador = entity.Controlador;
+                menuUpdate.FechaMod = entity.FechaMod;
+                menuUpdate.IdUsuarioMod = entity.IdUsuarioMod;
 
                 this.context.Menu.Update(menuUpdate);
                 this.context.SaveChanges();
@@ -43,7 +51,7 @@ namespace Sales.Infraestructura.Repositories
     }
             catch (Exception e)
             {
-                this.logger.LogError("Error actualizando el menu", e.ToString());
+                this.logger.LogError("ERROR ACTUALIZANDO MENU", e.ToString());
             }
         }
 
@@ -53,7 +61,7 @@ namespace Sales.Infraestructura.Repositories
             {
                 if (context.Menu.Any(me => me.Id == entity.Id))
                 {
-                    throw new MenuExcenption("El menu se encuetra registrado.");
+                    throw new MenuExcenption("MENU REGISTRADO.");
                 }
 
                 this.context.Menu.Add(entity);
@@ -62,12 +70,35 @@ namespace Sales.Infraestructura.Repositories
             }
             catch (Exception e)
             {
-                this.logger.LogError("Error creando el Menu", e.ToString());
+                this.logger.LogError("ERROR CREANDO MENU.", e.ToString());
             }
         }
         public override bool Exists(Func<Menu, bool> filter)
         {
             return base.Exists(filter);
+        }
+        public override void Delete(Menu entity)
+        {
+            try
+            {
+                Menu menuRemueve = this.GetEntity(entity.Id);
+
+                if (menuRemueve is null)
+                {
+                    throw new MenuExcenption("MENU NO EXISTE.");
+                }
+
+                menuRemueve.FechaElimino = entity.FechaElimino;
+                menuRemueve.IdUsuarioElimino = entity.IdUsuarioElimino;
+                menuRemueve.Eliminado = true;
+
+                this.context.Menu.Update(menuRemueve);
+                this.context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError("ERROR ELIMINANDO MENU.", ex.ToString());
+            }
         }
 
     }

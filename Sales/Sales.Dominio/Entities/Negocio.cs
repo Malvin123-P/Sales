@@ -9,7 +9,7 @@ namespace Sales.Dominio.Entities
 {
     public class Negocio:BaseEntity
     {
-       
+        public int Id { get; set; }
         public string? UrlLogo { get; set; }
         public string? NombreLogo {  get; set; }
         public string? NumeroDocumento { get; set; }

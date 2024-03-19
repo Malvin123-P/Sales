@@ -2,7 +2,8 @@
 
 namespace Sales.Api.Models
 {
-    public class MenuVentaGetModel:MenuAddDto
+    public class MenuGetModel:MenuAddDto
     {
+        public int Id { get; set; }
     }
 }

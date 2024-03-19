@@ -8,7 +8,7 @@ namespace Sales.Infraestructura.Models
 {
     public class MenuModel
     {
-      
+        public int Id { get; set; }
         public DateTime FechaRegistro { get; set; }
         public string? Descripcion { get; set; }
         public bool? EsActivo { get; set; }

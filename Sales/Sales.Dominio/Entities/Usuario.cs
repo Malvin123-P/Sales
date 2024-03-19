@@ -9,7 +9,7 @@ namespace Sales.Dominio.Entities
 {
     public class Usuario: BaseEntity
     {
-       
+        public int Id { get; set; }
         public bool? EsActivo { get; set; }
         public string? Nombre { get; set; }
         public string? Correo { get; set; }

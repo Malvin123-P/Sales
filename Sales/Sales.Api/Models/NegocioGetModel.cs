@@ -4,5 +4,6 @@ namespace Sales.Api.Models
 {
     public class  NegocioGetModel:NegocioAddDto
     {
+        public int Id { get; set; }
     }
 }

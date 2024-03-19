@@ -38,6 +38,7 @@ namespace Sales.Infraestructura.Repositories
             {
                 Negocio negocioUpdate = this.GetEntity(entity.Id);
 
+                negocioUpdate.UrlLogo = entity.UrlLogo;
                 negocioUpdate.Correo = entity.Correo;
                 negocioUpdate.Telefono = entity.Telefono;
                 negocioUpdate.Direccion = entity.Direccion;
@@ -46,14 +47,15 @@ namespace Sales.Infraestructura.Repositories
                 negocioUpdate.NombreLogo = entity.NombreLogo;
                 negocioUpdate.PorcentajeImpuesto = entity.PorcentajeImpuesto;
                 negocioUpdate.SimboloMoneda = entity.SimboloMoneda;
-                negocioUpdate.FechaRegistro = entity.FechaRegistro;
+                negocioUpdate.FechaMod = entity.FechaMod;
+                negocioUpdate.IdUsuarioMod = entity.IdUsuarioMod;
 
                 this.context.Negocio.Update(negocioUpdate);
                 this.context.SaveChanges();
             }
             catch (Exception ex)
             {
-                this.logger.LogError("Error actualizando el negocio", ex.ToString());
+                this.logger.LogError("ERROR ACTUALIZANDO NEGOCIO", ex.ToString());
             }
         }
 
@@ -61,9 +63,9 @@ namespace Sales.Infraestructura.Repositories
         {
             try
             {
-                if (context.Negocio.Any(de => de.Nombre == entity.Nombre))
+                if (context.Negocio.Any(ne => ne.Id== entity.Id))
                 {
-                    throw new NegocioExcenption("El negocio se encuetra registrado.");
+                    throw new NegocioExcenption("NEGOCIO SE ENCUENTRA REGISTRADO.");
                 }
 
                 this.context.Negocio.Add(entity);
@@ -72,7 +74,7 @@ namespace Sales.Infraestructura.Repositories
             }
             catch (Exception e)
             {
-                this.logger.LogError("Error creando el negocio", e.ToString());
+                this.logger.LogError("ERROR CREANDO NEGOCIO.", e.ToString());
             }
         }
 
@@ -80,6 +82,28 @@ namespace Sales.Infraestructura.Repositories
         {
             return base.Exists(filter);
         }
+        public override void Delete(Negocio entity)
+        {
+            try
+            {
+                Negocio negocioRemueve = this.GetEntity(entity.Id);
 
+                if (negocioRemueve is null)
+                {
+                    throw new NegocioExcenption("NEGOCIO NO EXISTE.");
+                }
+
+                negocioRemueve.FechaElimino = entity.FechaElimino;
+                negocioRemueve.IdUsuarioElimino = entity.IdUsuarioElimino;
+                negocioRemueve.Eliminado = true;
+
+                this.context.Negocio.Update(negocioRemueve);
+                this.context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError("ERROR ELIMINANDO NEGOCIO", ex.ToString());
+            }
+        }
     }
 }

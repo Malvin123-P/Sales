@@ -8,7 +8,7 @@ namespace Sales.Infraestructura.Models
 {
     public class NegocioModel
     {
-
+        public int Id {  get; set; }
         public string? UrlLogo { get; set; }
         public string? NombreLogo { get; set; }
         public string? NumeroDocumento { get; set; }
