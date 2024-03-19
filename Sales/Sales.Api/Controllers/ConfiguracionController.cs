@@ -14,77 +14,84 @@ namespace Sales.Api.Controllers
     public class ConfiguracionController : ControllerBase
     {
 
-        private readonly IConfiguracionRepository configuracionRepository;
+        private readonly IConfiguracionService configuracionService;
 
-        public ConfiguracionController(IConfiguracionRepository configuracionRepository)
+        public ConfiguracionController(IConfiguracionService configuracionService)
         {
-            this.configuracionRepository = configuracionRepository;
+            this.configuracionService = configuracionService;
         }
 
         // GET: api/<ConfiguracionController>
         [HttpGet("GetConfiguraciones")]
         public IActionResult Get()
         {
-            var configuracion = this.configuracionRepository.GetEntities().Select(cd => new ConfiguracionGetModel()
+            var result = this.configuracionService.GetConfiguraciones();
+
+            if (!result.Success)
             {
-                Recurso = cd.Recurso,
-                Propiedad = cd.Propiedad,
-                Valor = cd.Valor,
-            });
+                return BadRequest(result);
+            }
 
-
-
-            return Ok(configuracion);
+            return Ok(result);
         }
 
         // GET api/<ConfiguracionController>/5
         [HttpGet("GetConfiguracionById")]
         public IActionResult Get(int id)
         {
-            var configuracion = this.configuracionRepository.GetEntity(id);
-            return Ok(configuracion);
-        }
-
-        // POST api/<ConfiguracionController>
-        [HttpPost("SaveConfiguracion")]
-        public void Post([FromBody] ConfiguracionAddModel configuracionAddModel)
-        {
-            this.configuracionRepository.Save(new Dominio.Entities.Configuracion()
+            var result = this.configuracionService.GetConfiguracion(id);
             {
-                Recurso = configuracionAddModel.recurso,
-                Propiedad = configuracionAddModel.propiedad,
-                Valor = configuracionAddModel.valor,
-            });
-        }
+                if (!result.Success)
+                {
+                    return BadRequest(result);
+                }
 
-        // PUT api/<ConfiguracionController>/5
-        [HttpDelete("UpdateConfiguracion")]
-        public IActionResult Put([FromBody] ConfiguracionUpdateDto configuracionUpdate)
-        {
-            this.configuracionRepository.Update(new Dominio.Entities.Configuracion()
+                return Ok(result);
+            }
+
+            // POST api/<ConfiguracionController>
+            [HttpPost("SaveConfiguracion")]
+            public IActionResult Post([FromBody] AplicacionCasosDEusos.Dtos.Configuracion.ConfiguracionDto configuracionAddModel)
             {
-                Recurso = configuracionUpdate.Recurso,
-                Propiedad = configuracionUpdate.Propiedad,
-                Valor = configuracionUpdate.Valor,
-            });
-            return Ok();
-        }
+                var result = this.configuracionService.SaveAuthor(configuracionAddModel);
 
-        // DELETE api/<ConfiguracionController>/5
-        [HttpPost("RemoveConfiguracion")]
-        public IActionResult Remove([FromBody] ConfiguracionRemoveDto configuracionRemove)
-        {
-            this.configuracionRepository.Remove(new Dominio.Entities.Configuracion()
+                if (!result.Success)
+                {
+                    return BadRequest(result);
+                }
+
+                return Ok(result);
+            }
+
+            // PUT api/<ConfiguracionController>/5
+            [HttpDelete("UpdateConfiguracion")]
+            public IActionResult Post([FromBody] AplicacionCasosDEusos.Dtos.Configuracion.ConfiguracionDto configuracionUpdate)
             {
-                Recurso = configuracionRemove.Recurso,
-                Propiedad = configuracionRemove.Propiedad,
-                Valor = configuracionRemove.Valor,
-            });
+                var result = this.configuracionService.UpdateAuthor(configuracionUpdate);
 
-            return Ok("Autor eliminado correctamente");
+                if (!result.Success)
+                {
+                    return BadRequest(result);
+                }
+
+                return Ok(result);
+            }
+
+            // DELETE api/<ConfiguracionController>/5
+            [HttpPost("RemoveConfiguracion")]
+            public IActionResult Post([FromBody] AplicacionCasosDEusos.Dtos.Configuracion.ConfiguracionRemoveDto configuracionRemove)
+            {
+                var result = this.configuracionService.RemoveAuthor(configuracionRemove);
+
+                if (!result.Success)
+                {
+                    return BadRequest(result);
+                }
+
+                return Ok(result);
+            }
+
         }
-
-    }
 
 
 

@@ -23,6 +23,11 @@ builder.Services.AddScoped<IAuthorsRepository, AuthorsRepository>();
 
 // App Services
 builder.Services.AddControllers();
+builder.Services.AddTransient<IAuthorService, AuthorsRepository>();
+builder.Services.AddTransient<IConfiguracionService, ConfiguracionRepository>();
+builder.Services.AddTransient<IRolService, RolRepository>();
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

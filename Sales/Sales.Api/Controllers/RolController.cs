@@ -13,93 +13,85 @@ namespace Sales.Api.Controllers
     public class RolController : ControllerBase
     {
 
-        private readonly IRolRepository rolRepository;
+        private readonly IRolService rolService;
 
-        public RolController(IRolRepository rolRepository)
+        public RolController(IRolService rolRepository)
         {
-            this.rolRepository = rolRepository;
+            this.rolService = rolService;
         }
 
         // GET: api/<RolController>
         [HttpGet("GetRol")]
         public IActionResult Get()
         {
-            var rol = this.rolRepository.GetEntities().Select(cd => new RolGetModel()
+            var result = this.rolService.GetRols();
+
+            if (!result.Success)
             {
-                Descripcion = cd.Descripcion,
-                EsActivo = cd.EsActivo,
-                IdUsuario = cd.IdUsuario,
-                FechaEliminar = cd.FechaEliminar,
-            });
+                return BadRequest(result);
+            }
 
-
-
-            return Ok(rol);
+            return Ok(result);
         }
 
         // GET api/<RolController>/5
         [HttpGet("GetAuthorById")]
         public IActionResult Get(int id)
         {
-            var rol = this.rolRepository.GetEntity(id);
-            RolGetModel rolGetModel = new RolGetModel()
+            var result = this.rolService.GetRol(id);
             {
-                Descripcion = rol.Descripcion,
-                EsActivo = rol.EsActivo,
-                IdUsuario = rol.IdUsuario,
-                FechaEliminar = rol.FechaEliminar,
-            };
+                if (!result.Success)
+                {
+                    return BadRequest(result);
+                }
 
-            return Ok(rolGetModel);
-        }
+                return Ok(result);
+            }
 
-        // POST api/<RolController>
-        [HttpPost("SaveRol")]
-        public void Post([FromBody] RolAddModel rolAddModel)
-        {
-            this.rolRepository.Save(new Dominio.Entities.Rol()
+            // POST api/<RolController>
+            [HttpPost("SaveRol")]
+            public IActionResult Post([FromBody] AplicacionCasosDEusos.Dtos.Rol.RolDto rolsAddModel)
             {
-                EsActivo = rolAddModel.EsActivo,
-                FechaRegistro = rolAddModel.FechaRegistro,
-                IdUsuario = rolAddModel.IdUsuario,
-                FechaEliminar = rolAddModel.FechaEliminar,
-                IdUsuarioEliminar = rolAddModel.IdUsuarioEliminar,
-            });
+                var result = this.rolService.SaveRol(rolsAddModel);
 
-            return Ok("Rol Guardado correctamente");
-        }
+                if (!result.Success)
+                {
+                    return BadRequest(result);
+                }
+
+                return Ok(result);
+            }
 
         // PUT api/<RolController>/5
         [HttpDelete("UpdateRol")]
-        public IActionResult Put([FromBody] RolUpdateDto rolUpdate)
-        {
-            this.rolRepository.Update(new Dominio.Entities.Rol()
+            public IActionResult Put([FromBody] AplicacionCasosDEusos.Dtos.Rol.RolsUpdateDto rolsUpdate)
             {
-                Descripcion = rolUpdate.Descripcion,
-                EsActivo = rolUpdate.EsActivo,
-                IdUsuario = rolUpdate.IdUsuario,
-                FechaEliminar = rolUpdate.FechaEliminar,
-            });
-            return Ok();
-        }
+                var result = this.rolService.UpdateAuthor(rolsUpdate);
+                {
+                    if (!result.Success)
+                    {
+                        return BadRequest(result);
+                    }
+
+                    return Ok(result);
+                }
 
 
-        // DELETE api/<RolController>/5
-        [HttpPost("RemoveRol")]
-        public IActionResult Remove([FromBody] RolRemoveDto rolRemove)
-        {
-            this.rolRepository.Remove(new Dominio.Entities.Rol()
-            {
-                Descripcion = rolRemove.Descripcion,
-                EsActivo = rolRemove.EsActivo,
-                IdUsuario = rolRemove.IdUsuario,
-                FechaEliminar = rolRemove.FechaEliminar,
-            });
+                // DELETE api/<RolController>/5
+                [HttpPost("RemoveRol")]
+                public IActionResult Remove([FromBody] AplicacionCasosDEusos.Dtos.Rol.RolsRemoveDto rolsRemove)
+                {
+                    var result = this.rolService.RemoveRol(rolsRemove);
+                    {
+                        if (!result.Success)
+                        {
+                            return BadRequest(result);
+                        }
 
-            return Ok("Rol eliminado correctamente");
-        }
+                        return Ok(result);
+                    }
 
-    }
+                }
 
 
 

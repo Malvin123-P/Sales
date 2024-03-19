@@ -12,99 +12,102 @@ namespace Sales.Api.Controllers
     [ApiController]
     public class AuthorsController : ControllerBase
     {
-        private readonly IAuthorsRepository authorsRepository;
+        private readonly IAuthorService authorService;
 
-        public AuthorsController(IAuthorsRepository authorsRepository)
+        public AuthorsController(IAuthorService authorService)
         {
-            this.authorsRepository = authorsRepository;
+            this.authorService = authorService;
         }
 
         // GET: api/<AuthorsController>
         [HttpGet("GetAuthors")]
         public IActionResult Get()
         {
-            var authors = this.authorsRepository.GetEntities().Select(cd => new AuthorGetModel()
+            // var authors = this.author.GetEntities().Select(cd => new AuthorGetModel()
+            // {
+            //  phone = cd.phone,
+            //  address = cd.address,
+            // city = cd.city,
+            // state = cd.state,
+            // zip = cd.zip,
+            // });
+
+
+
+            var result = this.authorService.GetAuthors();
+
+            if (!result.Success) 
             {
-                phone = cd.phone,
-                address = cd.address,
-                city = cd.city,
-                state = cd.state,
-                zip = cd.zip,
-            });
+                return BadRequest(result);
+            }
 
-
-
-            return Ok(authors);
+            return Ok(result);
         }
 
         // GET api/<AuthorsController>/5
         [HttpGet("GetAuthorById")]
         public IActionResult Get(int id)
         {
-            var author = this.authorsRepository.GetEntity(id);
-            AuthorGetModel authorGetModel = new AuthorGetModel()
+            var result = this.authorService.GetAuthor(id);
             {
-                phone = author.phone,
-                address = author.address,
-                city = author.city,
-                state = author.state,
-                zip = author.zip,
-            };
+                if (!result.Success)
+            {
+                return BadRequest(result);
+            }
 
-            return Ok(authorGetModel);
+            return Ok(result);
         }
 
         // POST api/<AuthorsController>
         [HttpPost("SaveAuthor")]
-        public IActionResult Post([FromBody] AuthorAddDto authorsAddModel)
+        public IActionResult Post([FromBody] AplicacionCasosDEusos.Dtos.Author.AuthorDto authorsAddModel)
         {
-            this.authorsRepository.Save(new Dominio.Entities.Authors()
-            {
-                phone = authorsAddModel.Phone,
-                state = authorsAddModel.State,
-                city = authorsAddModel.City,
-                zip = authorsAddModel.Zip
-            }) ;
+             var result = this.authorService.SaveAuthor(authorsAddModel);
 
-            return Ok("Autor Guardado correctamente");
-        }
+                if (!result.Success)
+                {
+                    return BadRequest(result);
+                }
+
+                return Ok(result);
+            }
+
+            
 
         // PUT api/<AuthorsController>/5
         [HttpDelete("UpdateAuthor")]
-        public IActionResult Put([FromBody] AuthorsUpdateDto authorsUpdate)
+        public IActionResult Put([FromBody] AplicacionCasosDEusos.Dtos.Author.AuthorsUpdateDto authorsUpdate)
         {
-            this.authorsRepository.Update(new Dominio.Entities.Authors() 
+                var result = this.authorService.UpdateAuthor(authorsUpdate);
             {
-                phone = authorsUpdate.phone,
-                state = authorsUpdate.state,
-                city = authorsUpdate.city,
-                zip = authorsUpdate.zip,
-                address = authorsUpdate.address,
-            });
-            return Ok();
-        }
-
-        // DELETE api/<AuthorsController>/5
-        [HttpPost("RemoveAuthor")]
-        public IActionResult Remove([FromBody] AuthorsRemoveDto authorsRemove)
-        {
-                this.authorsRepository.Remove(new Dominio.Entities.Authors()
+                if (!result.Success)
                 {
-                    phone = authorsRemove.phone,
-                    state = authorsRemove.state,
-                    city = authorsRemove.city,
-                    zip = authorsRemove.zip,
-                    address = authorsRemove.address,
-                });
+                    return BadRequest(result);
+                }
 
-            return Ok("Autor eliminado correctamente");
+                return Ok(result);
+            }
+
+            // DELETE api/<AuthorsController>/5
+            [HttpPost("RemoveAuthor")]
+        public IActionResult Remove([FromBody] AplicacionCasosDEusos.Dtos.Author.AuthorsRemoveDto authorsRemove)
+        {
+                    var result = this.authorService.RemoveAuthor(authorsRemove);
+                {
+                    if (!result.Success)
+                    {
+                        return BadRequest(result);
+                    }
+
+                    return Ok(result);
+                }
             }
             
-            }
+            
 
 
 
 
-        }
+        
     
 

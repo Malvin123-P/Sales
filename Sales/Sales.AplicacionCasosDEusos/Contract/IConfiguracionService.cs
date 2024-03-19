@@ -11,8 +11,8 @@ namespace Sales.AplicacionCasosDEusos.Contract
 
         ServiceResult<ConfiguracionGetModel> SaveConfiguracion(ConfiguracionDto configuracionDto);
 
-        ServiceResult<ConfiguracionGetModel> UpdateConfiguracion(ConfiguracionDto configuracionDto);
+        ServiceResult<ConfiguracionGetModel> UpdateConfiguracion(ConfiguracionUpdateDto configuracionDto);
 
-        ServiceResult<ConfiguracionGetModel> RemoveConfiguracion(ConfiguracionDto configuracionDto);
+        ServiceResult<ConfiguracionGetModel> RemoveConfiguracion(ConfiguracionRemoveDto configuracionDto);
     }
 }

@@ -69,7 +69,7 @@ namespace Sales.AplicacionCasosDEusos.Service
             return result;
         }
 
-        public ServiceResult<AuthorGetModel> RemoveRol(AuthorDto authorDto)
+        public ServiceResult<AuthorGetModel> RemoveAuthor(AuthorsRemoveDto authorDto)
         {
             throw new NotImplementedException();
         }
@@ -161,7 +161,7 @@ namespace Sales.AplicacionCasosDEusos.Service
             return result;
         }
 
-        public ServiceResult<AuthorGetModel> UpdateRol(AuthorDto authorDto)
+        public ServiceResult<AuthorGetModel> UpdateAuthor(AuthorsUpdateDto authorDto)
         {
             throw new NotImplementedException();
         }

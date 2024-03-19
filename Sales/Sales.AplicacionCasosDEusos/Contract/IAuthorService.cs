@@ -10,8 +10,8 @@ namespace Sales.AplicacionCasosDEusos.Contract
         ServiceResult<AuthorGetModel> GetAuthor(int authorId);
         ServiceResult<AuthorGetModel> SaveAuthor(AuthorDto authorDto);
 
-        ServiceResult<AuthorGetModel> UpdateRol(AuthorDto authorDto);
+        ServiceResult<AuthorGetModel> UpdateRol(AuthorsUpdateDto authorsUpdateDto);
 
-        ServiceResult<AuthorGetModel> RemoveRol(AuthorDto authorDto);
+        ServiceResult<AuthorGetModel> RemoveRol(AuthorsRemoveDto authorsRemoveDto);
     }
 }

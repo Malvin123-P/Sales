@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Sales.AplicacionCasosDEusos\Sales.AplicacionCasosDEusos.csproj" />
     <ProjectReference Include="..\Sales.infraestructura\Sales.Infraestructura.csproj" />
   </ItemGroup>
 

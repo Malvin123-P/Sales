@@ -11,8 +11,8 @@ namespace Sales.AplicacionCasosDEusos.Contract
 
         ServiceResult<RolGetModel> SaveRol(RolDto rolDto);
 
-        ServiceResult<RolGetModel> UpdateRol(RolDto rolDto);
+        ServiceResult<RolGetModel> UpdateRol(RolUpdateDto rolDto);
 
-        ServiceResult<RolGetModel> RemoveRol(RolDto rolDto);
+        ServiceResult<RolGetModel> RemoveRol(RolRemoveDto rolDto);
     }
 }

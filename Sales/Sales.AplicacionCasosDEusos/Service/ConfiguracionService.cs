@@ -70,12 +70,12 @@ namespace Sales.AplicacionCasosDEusos.Service
             return result;
         }
 
-        public ServiceResult<ConfiguracionGetModel> RemoveConfiguracion(ConfiguracionDto configuracionDto)
+        public ServiceResult<ConfiguracionGetModel> RemoveConfiguracion(ConfiguracionRemoveDto configuracionDto)
         {
             throw new NotImplementedException();
         }
 
-    public ServiceResult<ConfiguracionGetModel> SaveConfiguracion(ConfiguracionDto configuracionDto)
+    public ServiceResult<ConfiguracionGetModel> SaveConfiguracion(ConfiguracionUpdateDto configuracionDto)
     {
         if (string.IsNullOrEmpty(configuracionDto.recurso))
         {
