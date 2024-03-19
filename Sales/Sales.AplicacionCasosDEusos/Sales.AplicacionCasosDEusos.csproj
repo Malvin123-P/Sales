@@ -7,10 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\" />
-    <Folder Include="Exceptions\" />
-    <Folder Include="Models\" />
-    <Folder Include="Service\" />
+    <Folder Include="DtosCasosUsos\" />
+    <Folder Include="ExceptionsCasosUsos\" />
+    <Folder Include="CoreCasosUsos\" />
   </ItemGroup>
 
 </Project>
