@@ -3,6 +3,7 @@ namespace Sales.AplicacionCasosDEusos.Dtos.Rol
 {
     internal class RolDto
     {
+        public string? Descripcion { get; set; }
         public bool? EsActivo { get; set; }
         public DateTime FechaRegistro { get; set; }
         public string? IdUsuario { get; set; }

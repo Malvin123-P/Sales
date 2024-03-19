@@ -11,6 +11,6 @@ namespace Sales.AplicacionCasosDEusos.Models.Rol
         public string? FechaEliminar { get; internal set; }
         public string? IdUsuario { get; internal set; }
         public bool? EsActivo { get; internal set; }
-        public int Descripcion { get; internal set; }
+        public string? Descripcion { get; internal set; }
     }
 }

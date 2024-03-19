@@ -1,4 +1,6 @@
-﻿namespace Sales.AplicacionCasosDEusos.Models.Configuracion
+﻿using Sales.AplicacionCasosDEusos.Dtos.Configuracion;
+
+namespace Sales.AplicacionCasosDEusos.Models.Configuracion
 {
     public class ConfiguracionGetModel
     {

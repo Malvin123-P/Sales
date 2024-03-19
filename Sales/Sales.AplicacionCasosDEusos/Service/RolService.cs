@@ -1,9 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
 using Sales.AplicacionCasosDEusos.Contract;
 using Sales.AplicacionCasosDEusos.Core;
+using Sales.AplicacionCasosDEusos.Dtos.Author;
 using Sales.AplicacionCasosDEusos.Dtos.Rol;
 using Sales.AplicacionCasosDEusos.Models.Configuracion;
 using Sales.AplicacionCasosDEusos.Models.Rol;
+using Sales.Dominio.Entities;
 using Sales.Infraestructura.Interfaces;
 
 namespace Sales.AplicacionCasosDEusos.Service
@@ -20,7 +22,27 @@ namespace Sales.AplicacionCasosDEusos.Service
         }
         public ServiceResult<RolGetModel> GetRol(int rolId)
         {
-            throw new NotImplementedException();
+                ServiceResult<RolGetModel> result = new ServiceResult<RolGetModel>();
+                try
+                {
+                    var rol = this.rolRepository.GetEntity(rolId);
+
+                    result.Data = new RolGetModel()
+                    {
+                        Descripcion = rol.Descripcion,
+                        EsActivo = rol.EsActivo,
+                        IdUsuario = rol.IdUsuario,
+                        FechaEliminar = rol.FechaEliminar,
+                    };
+                }
+                catch (Exception ex)
+                {
+
+                    result.Success = false;
+                    result.Message = "Error obteniendo el rol";
+                    this.logger.LogError(result.Message, ex.ToString());
+                }
+            }
         }
 
         public ServiceResult<List<RolGetModel>> GetRols()
@@ -54,8 +76,44 @@ namespace Sales.AplicacionCasosDEusos.Service
 
         public ServiceResult<RolGetModel> SaveRol(RolDto rolDto)
         {
-            throw new NotImplementedException();
+        ServiceResult<RolGetModel> result = new ServiceResult<RolGetModel>();
+
+        try
+        {
+            if (string.IsNullOrEmpty(rolDto.Descripcion))
+            {
+                result.Success = false;
+                result.Message = "La descripcion del rol es requerido";
+                return result;
+            }
+            if (rolDto.IdUsuario.Length > 30)
+            {
+                result.Success = false;
+                result.Message = "Rol debe tener 30 caracteres.";
+                return result;
+            }
+            this.rolRepository.Save(new Dominio.Entities.Rol()
+            {
+                EsActivo = rolDto.EsActivo,
+                FechaRegistro = rolDto.FechaRegistro,
+                IdUsuario = rolDto.IdUsuario,
+                FechaEliminar = rolDto.FechaEliminar,
+                IdUsuarioEliminar = rolDto.IdUsuarioEliminar,
+            });
         }
+        catch (Exception ex)
+        {
+
+            result.Success = false;
+            result.Message = "Error guardando el autor";
+            this.logger.LogError(result.Message, ex.ToString());
+        }
+
+
+
+        return result;
+    }
+}
 
         public ServiceResult<RolGetModel> UpdateRol(RolDto rolDto)
         {
