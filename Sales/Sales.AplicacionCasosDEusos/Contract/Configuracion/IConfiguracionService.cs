@@ -2,7 +2,7 @@
 using Sales.AplicacionCasosDEusos.Dtos.Configuracion;
 using Sales.AplicacionCasosDEusos.Models.Configuracion;
 
-namespace Sales.AplicacionCasosDEusos.Contract
+namespace Sales.AplicacionCasosDEusos.Contract.Configuracion
 {
     public interface IConfiguracionService
     {

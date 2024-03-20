@@ -2,7 +2,7 @@
 using Sales.AplicacionCasosDEusos.Dtos.Author;
 using Sales.AplicacionCasosDEusos.Models.Author;
 
-namespace Sales.AplicacionCasosDEusos.Contract
+namespace Sales.AplicacionCasosDEusos.Contract.Author
 {
     public interface IAuthorService
     {

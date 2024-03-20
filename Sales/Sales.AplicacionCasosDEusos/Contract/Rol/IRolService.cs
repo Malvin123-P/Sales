@@ -1,8 +1,7 @@
-﻿
-using Sales.AplicacionCasosDEusos.Core;
+﻿using Sales.AplicacionCasosDEusos.Core;
 using Sales.AplicacionCasosDEusos.Dtos.Rol;
 using Sales.AplicacionCasosDEusos.Models.Rol;
-namespace Sales.AplicacionCasosDEusos.Contract
+namespace Sales.AplicacionCasosDEusos.Contract.Rol
 {
     public interface IRolService
     {
