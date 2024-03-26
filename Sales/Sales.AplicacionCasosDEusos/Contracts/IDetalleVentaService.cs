@@ -1,11 +1,8 @@
-﻿using Sales.AplicacionCasosDEusos.Core;
-using Sales.AplicacionCasosDEusos.DtosCasosUsos.DetalleVenta;
+﻿using Sales.AplicacionCasosDEusos.DtosCasosUsos.DetalleVenta;
+using Sales.AplicacionCasosDEusos.Core;
 using Sales.AplicacionCasosDEusos.ModelsCasosUsos.DetalleVenta;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+
 
 namespace Sales.AplicacionCasosDEusos.Contracts
 {
@@ -14,8 +11,8 @@ namespace Sales.AplicacionCasosDEusos.Contracts
         ServiceResult<List<DetalleVentaGetModels>> GetDetalleVenta();
         ServiceResult<DetalleVentaGetModels> GetDetalleVenta(int Id);
         ServiceResult<DetalleVentaGetModels> SaveDetalleVenta(DetalleVentaAddDto detalleVentaAddDto);
-        ServiceResult<DetalleVentaGetModels> UpdateDetalleVenta(DetalleVentaAddDto detalleVentaAddDto);
-        ServiceResult<DetalleVentaGetModels> DeleteDetalleVenta(DetalleVentaAddDto detalleVentaAddDto);
+        ServiceResult<DetalleVentaGetModels> UpdateDetalleVenta(DetalleVentaUpdateDto detalleVentaUpdateDto);
+        ServiceResult<DetalleVentaGetModels> DeleteDetalleVenta(DetalleVentaDeleteDto detalleVentaDeleteDto);
 
     }
 }

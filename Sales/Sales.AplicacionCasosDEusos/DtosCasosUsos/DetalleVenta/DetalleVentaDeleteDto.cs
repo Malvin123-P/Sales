@@ -1,6 +1,6 @@
-﻿namespace Sales.Api.Dtos.Negocio
+﻿namespace Sales.AplicacionCasosDEusos.DtosCasosUsos.DetalleVenta
 {
-    public class NegocioDeleteDto
+    public record DetalleVentaDeleteDto
     {
         public int Id { get; set; }
         public int? IdUsuarioElimino { get; set; }

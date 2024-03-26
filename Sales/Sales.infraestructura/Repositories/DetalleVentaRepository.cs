@@ -1,7 +1,5 @@
 ﻿//Agregadas
 
-
-
 using Microsoft.Extensions.Logging;
 using Sales.Dominio.Entities;
 using Sales.Infraestructura.Context;

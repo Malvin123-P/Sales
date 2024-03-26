@@ -1,7 +1,13 @@
 using Microsoft.EntityFrameworkCore;
+using Sales.AplicacionCasosDEusos.Contracts;
+using Sales.AplicacionCasosDEusos.ServiceCasosUsos.DetalleVenta;
+using Sales.AplicacionCasosDEusos.ServiceCasosUsos.Menu;
+using Sales.AplicacionCasosDEusos.ServiceCasosUsos.Negocio;
 using Sales.Infraestructura.Context;
 using Sales.Infraestructura.Interfaces;
 using Sales.Infraestructura.Repositories;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +25,9 @@ builder.Services.AddScoped<INegocioRepository, NegocioRepository>();
 
 
 //app services
+builder.Services.AddTransient<IDetalleVentaService, DetalleVentaService>();
+builder.Services.AddTransient<IMenuService, MenuService>();
+builder.Services.AddTransient<INegocioService, NegocioService>();
 
 
 builder.Services.AddControllers();

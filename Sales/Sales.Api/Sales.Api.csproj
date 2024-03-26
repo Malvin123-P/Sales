@@ -12,7 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Sales.Dominio\Sales.Dominio.csproj" />
     <ProjectReference Include="..\Sales.infraestructura\Sales.Infraestructura.csproj" />
+	  <ProjectReference Include="..\Sales.AplicacionCasosDEusos\Sales.AplicacionCasosDEusos.csproj" />
   </ItemGroup>
 
 </Project>

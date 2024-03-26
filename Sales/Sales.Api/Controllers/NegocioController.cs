@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Sales.Api.Dtos.DetalleVenta;
-using Sales.Api.Dtos.Negocio;
-using Sales.Api.Models;
+using Sales.AplicacionCasosDEusos.Contracts;
+using Sales.AplicacionCasosDEusos.DtosCasosUsos.DetalleVenta;
+using Sales.AplicacionCasosDEusos.DtosCasosUsos.Negocio;
+using Sales.AplicacionCasosDEusos.ModelsCasosUsos.Negocio;
 using Sales.Dominio.Entities;
 using Sales.Infraestructura.Interfaces;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,78 +15,53 @@ namespace Sales.Api.Controllers
     [ApiController]
     public class NegocioController : ControllerBase
     {
-        private readonly INegocioRepository negocioRepository;
+        private readonly INegocioService negocioService;
 
-        public NegocioController(INegocioRepository negocioRepository)
+        public NegocioController(INegocioService negocioService)
         {
-            this.negocioRepository = negocioRepository;
+            this.negocioService = negocioService;
         }
 
         // GET: api/<NegocioController>
         [HttpGet("GetNegocio")]
         public IActionResult Get()
         {
-            var negocio = this.negocioRepository.GetEntities().Select(ng => new NegocioGetModel()
+            var result = this.negocioService.GetNegocio();
+
+            if (!result.Success)
             {
-                Id=ng.Id,
-                UrlLogo=ng.UrlLogo,
-                NombreLogo = ng.NombreLogo,
-                NumeroDocumento = ng.NumeroDocumento,
-                Nombre= ng.Nombre,
-                Correo = ng.Correo,
-                Direccion = ng.Direccion,
-                Telefono = ng.Telefono,
-                SimboloMoneda = ng.SimboloMoneda,
-                PorcentajeImpuesto=ng.PorcentajeImpuesto,
-                FechaRegistro = ng.FechaRegistro,
-                IdUsuarioCreacion = ng.IdUsuarioCreacion
-            });
-            return Ok(negocio);
+                return BadRequest(result);
+            }
+
+            return Ok(result);
         }
 
         // GET api/<NegocioController>/5
         [HttpGet("GetNegocioById")]
         public IActionResult Get(int id)
         {
-           var negocio = this.negocioRepository.GetEntity(id);
-           NegocioGetModel negocioGetModel = new NegocioGetModel()
-            {
-               Id = negocio.Id,
-               UrlLogo = negocio.UrlLogo,
-               NombreLogo = negocio.NombreLogo,
-               NumeroDocumento = negocio.NumeroDocumento,
-               Nombre = negocio.Nombre,
-               Correo = negocio.Correo,
-               Direccion = negocio.Direccion,
-               Telefono = negocio.Telefono,
-               SimboloMoneda = negocio.SimboloMoneda,
-               PorcentajeImpuesto = negocio.PorcentajeImpuesto,
-               FechaRegistro = negocio.FechaRegistro,
-               IdUsuarioCreacion = negocio.IdUsuarioCreacion
-            };
+            var result = this.negocioService.GetNegocio(id);
 
-            return Ok(negocioGetModel);
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
         }
 
         // POST api/<NegocioController>
         [HttpPost("SaveNegocio")]
         public IActionResult Post([FromBody] NegocioAddDto negocioAddModel)
         {
-            this.negocioRepository.Save(new Dominio.Entities.Negocio()
+            var result = this.negocioService.SaveNegocio(negocioAddModel);
+
+            if (!result.Success)
             {
-                UrlLogo=negocioAddModel.UrlLogo,
-                NombreLogo=negocioAddModel.NombreLogo,
-                NumeroDocumento=negocioAddModel.NumeroDocumento,
-                Nombre = negocioAddModel.Nombre,
-                Correo = negocioAddModel.Correo,
-                Direccion = negocioAddModel.Direccion,
-                Telefono = negocioAddModel.Telefono,
-                SimboloMoneda = negocioAddModel.SimboloMoneda,
-                PorcentajeImpuesto = negocioAddModel.PorcentajeImpuesto,
-                FechaRegistro = negocioAddModel.FechaRegistro,
-                IdUsuarioCreacion = negocioAddModel.IdUsuarioCreacion
-            });
-            return Ok("NEGOCIO GUARDADO CON EXITO.");
+                return BadRequest(result);
+            }
+
+            return Ok(result);
         }
 
 
@@ -94,37 +70,28 @@ namespace Sales.Api.Controllers
         [HttpPut("UpdateNegocio")]
         public IActionResult Put([FromBody] NegocioUpdateDto NegocioUpdateDto)
         {
-            this.negocioRepository.Update(new Negocio()
-            {                
-                Id = NegocioUpdateDto.Id,
-                UrlLogo = NegocioUpdateDto.UrlLogo,
-                NombreLogo = NegocioUpdateDto.NombreLogo,
-                NumeroDocumento = NegocioUpdateDto.NumeroDocumento,
-                Nombre = NegocioUpdateDto.Nombre,
-                Correo = NegocioUpdateDto.Correo,
-                Direccion = NegocioUpdateDto.Direccion,
-                Telefono = NegocioUpdateDto.Telefono,
-                SimboloMoneda = NegocioUpdateDto.SimboloMoneda,
-                PorcentajeImpuesto = NegocioUpdateDto.PorcentajeImpuesto,
-                FechaMod = NegocioUpdateDto.FechaMod,
-                IdUsuarioMod = NegocioUpdateDto.IdUsuarioMod
+            var result = this.negocioService.UpdateNegocio(NegocioUpdateDto);
 
-            });
-            return Ok("NEGOCIO ACTUALIZADO CON EXITO.");
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
         }
 
         // DELETE api/<NegocioController>/5
         [HttpDelete("DeleteNegocio")]
         public IActionResult Delete([FromBody] NegocioDeleteDto negocioDeleteDto)
         {
-            this.negocioRepository.Delete(new Negocio()
-            {
-                Id = negocioDeleteDto.Id,
-                FechaElimino = negocioDeleteDto.FechaElimino,
-                IdUsuarioElimino = negocioDeleteDto.IdUsuarioElimino
-            });
+            var result = this.negocioService.DeleteNegocio(negocioDeleteDto);
 
-            return Ok("NEGOCIO ELIMINADO CON EXITO.");
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
         }
 
     }

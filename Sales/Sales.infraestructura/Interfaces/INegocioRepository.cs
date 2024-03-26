@@ -5,8 +5,8 @@ using Sales.Dominio.Repository;
 
 namespace Sales.Infraestructura.Interfaces
 {
-    public interface INegocioRepository:IBaseRepository<Negocio>
+    public interface INegocioRepository : IBaseRepository<Negocio>
     {
-        
+       
     }
 }

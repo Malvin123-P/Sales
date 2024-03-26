@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Sales.Infraestructura.Interfaces;
-using Sales.Dominio.Entities;
-using Sales.Api.Dtos.Menu;
-using Sales.Api.Models.Menu;
+using Sales.AplicacionCasosDEusos.Contracts;
+using Sales.AplicacionCasosDEusos.DtosCasosUsos.Menu;
+
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,69 +12,53 @@ namespace Sales.Api.Controllers
     [ApiController]
     public class MenuController : ControllerBase
     {
-        private readonly IMenuRepository menuRepository;
+        private readonly IMenuService menuService;
 
-        public MenuController(IMenuRepository menuRepository)
+        public MenuController(IMenuService menuService)
         {
-            this.menuRepository = menuRepository;
+            this.menuService = menuService;
         }
 
         // GET: api/<MenuController>
         [HttpGet("GetMenu")]
         public IActionResult Get()
         {
-            var menu = this.menuRepository.GetEntities().Select(mu => new MenuGetModel()
+            var result = this.menuService.GetMenu();
+
+            if (!result.Success)
             {
-                Id = mu.Id,
-                Descripcion = mu.Descripcion,
-                IdMenuPadre = mu.IdMenuPadre,
-                Icono = mu.Icono,
-                PaginaAccion = mu.PaginaAccion,
-                EsActivo = mu.EsActivo,
-                Controlador = mu.Controlador,
-                FechaRegistro = mu.FechaRegistro,
-                IdUsuarioCreacion = mu.IdUsuarioCreacion
-            });
-            return Ok(menu);
+                return BadRequest(result);
+            }
+
+            return Ok(result);
         }
 
         // GET api/<MenuController>/5
         [HttpGet("GetMenuById")]
         public IActionResult Get(int id)
         {
-            var menu = this.menuRepository.GetEntity(id);
-            MenuGetModel menuGetModel = new MenuGetModel()
-            {
-                Id = menu.Id,
-                Descripcion = menu.Descripcion,
-                EsActivo = menu.EsActivo,
-                IdMenuPadre = menu.IdMenuPadre,
-                Icono = menu.Icono,
-                Controlador = menu.Controlador,
-                PaginaAccion = menu.PaginaAccion,
-                FechaRegistro = menu.FechaRegistro,
-                IdUsuarioCreacion = menu.IdUsuarioCreacion
-            };
+            var result = this.menuService.GetMenu(id);
 
-            return Ok(menuGetModel);
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
         }
 
         // POST api/<MenuController>
         [HttpPost("SaveMenu")]
         public IActionResult Post([FromBody] MenuAddDto menuAddModel)
         {
-            this.menuRepository.Save(new Dominio.Entities.Menu()
-            {                                 
-                  Descripcion = menuAddModel.Descripcion,
-                  IdMenuPadre =menuAddModel.IdMenuPadre,
-                  Icono = menuAddModel.Icono,
-                  PaginaAccion = menuAddModel.PaginaAccion,
-                  EsActivo = menuAddModel.EsActivo,
-                  Controlador = menuAddModel.Controlador,
-                  FechaRegistro = menuAddModel.FechaRegistro,
-                  IdUsuarioCreacion = menuAddModel.IdUsuarioCreacion,
-            });
-            return Ok("MENU GUARDADO CON EXITO.");
+            var result = this.menuService.SaveMenu(menuAddModel);
+
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
 
         }
 
@@ -83,33 +66,29 @@ namespace Sales.Api.Controllers
         [HttpPut("UpdateMenu")]
         public IActionResult Put([FromBody] MenuUpdateDto menuUpdateDto)
         {
-            this.menuRepository.Update(new Menu()
-            {
-                 Id = menuUpdateDto.Id,
-                 Descripcion = menuUpdateDto.Descripcion,
-                 EsActivo = menuUpdateDto.EsActivo,
-                 IdMenuPadre = menuUpdateDto.IdMenuPadre,
-                 Icono = menuUpdateDto.Icono,
-                 Controlador = menuUpdateDto.Controlador,
-                 PaginaAccion = menuUpdateDto.PaginaAccion,
-                 FechaMod = menuUpdateDto.FechaMod,
-                 IdUsuarioMod = menuUpdateDto.IdUsuarioMod
+            var result = this.menuService.UpdateMenu(menuUpdateDto);
 
-            });
-            return Ok("MENU ACTUALIZADO CON EXITO.");
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+
         }
 
         // DELETE api/<MenuController>/5
         [HttpDelete("DeleteMenu")]
         public IActionResult Delete([FromBody] MenuDeleteDto menuDeleteDto)
         {
-            this.menuRepository.Delete(new Menu()
+            var result = this.menuService.DeleteMenu(menuDeleteDto);
+
+            if (!result.Success)
             {
-                Id = menuDeleteDto.Id,
-                FechaElimino = menuDeleteDto.FechaElimino,
-                IdUsuarioElimino = menuDeleteDto.IdUsuarioElimino
-            });
-            return Ok("MENU ELIMINADO CON EXITO.");
+                return BadRequest(result);
+            }
+
+            return Ok(result);
         }
 
     }

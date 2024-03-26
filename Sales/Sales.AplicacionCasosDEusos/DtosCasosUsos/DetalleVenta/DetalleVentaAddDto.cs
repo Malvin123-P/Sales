@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sales.AplicacionCasosDEusos.DtosCasosUsos.DetalleVenta
+﻿namespace Sales.AplicacionCasosDEusos.DtosCasosUsos.DetalleVenta
 {
     public record DetalleVentaAddDto
     {
-        public int Id {  get; set; }
+        public int Id { get; set; }
         public int IdUsuarioCreacion { get; set; }
         public DateTime FechaRegistro { get; set; }
         public int? IdProducto { get; set; }
