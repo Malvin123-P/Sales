@@ -4,6 +4,8 @@ using Sales.AplicacionCasosDEusos.Core;
 using Sales.AplicacionCasosDEusos.ModelsCasosUsos.Menu;
 using Sales.Infraestructura.Interfaces;
 using Sales.AplicacionCasosDEusos.DtosCasosUsos.Menu;
+using Sales.AplicacionCasosDEusos.DtosCasosUsos.Emun;
+using Sales.AplicacionCasosDEusos.DtosCasosUsos.Negocio;
 
 
 namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Menu
@@ -19,7 +21,7 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Menu
             this.menuRepository = menuRepository;
         }
 
-        public ServiceResult<List<MenuGetModels>> GetMenu()
+        public ServiceResult<List<MenuGetModels>> GetAll()
         {
             ServiceResult<List<MenuGetModels>> result = new ServiceResult<List<MenuGetModels>>();
           
@@ -48,7 +50,7 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Menu
 
             return result;
         }
-        public ServiceResult<MenuGetModels> GetMenu(int Id)
+        public ServiceResult<MenuGetModels> Get(int Id)
         {
             ServiceResult<MenuGetModels> result = new ServiceResult<MenuGetModels>();
 
@@ -80,17 +82,18 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Menu
 
             return result;
         }
-        public ServiceResult<MenuGetModels> SaveMenu(MenuAddDto menuAddDto)
+        public ServiceResult<MenuGetModels> Save(MenuAddDto menuAddDto)
         {
             ServiceResult<MenuGetModels> result = new ServiceResult<MenuGetModels>();
 
             try
             {
 
-                if (this.menuRepository.Exists(me=>me.Id == menuAddDto.Id))
+                var resultIsVali = this.IsValid(menuAddDto, DtoAction.Save);
+
+                if (!resultIsVali.Success)
                 {
-                    result.Success = false;
-                    result.Message = $"EL MENU { menuAddDto.Id} YA EXISTE.";
+                    result.Message = resultIsVali.Message;
                     return result;
                 }
 
@@ -116,11 +119,44 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Menu
 
             return result;
         }
-        public ServiceResult<MenuGetModels> UpdateMenu(MenuUpdateDto menuUpdateDto)
+        public ServiceResult<MenuGetModels> Update(MenuUpdateDto menuUpdateDto)
         {
-            throw new NotImplementedException();
+            ServiceResult<MenuGetModels> result = new ServiceResult<MenuGetModels>();
+
+            try
+            {
+
+                var resultIsVali = this.IsValid(menuUpdateDto, DtoAction.Update);
+
+                if (!resultIsVali.Success)
+                {
+                    result.Message = resultIsVali.Message;
+                    return result;
+                }
+
+                this.menuRepository.Update(new Dominio.Entities.Menu()
+                {
+                    Descripcion = menuUpdateDto.Descripcion,
+                    IdMenuPadre = menuUpdateDto.IdMenuPadre,
+                    Icono = menuUpdateDto.Icono,
+                    PaginaAccion = menuUpdateDto.PaginaAccion,
+                    EsActivo = menuUpdateDto.EsActivo,
+                    Controlador = menuUpdateDto.Controlador,
+                    FechaMod = menuUpdateDto.FechaMod,
+                    IdUsuarioMod = menuUpdateDto.IdUsuarioMod,
+                });
+            }
+            catch (Exception ex)
+            {
+
+                result.Success = false;
+                result.Message = "EERROR GUARDANDO EL NEGOCIO";
+                this.logger.LogError(result.Message, ex.ToString);
+            }
+
+            return result;
         }
-        public ServiceResult<MenuGetModels> DeleteMenu(MenuDeleteDto menuDeleteDto)
+        public ServiceResult<MenuGetModels> Delete(MenuDeleteDto menuDeleteDto)
         {
             ServiceResult<MenuGetModels> result = new ServiceResult<MenuGetModels>();
 
@@ -140,6 +176,24 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Menu
                 result.Success = false;
                 result.Message = "ERROR BORRANDO EL MENU";
                 this.logger.LogError(result.Message, ex.ToString);
+            }
+            return result;
+        }
+
+        public ServiceResult<string> IsValid(MenuBaseDto menuBaseDto, DtoAction dtoAction)
+        {
+            ServiceResult<string> result = new ServiceResult<string>();
+
+            //Validaciones
+
+            if (dtoAction == DtoAction.Save)
+            {
+                if (this.menuRepository.Exists(ne => ne.Id == menuBaseDto.Id))
+                {
+                    result.Success = false;
+                    result.Message = $"EL MENU {menuBaseDto.Id} YA EXISTE.";
+                    return result;
+                }
             }
             return result;
         }

@@ -4,6 +4,8 @@ using Microsoft.Extensions.Logging;
 using Sales.AplicacionCasosDEusos.DtosCasosUsos.Negocio;
 using Sales.Infraestructura.Interfaces;
 using Sales.AplicacionCasosDEusos.Contracts;
+using Sales.AplicacionCasosDEusos.DtosCasosUsos.DetalleVenta;
+using Sales.AplicacionCasosDEusos.DtosCasosUsos.Emun;
 
 
 namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Negocio
@@ -19,7 +21,7 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Negocio
             this.negocioRepository = negocioRepository;
         }
     
-        public ServiceResult<List<NegocioGetMoldels>> GetNegocio()
+        public ServiceResult<List<NegocioGetMoldels>> GetAll()
         {
             ServiceResult<List<NegocioGetMoldels>> result = new ServiceResult<List<NegocioGetMoldels>>();
            
@@ -53,7 +55,7 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Negocio
             return result;
         }
 
-        public ServiceResult<NegocioGetMoldels> GetNegocio(int Id)
+        public ServiceResult<NegocioGetMoldels> Get(int Id)
         {
             ServiceResult<NegocioGetMoldels> result = new ServiceResult<NegocioGetMoldels>();
 
@@ -89,17 +91,18 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Negocio
             return result;
         }
 
-        public ServiceResult<NegocioGetMoldels> SaveNegocio(NegocioAddDto negocioAddDto)
+        public ServiceResult<NegocioGetMoldels> Save(NegocioAddDto negocioAddDto)
         {
             ServiceResult<NegocioGetMoldels> result = new ServiceResult<NegocioGetMoldels>();
 
             try
             {
-                //Validaciones
-                if (this.negocioRepository.Exists(ne => ne.Id == negocioAddDto.Id))
+
+                var resultIsVali = this.IsValid(negocioAddDto, DtoAction.Save);
+
+                if (!resultIsVali.Success)
                 {
-                    result.Success = false;
-                    result.Message = $"EL NEGOCIO {negocioAddDto.Id} YA EXISTE.";
+                    result.Message = resultIsVali.Message;
                     return result;
                 }
 
@@ -129,12 +132,48 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Negocio
             return result;
         }
 
-        public ServiceResult<NegocioGetMoldels> UpdateNegocio(NegocioUpdateDto negocioUpdateDto)
+        public ServiceResult<NegocioGetMoldels> Update(NegocioUpdateDto negocioUpdateDto)
         {
-            throw new NotImplementedException();
+            ServiceResult<NegocioGetMoldels> result = new ServiceResult<NegocioGetMoldels>();
+
+            try
+            {
+
+                var resultIsVali = this.IsValid(negocioUpdateDto, DtoAction.Update);
+
+                if (!resultIsVali.Success)
+                {
+                    result.Message = resultIsVali.Message;
+                    return result;
+                }
+
+                this.negocioRepository.Update(new Dominio.Entities.Negocio()
+                {
+                    UrlLogo = negocioUpdateDto.UrlLogo,
+                    NombreLogo = negocioUpdateDto.NombreLogo,
+                    NumeroDocumento = negocioUpdateDto.NumeroDocumento,
+                    Nombre = negocioUpdateDto.Nombre,
+                    Correo = negocioUpdateDto.Correo,
+                    Direccion = negocioUpdateDto.Direccion,
+                    Telefono = negocioUpdateDto.Telefono,
+                    SimboloMoneda = negocioUpdateDto.SimboloMoneda,
+                    PorcentajeImpuesto = negocioUpdateDto.PorcentajeImpuesto,
+                    FechaMod = negocioUpdateDto.FechaMod,
+                    IdUsuarioMod = negocioUpdateDto.IdUsuarioMod
+                });
+            }
+            catch (Exception ex)
+            {
+
+                result.Success = false;
+                result.Message = "EERROR ACTUALIZANDO EL NEGOCIO";
+                this.logger.LogError(result.Message, ex.ToString);
+            }
+
+            return result;
         }
 
-        public ServiceResult<NegocioGetMoldels> DeleteNegocio(NegocioDeleteDto negocioDeleteDto)
+        public ServiceResult<NegocioGetMoldels> Delete(NegocioDeleteDto negocioDeleteDto)
         {
             ServiceResult<NegocioGetMoldels> result = new ServiceResult<NegocioGetMoldels>();
             try
@@ -153,6 +192,25 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Negocio
                 result.Success = false;
                 result.Message = "ERROR BORRANDO EL NEGOCIO";
                 this.logger.LogError(result.Message, ex.ToString);
+            }
+            return result;
+        }
+
+
+        public ServiceResult<string> IsValid(NegocioBaseDto negocioBaseDto, DtoAction dtoAction)
+        {
+            ServiceResult<string> result = new ServiceResult<string>();
+
+            //Validaciones
+
+            if (dtoAction == DtoAction.Save)
+            {
+                if (this.negocioRepository.Exists(ne => ne.Id == negocioBaseDto.Id))
+                {
+                    result.Success = false;
+                    result.Message = $"EL NEGOCIO {negocioBaseDto.Id} YA EXISTE.";
+                    return result;
+                }
             }
             return result;
         }

@@ -26,7 +26,7 @@ namespace Sales.Api.Controllers
         [HttpGet("GetNegocio")]
         public IActionResult Get()
         {
-            var result = this.negocioService.GetNegocio();
+            var result = this.negocioService.GetAll();
 
             if (!result.Success)
             {
@@ -40,7 +40,7 @@ namespace Sales.Api.Controllers
         [HttpGet("GetNegocioById")]
         public IActionResult Get(int id)
         {
-            var result = this.negocioService.GetNegocio(id);
+            var result = this.negocioService.Get(id);
 
             if (!result.Success)
             {
@@ -54,7 +54,7 @@ namespace Sales.Api.Controllers
         [HttpPost("SaveNegocio")]
         public IActionResult Post([FromBody] NegocioAddDto negocioAddModel)
         {
-            var result = this.negocioService.SaveNegocio(negocioAddModel);
+            var result = this.negocioService.Save(negocioAddModel);
 
             if (!result.Success)
             {
@@ -70,7 +70,7 @@ namespace Sales.Api.Controllers
         [HttpPut("UpdateNegocio")]
         public IActionResult Put([FromBody] NegocioUpdateDto NegocioUpdateDto)
         {
-            var result = this.negocioService.UpdateNegocio(NegocioUpdateDto);
+            var result = this.negocioService.Update(NegocioUpdateDto);
 
             if (!result.Success)
             {
@@ -84,7 +84,7 @@ namespace Sales.Api.Controllers
         [HttpDelete("DeleteNegocio")]
         public IActionResult Delete([FromBody] NegocioDeleteDto negocioDeleteDto)
         {
-            var result = this.negocioService.DeleteNegocio(negocioDeleteDto);
+            var result = this.negocioService.Delete(negocioDeleteDto);
 
             if (!result.Success)
             {

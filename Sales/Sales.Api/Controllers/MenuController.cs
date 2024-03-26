@@ -23,7 +23,7 @@ namespace Sales.Api.Controllers
         [HttpGet("GetMenu")]
         public IActionResult Get()
         {
-            var result = this.menuService.GetMenu();
+            var result = this.menuService.GetAll();
 
             if (!result.Success)
             {
@@ -37,7 +37,7 @@ namespace Sales.Api.Controllers
         [HttpGet("GetMenuById")]
         public IActionResult Get(int id)
         {
-            var result = this.menuService.GetMenu(id);
+            var result = this.menuService.Get(id);
 
             if (!result.Success)
             {
@@ -51,7 +51,7 @@ namespace Sales.Api.Controllers
         [HttpPost("SaveMenu")]
         public IActionResult Post([FromBody] MenuAddDto menuAddModel)
         {
-            var result = this.menuService.SaveMenu(menuAddModel);
+            var result = this.menuService.Save(menuAddModel);
 
             if (!result.Success)
             {
@@ -66,7 +66,7 @@ namespace Sales.Api.Controllers
         [HttpPut("UpdateMenu")]
         public IActionResult Put([FromBody] MenuUpdateDto menuUpdateDto)
         {
-            var result = this.menuService.UpdateMenu(menuUpdateDto);
+            var result = this.menuService.Update(menuUpdateDto);
 
             if (!result.Success)
             {
@@ -81,7 +81,7 @@ namespace Sales.Api.Controllers
         [HttpDelete("DeleteMenu")]
         public IActionResult Delete([FromBody] MenuDeleteDto menuDeleteDto)
         {
-            var result = this.menuService.DeleteMenu(menuDeleteDto);
+            var result = this.menuService.Delete(menuDeleteDto);
 
             if (!result.Success)
             {

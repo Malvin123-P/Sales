@@ -1,16 +1,14 @@
 ﻿using Sales.AplicacionCasosDEusos.DtosCasosUsos.Negocio;
 using Sales.AplicacionCasosDEusos.Core;
 using Sales.AplicacionCasosDEusos.ModelsCasosUsos.Negocio;
+using Sales.AplicacionCasosDEusos.DtosCasosUsos.Emun;
+using Sales.AplicacionCasosDEusos.DtosCasosUsos.Menu;
 
 
 namespace Sales.AplicacionCasosDEusos.Contracts
 {
-    public interface INegocioService
+    public interface INegocioService:IBaseService<NegocioAddDto, NegocioUpdateDto, NegocioDeleteDto, NegocioGetMoldels>
     {
-        ServiceResult<List<NegocioGetMoldels>> GetNegocio();
-        ServiceResult<NegocioGetMoldels> GetNegocio(int Id);
-        ServiceResult<NegocioGetMoldels> SaveNegocio(NegocioAddDto negocioAddDto);
-        ServiceResult<NegocioGetMoldels> UpdateNegocio(NegocioUpdateDto negocioUpdateDto);
-        ServiceResult<NegocioGetMoldels> DeleteNegocio(NegocioDeleteDto negocioDeleteDto);
+        ServiceResult<string> IsValid(NegocioBaseDto menuBaseDto, DtoAction dtoAction);
     }
 }

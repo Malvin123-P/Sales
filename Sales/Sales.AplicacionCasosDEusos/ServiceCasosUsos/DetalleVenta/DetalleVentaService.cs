@@ -2,6 +2,7 @@
 using Sales.AplicacionCasosDEusos.Contracts;
 using Sales.AplicacionCasosDEusos.Core;
 using Sales.AplicacionCasosDEusos.DtosCasosUsos.DetalleVenta;
+using Sales.AplicacionCasosDEusos.DtosCasosUsos.Emun;
 using Sales.AplicacionCasosDEusos.ModelsCasosUsos.DetalleVenta;
 using Sales.Infraestructura.Interfaces;
 
@@ -19,7 +20,7 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.DetalleVenta
             this.detalleVentaRepository = detalleVentaRepository;
         }
 
-        public ServiceResult<List<DetalleVentaGetModels>> GetDetalleVenta()
+        public ServiceResult<List<DetalleVentaGetModels>> GetAll()
         {
             ServiceResult<List<DetalleVentaGetModels>> result = new ServiceResult<List<DetalleVentaGetModels>>();
             
@@ -51,7 +52,7 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.DetalleVenta
             return result;
         }
 
-        public ServiceResult<DetalleVentaGetModels> GetDetalleVenta(int Id)
+        public ServiceResult<DetalleVentaGetModels> Get(int Id)
         {
             ServiceResult<DetalleVentaGetModels> result = new ServiceResult<DetalleVentaGetModels>();
 
@@ -78,28 +79,27 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.DetalleVenta
             {
 
                 result.Success = false;
-                result.Message = "EERROR OBTENIENDO EL NEGOCIO";
+                result.Message = "EERROR OBTENIENDO EL DETALLE DE LA VENTA";
                 this.logger.LogError(result.Message, ex.ToString);
             }
 
             return result;
         }
 
-        public ServiceResult<DetalleVentaGetModels> SaveDetalleVenta(DetalleVentaAddDto detalleVentaAddDto)
+        public ServiceResult<DetalleVentaGetModels> Save(DetalleVentaAddDto detalleVentaAddDto)
         {
             ServiceResult<DetalleVentaGetModels> result = new ServiceResult<DetalleVentaGetModels>();
 
             try
             {
-                //Validaciones
-                if (this.detalleVentaRepository.Exists(de => de.Id == detalleVentaAddDto.Id))
+                var resultIsVali = this.IsValid(detalleVentaAddDto,DtoAction.Save);
+
+                if (!resultIsVali.Success)
                 {
-                    result.Success = false;
-                    result.Message = $"EL DETALLE {detalleVentaAddDto.Id} YA EXISTE.";
+                    result.Message = resultIsVali.Message;
                     return result;
                 }
-
-
+             
                 this.detalleVentaRepository.Save(new Dominio.Entities.DetalleVenta()
                 {
                     IdProducto = detalleVentaAddDto.IdProducto,
@@ -124,14 +124,45 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.DetalleVenta
             return result;
         }
 
-        
-
-        public ServiceResult<DetalleVentaGetModels> UpdateDetalleVenta(DetalleVentaUpdateDto detalleVentaUpdateDto)
+        public ServiceResult<DetalleVentaGetModels> Update(DetalleVentaUpdateDto detalleVentaUpdateDto)
         {
-            throw new NotImplementedException();
+            ServiceResult<DetalleVentaGetModels> result = new ServiceResult<DetalleVentaGetModels>();
+
+            try
+            {
+                var resultIsVali = this.IsValid(detalleVentaUpdateDto, DtoAction.Update);
+
+                if (!resultIsVali.Success)
+                {
+                    result.Message = resultIsVali.Message;
+                    return result;
+                }
+
+                this.detalleVentaRepository.Update(new Dominio.Entities.DetalleVenta()
+                {
+                    IdProducto = detalleVentaUpdateDto.IdProducto,
+                    MarcaProducto = detalleVentaUpdateDto.MarcaProducto,
+                    DescripcionProducto = detalleVentaUpdateDto.DescripcionProducto,
+                    CategoriaProducto = detalleVentaUpdateDto.CategoriaProducto,
+                    Cantidad = detalleVentaUpdateDto.Cantidad,
+                    Precio = detalleVentaUpdateDto.Precio,
+                    Total = detalleVentaUpdateDto.Total,
+                    FechaMod = detalleVentaUpdateDto.FechaMod,
+                    IdUsuarioMod = detalleVentaUpdateDto.IdUsuarioMod
+                });
+            }
+            catch (Exception ex)
+            {
+
+                result.Success = false;
+                result.Message = "EERROR ACTUALIZANDO EL DETALLE VENTA";
+                this.logger.LogError(result.Message, ex.ToString);
+            }
+
+            return result;
         }
 
-        public ServiceResult<DetalleVentaGetModels> DeleteDetalleVenta(DetalleVentaDeleteDto detalleVentaDeleteDto)
+        public ServiceResult<DetalleVentaGetModels> Delete(DetalleVentaDeleteDto detalleVentaDeleteDto)
         {
             ServiceResult<DetalleVentaGetModels> result = new ServiceResult<DetalleVentaGetModels>();
 
@@ -155,23 +186,24 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.DetalleVenta
             return result;
         }
 
-     
+        public ServiceResult<string> IsValid(NegocioDtoBase DetalleVentaDtoBase,DtoAction dtoAction)
+        {
+            ServiceResult<string> result = new ServiceResult<string>();
+
+            //Validaciones
+
+            if (dtoAction == DtoAction.Save)
+            {
+                if (this.detalleVentaRepository.Exists(me => me.Id == DetalleVentaDtoBase.Id))
+                {
+                    result.Success = false;
+                    result.Message = $"EL DETALLE {DetalleVentaDtoBase.Id} YA EXISTE.";
+                    return result;
+                }
+            }
+            return result;
+        }
+
     }
 
-
-        //private static ServiceResult<string> VakidarDatos(DetalleVentaDtoBase DetalleVentaDtoBase)
-        //{
-        //    ServiceResult<string> result = new ServiceResult<string>();
-
-        //    if (string.(detalleVentaAddDto.))
-        //    {
-
-        //        result.Success = false;
-        //        result.Message = "EERROR GUARDANDO EL DETALLE VENTA";
-              
-        //    }
-
-        //    return result;
-        //}
-    
 }

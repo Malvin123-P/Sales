@@ -1,18 +1,15 @@
 ﻿using Sales.AplicacionCasosDEusos.DtosCasosUsos.DetalleVenta;
 using Sales.AplicacionCasosDEusos.Core;
 using Sales.AplicacionCasosDEusos.ModelsCasosUsos.DetalleVenta;
+using Sales.AplicacionCasosDEusos.DtosCasosUsos.Emun;
 
 
 
 namespace Sales.AplicacionCasosDEusos.Contracts
 {
-    public interface IDetalleVentaService
+    public interface IDetalleVentaService:IBaseService<DetalleVentaAddDto, DetalleVentaUpdateDto, DetalleVentaDeleteDto, DetalleVentaGetModels>
     {
-        ServiceResult<List<DetalleVentaGetModels>> GetDetalleVenta();
-        ServiceResult<DetalleVentaGetModels> GetDetalleVenta(int Id);
-        ServiceResult<DetalleVentaGetModels> SaveDetalleVenta(DetalleVentaAddDto detalleVentaAddDto);
-        ServiceResult<DetalleVentaGetModels> UpdateDetalleVenta(DetalleVentaUpdateDto detalleVentaUpdateDto);
-        ServiceResult<DetalleVentaGetModels> DeleteDetalleVenta(DetalleVentaDeleteDto detalleVentaDeleteDto);
+        ServiceResult<string> IsValid(NegocioDtoBase  detalleVentaDtoBase,DtoAction dtoAction);
 
     }
 }

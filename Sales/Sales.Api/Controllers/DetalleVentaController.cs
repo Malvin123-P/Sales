@@ -23,7 +23,7 @@ namespace Sales.Api.Controllers
         [HttpGet("GetDetalleVenta")]
         public IActionResult Get()
         {
-            var result = this.detalleVentaService.GetDetalleVenta();
+            var result = this.detalleVentaService.GetAll();
 
             if (!result.Success)
             {
@@ -37,7 +37,7 @@ namespace Sales.Api.Controllers
         [HttpGet("GetDetalleVentaById")]
         public IActionResult Get(int id)
         {
-           var result = this.detalleVentaService.GetDetalleVenta(id);
+           var result = this.detalleVentaService.Get(id);
      
             if (!result.Success)
             {
@@ -51,7 +51,7 @@ namespace Sales.Api.Controllers
         [HttpPost("SaveDetalleVenta")]
         public IActionResult Post([FromBody] DetalleVentaAddDto detalleVentaAddDto)
         {
-            var result = this.detalleVentaService.SaveDetalleVenta(detalleVentaAddDto);
+            var result = this.detalleVentaService.Save(detalleVentaAddDto);
     
             if (!result.Success)
             {
@@ -65,7 +65,7 @@ namespace Sales.Api.Controllers
         [HttpPut("UpdateDetalleVenta")]
         public IActionResult Put([FromBody] DetalleVentaUpdateDto detalleVentaUpdateDto)
         {
-            var result = this.detalleVentaService.UpdateDetalleVenta(detalleVentaUpdateDto);
+            var result = this.detalleVentaService.Update(detalleVentaUpdateDto);
 
             if (!result.Success)
             {
@@ -79,7 +79,7 @@ namespace Sales.Api.Controllers
         [HttpDelete("DeleteDetalleVenta")]
         public IActionResult Delete([FromBody] DetalleVentaDeleteDto detalleVentaDeleteDto)
         {
-            var result = this.detalleVentaService.DeleteDetalleVenta(detalleVentaDeleteDto);
+            var result = this.detalleVentaService.Delete(detalleVentaDeleteDto);
 
             if (!result.Success)
             {
