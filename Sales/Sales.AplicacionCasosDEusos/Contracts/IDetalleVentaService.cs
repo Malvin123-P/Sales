@@ -7,7 +7,7 @@ using Sales.AplicacionCasosDEusos.DtosCasosUsos.Emun;
 
 namespace Sales.AplicacionCasosDEusos.Contracts
 {
-    public interface IDetalleVentaService:IBaseService<DetalleVentaAddDto, DetalleVentaUpdateDto, DetalleVentaDeleteDto, DetalleVentaGetModels>
+    public interface IDetalleVentaService:IBaseService<DetalleVentaAddDto, DetalleVentaUpdateDto, DetalleVentaDeleteDto,DetalleVentaGetModels>
     {
         ServiceResult<string> IsValid(NegocioDtoBase  detalleVentaDtoBase,DtoAction dtoAction);
 

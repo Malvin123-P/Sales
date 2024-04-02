@@ -36,6 +36,7 @@ namespace Sales.Infraestructura.Repositories
                     throw new MenuExcenption("MENU NO EXISTE.");
                 }
 
+                menuUpdate.Id = entity.Id;
                 menuUpdate.IdMenuPadre = entity.IdMenuPadre;
                 menuUpdate.Descripcion = entity.Descripcion;
                 menuUpdate.EsActivo = entity.EsActivo;

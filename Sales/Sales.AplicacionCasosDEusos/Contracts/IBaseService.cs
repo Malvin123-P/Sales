@@ -6,8 +6,8 @@ namespace Sales.AplicacionCasosDEusos.Contracts
     {
         ServiceResult<List<TModel>> GetAll();
         ServiceResult<TModel> Get(int Id);
-        ServiceResult<TModel> Save(TDoAdd detalleVentaAddDto);
-        ServiceResult<TModel> Update(TDoUpdate detalleVentaUpdateDto);
-        ServiceResult<TModel> Delete(TDtoDelete detalleVentaDeleteDto);
+        ServiceResult<TModel> Save(TDoAdd doAdd);
+        ServiceResult<TModel> Update(TDoUpdate doUpdate);
+        ServiceResult<TModel> Delete(TDtoDelete dtoDelete);
     }
 }

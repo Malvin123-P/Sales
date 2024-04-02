@@ -93,6 +93,7 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Menu
 
                 if (!resultIsVali.Success)
                 {
+                    result.Success = resultIsVali.Success;
                     result.Message = resultIsVali.Message;
                     return result;
                 }
@@ -130,12 +131,14 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Menu
 
                 if (!resultIsVali.Success)
                 {
+                    result.Success = resultIsVali.Success;
                     result.Message = resultIsVali.Message;
                     return result;
                 }
 
                 this.menuRepository.Update(new Dominio.Entities.Menu()
                 {
+                    Id = menuUpdateDto.Id, 
                     Descripcion = menuUpdateDto.Descripcion,
                     IdMenuPadre = menuUpdateDto.IdMenuPadre,
                     Icono = menuUpdateDto.Icono,

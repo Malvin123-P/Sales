@@ -96,6 +96,7 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.DetalleVenta
 
                 if (!resultIsVali.Success)
                 {
+                    result.Success = resultIsVali.Success;
                     result.Message = resultIsVali.Message;
                     return result;
                 }
@@ -134,13 +135,15 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.DetalleVenta
 
                 if (!resultIsVali.Success)
                 {
+                    result.Success = resultIsVali.Success;
                     result.Message = resultIsVali.Message;
                     return result;
                 }
 
                 this.detalleVentaRepository.Update(new Dominio.Entities.DetalleVenta()
                 {
-                    IdProducto = detalleVentaUpdateDto.IdProducto,
+                   Id = detalleVentaUpdateDto.Id,
+                   IdProducto = detalleVentaUpdateDto.IdProducto,
                     MarcaProducto = detalleVentaUpdateDto.MarcaProducto,
                     DescripcionProducto = detalleVentaUpdateDto.DescripcionProducto,
                     CategoriaProducto = detalleVentaUpdateDto.CategoriaProducto,

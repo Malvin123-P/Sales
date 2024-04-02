@@ -37,6 +37,7 @@ namespace Sales.Infraestructura.Repositories
                     throw new DetalleVentaExcenption("DETALLE NO EXISTE.");
                 }
 
+                detalleVentaUpdate.Id = entity.Id;
                 detalleVentaUpdate.IdVenta = entity.IdVenta;
                 detalleVentaUpdate.Precio = entity.Precio;
                 detalleVentaUpdate.IdProducto = entity.IdProducto;

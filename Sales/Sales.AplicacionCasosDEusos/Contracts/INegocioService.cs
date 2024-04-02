@@ -7,7 +7,7 @@ using Sales.AplicacionCasosDEusos.DtosCasosUsos.Menu;
 
 namespace Sales.AplicacionCasosDEusos.Contracts
 {
-    public interface INegocioService:IBaseService<NegocioAddDto, NegocioUpdateDto, NegocioDeleteDto, NegocioGetMoldels>
+    public interface INegocioService:IBaseService<NegocioAddDto, NegocioUpdateDto, NegocioDeleteDto, NegocioGetModels>
     {
         ServiceResult<string> IsValid(NegocioBaseDto menuBaseDto, DtoAction dtoAction);
     }

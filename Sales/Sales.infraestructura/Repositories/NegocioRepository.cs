@@ -38,6 +38,12 @@ namespace Sales.Infraestructura.Repositories
             {
                 Negocio negocioUpdate = this.GetEntity(entity.Id);
 
+                if (negocioUpdate is null)
+                {
+                    throw new MenuExcenption("NEGOCIO NO EXISTE.");
+                }
+
+                negocioUpdate.Id = entity.Id;
                 negocioUpdate.UrlLogo = entity.UrlLogo;
                 negocioUpdate.Correo = entity.Correo;
                 negocioUpdate.Telefono = entity.Telefono;

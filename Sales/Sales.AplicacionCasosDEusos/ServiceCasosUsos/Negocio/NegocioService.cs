@@ -21,13 +21,13 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Negocio
             this.negocioRepository = negocioRepository;
         }
     
-        public ServiceResult<List<NegocioGetMoldels>> GetAll()
+        public ServiceResult<List<NegocioGetModels>> GetAll()
         {
-            ServiceResult<List<NegocioGetMoldels>> result = new ServiceResult<List<NegocioGetMoldels>>();
+            ServiceResult<List<NegocioGetModels>> result = new ServiceResult<List<NegocioGetModels>>();
            
             try
             {
-               result.Data = this.negocioRepository.GetEntities().Select(ne => new NegocioGetMoldels()
+               result.Data = this.negocioRepository.GetEntities().Select(ne => new NegocioGetModels()
                 {
                     Id = ne.Id,
                     UrlLogo = ne.UrlLogo,
@@ -55,16 +55,16 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Negocio
             return result;
         }
 
-        public ServiceResult<NegocioGetMoldels> Get(int Id)
+        public ServiceResult<NegocioGetModels> Get(int Id)
         {
-            ServiceResult<NegocioGetMoldels> result = new ServiceResult<NegocioGetMoldels>();
+            ServiceResult<NegocioGetModels> result = new ServiceResult<NegocioGetModels>();
 
             try
             {
                 var negocio = this.negocioRepository.GetEntity(Id);
 
                 
-                result.Data = new NegocioGetMoldels()
+                result.Data = new NegocioGetModels()
                 {
                     Id = negocio.Id,
                     UrlLogo = negocio.UrlLogo,
@@ -91,9 +91,9 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Negocio
             return result;
         }
 
-        public ServiceResult<NegocioGetMoldels> Save(NegocioAddDto negocioAddDto)
+        public ServiceResult<NegocioGetModels> Save(NegocioAddDto negocioAddDto)
         {
-            ServiceResult<NegocioGetMoldels> result = new ServiceResult<NegocioGetMoldels>();
+            ServiceResult<NegocioGetModels> result = new ServiceResult<NegocioGetModels>();
 
             try
             {
@@ -102,6 +102,7 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Negocio
 
                 if (!resultIsVali.Success)
                 {
+                    result.Success = resultIsVali.Success;
                     result.Message = resultIsVali.Message;
                     return result;
                 }
@@ -132,9 +133,9 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Negocio
             return result;
         }
 
-        public ServiceResult<NegocioGetMoldels> Update(NegocioUpdateDto negocioUpdateDto)
+        public ServiceResult<NegocioGetModels> Update(NegocioUpdateDto negocioUpdateDto)
         {
-            ServiceResult<NegocioGetMoldels> result = new ServiceResult<NegocioGetMoldels>();
+            ServiceResult<NegocioGetModels> result = new ServiceResult<NegocioGetModels>();
 
             try
             {
@@ -143,12 +144,14 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Negocio
 
                 if (!resultIsVali.Success)
                 {
+                    result.Success = resultIsVali.Success;
                     result.Message = resultIsVali.Message;
                     return result;
                 }
 
                 this.negocioRepository.Update(new Dominio.Entities.Negocio()
                 {
+                    Id=negocioUpdateDto.Id,
                     UrlLogo = negocioUpdateDto.UrlLogo,
                     NombreLogo = negocioUpdateDto.NombreLogo,
                     NumeroDocumento = negocioUpdateDto.NumeroDocumento,
@@ -173,9 +176,9 @@ namespace Sales.AplicacionCasosDEusos.ServiceCasosUsos.Negocio
             return result;
         }
 
-        public ServiceResult<NegocioGetMoldels> Delete(NegocioDeleteDto negocioDeleteDto)
+        public ServiceResult<NegocioGetModels> Delete(NegocioDeleteDto negocioDeleteDto)
         {
-            ServiceResult<NegocioGetMoldels> result = new ServiceResult<NegocioGetMoldels>();
+            ServiceResult<NegocioGetModels> result = new ServiceResult<NegocioGetModels>();
             try
             {
                 this.negocioRepository.Delete(new Dominio.Entities.Negocio()
