@@ -1,5 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using Sales.AplicacionCasosDEusos.Contracts;
+using Sales.AplicacionCasosDEusos.ServiceCasosUsos.DetalleVenta;
+using Sales.AplicacionCasosDEusos.ServiceCasosUsos.Menu;
+using Sales.AplicacionCasosDEusos.ServiceCasosUsos.Negocio;
 using Sales.Infraestructura.Context;
+using Sales.Infraestructura.Interfaces;
+using Sales.Infraestructura.Repositories;
 using Sales.ManejoDependencia.DetalleVenta;
 using Sales.ManejoDependencia.Menu;
 using Sales.ManejoDependencia.Negocio;
@@ -10,27 +16,30 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<SalesContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("SalesContext")));
 
-//ManejoDependencia
+//Dependencia
 builder.Services.AddDetalleVentaDépendencia();
 builder.Services.AddMenuDépendencia();
 builder.Services.AddNegocioDépendencia();
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseExceptionHandler("/Home/Error");
 }
+app.UseStaticFiles();
+
+app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

@@ -15,6 +15,7 @@
     <ProjectReference Include="..\Sales.Dominio\Sales.Dominio.csproj" />
     <ProjectReference Include="..\Sales.infraestructura\Sales.Infraestructura.csproj" />
 	  <ProjectReference Include="..\Sales.AplicacionCasosDEusos\Sales.AplicacionCasosDEusos.csproj" />
+	  <ProjectReference Include="..\Sales.ManejoDependencia\Sales.ManejoDependencia.csproj" />
   </ItemGroup>
 
 </Project>
