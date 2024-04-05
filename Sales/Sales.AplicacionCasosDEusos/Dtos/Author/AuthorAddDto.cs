@@ -3,7 +3,7 @@ namespace Sales.AplicacionCasosDEusos.Dtos.Author
 {
     public record AuthorDto
     {
-        public int phone { get; set; }
+        public string? phone { get; set; }
 
         public string? address { get; set; }
 

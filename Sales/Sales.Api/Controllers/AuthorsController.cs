@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Sales.Api.Dtos.Authors;
 using Sales.Api.Models;
+using Sales.AplicacionCasosDEusos.Contract.Author;
 using Sales.Infraestructura.Interfaces;
 using System.DirectoryServices.ActiveDirectory;
 
@@ -36,7 +37,7 @@ namespace Sales.Api.Controllers
 
             var result = this.authorService.GetAuthors();
 
-            if (!result.Success) 
+            if (!result.Success)
             {
                 return BadRequest(result);
             }
@@ -51,6 +52,20 @@ namespace Sales.Api.Controllers
             var result = this.authorService.GetAuthor(id);
             {
                 if (!result.Success)
+                {
+                    return BadRequest(result);
+                }
+
+                return Ok(result);
+            }
+        }
+
+        [HttpPost("SaveAuthor")]
+        private IActionResult Post([FromBody] AplicacionCasosDEusos.Dtos.Author.AuthorDto authorsAddModel)
+        {
+            var result = this.authorService.SaveAuthor(authorsAddModel);
+
+            if (!result.Success)
             {
                 return BadRequest(result);
             }
@@ -58,27 +73,10 @@ namespace Sales.Api.Controllers
             return Ok(result);
         }
 
-        // POST api/<AuthorsController>
-        [HttpPost("SaveAuthor")]
-        public IActionResult Post([FromBody] AplicacionCasosDEusos.Dtos.Author.AuthorDto authorsAddModel)
-        {
-             var result = this.authorService.SaveAuthor(authorsAddModel);
-
-                if (!result.Success)
-                {
-                    return BadRequest(result);
-                }
-
-                return Ok(result);
-            }
-
-            
-
-        // PUT api/<AuthorsController>/5
         [HttpDelete("UpdateAuthor")]
-        public IActionResult Put([FromBody] AplicacionCasosDEusos.Dtos.Author.AuthorsUpdateDto authorsUpdate)
+        private IActionResult Put([FromBody] AplicacionCasosDEusos.Dtos.Author.AuthorsUpdateDto authorsUpdate)
         {
-                var result = this.authorService.UpdateAuthor(authorsUpdate);
+            var result = this.authorService.UpdateAuthor(authorsUpdate);
             {
                 if (!result.Success)
                 {
@@ -87,21 +85,23 @@ namespace Sales.Api.Controllers
 
                 return Ok(result);
             }
+        }
 
-            // DELETE api/<AuthorsController>/5
-            [HttpPost("RemoveAuthor")]
-        public IActionResult Remove([FromBody] AplicacionCasosDEusos.Dtos.Author.AuthorsRemoveDto authorsRemove)
+        [HttpPost("RemoveAuthor")]
+        private IActionResult Remove([FromBody] AplicacionCasosDEusos.Dtos.Author.AuthorsRemoveDto authorsRemove)
         {
-                    var result = this.authorService.RemoveAuthor(authorsRemove);
+            var result = this.authorService.RemoveAuthor(authorsRemove);
+            {
+                if (!result.Success)
                 {
-                    if (!result.Success)
-                    {
-                        return BadRequest(result);
-                    }
-
-                    return Ok(result);
+                    return BadRequest(result);
                 }
+
+                return Ok(result);
             }
+        }
+    }
+    }
             
             
 

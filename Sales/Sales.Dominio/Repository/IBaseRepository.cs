@@ -15,6 +15,7 @@ namespace Sales.Dominio.Repository
         void Save(TEntity entity);
         void Update(TEntity entity);
         void Remove(TEntity entity);
+        void Remove(Sales.AplicacionCasosDEusos.Service.Author author);
     }
 
 }

@@ -1,7 +1,7 @@
 ﻿
 namespace Sales.AplicacionCasosDEusos.Dtos.Configuracion
 {
-    internal class ConfiguracionDto
+    public class ConfiguracionDto
     {
         public string? recurso { get; set; }
         public string? propiedad { get; set; }

@@ -4,7 +4,7 @@ using Sales.AplicacionCasosDEusos.Contract.Author;
 using Sales.AplicacionCasosDEusos.Core;
 using Sales.AplicacionCasosDEusos.Dtos.Author;
 using Sales.AplicacionCasosDEusos.Models.Author;
-using Sales.AplicacionCasosDEusos.Models.Configuracion;
+using Sales.AplicacionCasosDEusos.Models.Author;
 using Sales.Infraestructura.Interfaces;
 
 namespace Sales.AplicacionCasosDEusos.Service.Author
@@ -19,77 +19,20 @@ namespace Sales.AplicacionCasosDEusos.Service.Author
             this.logger = logger;
             this.authorRepository = authorRepository;
         }
+
         public ServiceResult<AuthorGetModel> GetAuthor(int authorId)
         {
-            ServiceResult<AuthorGetModel> result = new ServiceResult<AuthorGetModel>();
-            try
-            {
-                var author = authorRepository.GetEntity(authorId);
-
-                result.Data = new AuthorGetModel()
-                {
-                    phone = author.phone,
-                    address = author.address,
-                    city = author.city,
-                    state = author.state,
-                    zip = author.zip,
-                };
-            }
-            catch (Exception ex)
-            {
-
-                result.Success = false;
-                result.Message = "Error obteniendo el autor";
-                logger.LogError(result.Message, ex.ToString());
-            }
+            throw new NotImplementedException();
         }
 
         public ServiceResult<List<AuthorGetModel>> GetAuthors()
         {
-            ServiceResult<List<AuthorGetModel>> result = new ServiceResult<List<AuthorGetModel>>();
-            try
-            {
-                result.Data = authorRepository.GetEntities().Select(cd => new AuthorGetModel()
-                {
-                    phone = cd.phone,
-                    address = cd.address,
-                    city = cd.city,
-                    state = cd.state,
-                    zip = cd.zip,
-
-                }).ToList();
-            }
-            catch (Exception ex)
-            {
-
-                result.Success = false;
-                result.Message = "Error obteniendo los autores";
-                logger.LogError(result.Message, ex.ToString());
-            }
-            return result;
+            throw new NotImplementedException();
         }
 
-        public ServiceResult<AuthorGetModel> RemoveAuthor(AuthorsRemoveDto authorRemoveDto)
+        public ServiceResult<AuthorGetModel> RemoveRol(AuthorsRemoveDto authorsRemoveDto)
         {
-            ServiceResult<AuthorGetModel> result = new ServiceResult<AuthorGetModel>();
-
-            try
-            {
-                this.authorRepository.Remove(new Author()
-                {
-                    phone = authorRemoveDto.phone,
-                    state = authorRemoveDto.state,
-                    city = authorRemoveDto.city,
-                    zip = authorRemoveDto.zip
-                });
-            }
-            catch (Exception ex)
-            {
-
-               result.Success=false;
-               result.Message = "Error obteniendo el autor";
-                this.logger.LogError(result.Message, ex.ToString());
-            }
+            throw new NotImplementedException();
         }
 
         public ServiceResult<AuthorGetModel> SaveAuthor(AuthorDto authorDto)
@@ -160,7 +103,6 @@ namespace Sales.AplicacionCasosDEusos.Service.Author
                 }
                 authorRepository.Save(new Dominio.Entities.Authors()
                 {
-                    phone = authorDto.phone,
                     state = authorDto.state,
                     city = authorDto.city,
                     zip = authorDto.zip
@@ -247,7 +189,6 @@ namespace Sales.AplicacionCasosDEusos.Service.Author
                 }
                 authorRepository.Save(new Dominio.Entities.Authors()
                 {
-                    phone = authorUpdateDto.phone,
                     state = authorUpdateDto.state,
                     city = authorUpdateDto.city,
                     zip = authorUpdateDto.zip
@@ -262,6 +203,11 @@ namespace Sales.AplicacionCasosDEusos.Service.Author
             }
             return result;
         }
+
+        public ServiceResult<AuthorGetModel> UpdateRol(AuthorsUpdateDto authorsUpdateDto)
+        {
+            throw new NotImplementedException();
+        }
     }
     }
-}
+

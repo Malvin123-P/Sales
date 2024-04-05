@@ -27,54 +27,12 @@ namespace Sales.AplicacionCasosDEusos.Service.Author
         }
         public ServiceResult<RolGetModel> Get(int rolId)
         {
-            public ServiceResult<RolGetModel> GetRol(int rolId)
-            {
-                ServiceResult<RolGetModel> result = new ServiceResult<RolGetModel>();
-                try
-                {
-                    var rol = rolRepository.GetEntity(rolId);
-
-                    result.Data = new RolGetModel()
-                    {
-                        Descripcion = rol.Descripcion,
-                        EsActivo = rol.EsActivo,
-                        IdUsuario = rol.IdUsuario,
-                        FechaEliminar = rol.FechaEliminar,
-                    };
-                }
-                catch (Exception ex)
-                {
-
-                    result.Success = false;
-                    result.Message = "Error obteniendo el rol";
-                    logger.LogError(result.Message, ex.ToString());
-                }
-
-                return result;
-            }
+         throw new NotImplementedException();
+        }
 
         public ServiceResult<List<RolGetModel>> GetAll()
         {
-                ServiceResult<List<RolGetModel>> result = new ServiceResult<List<RolGetModel>>();
-                try
-                {
-                    result.Data = this.rolRepository.GetEntities().Select(cd => new RolGetModel()
-                    {
-                        Descripcion = cd.Descripcion,
-                        EsActivo = cd.EsActivo,
-                        IdUsuario = cd.IdUsuario,
-                        FechaEliminar = cd.FechaEliminar,
-                    }).ToList();
-                }
-                catch (Exception ex)
-                {
-
-                    result.Success = false;
-                    result.Message = "Error obteniendo los roles";
-                    this.logger.LogError(result.Message, ex.ToString());
-                }
-                return result;
-            }
+            throw new NotImplementedException();
         }
 
         public ServiceResult<RolGetModel> Remove(RolRemoveDto rolsRemoveDto)
@@ -83,7 +41,7 @@ namespace Sales.AplicacionCasosDEusos.Service.Author
 
             try
             {
-                this.rolRepository.Remove(new ()
+                rolRepository.Remove(new ()
                 {
                     Descripcion = rolsRemoveDto.Descripcion,
                     EsActivo = rolsRemoveDto.EsActivo,
@@ -103,96 +61,18 @@ namespace Sales.AplicacionCasosDEusos.Service.Author
 
         public ServiceResult<RolGetModel> Save(RolDto rolDto)
         {
-        ServiceResult<AuthorGetModel> result = new Service<AuthorGetModel>();
-        try
-        { 
-            var resultIsValid = this.IsValid(rolDto);
-
-        if (string.IsNullOrEmpty(rolDto.Descripcion))
-        {
-            result.Success = false;
-            result.Message = "La descripcion es requerida";
-            return result;
-        }
-        if (authorDto.state.Length > 30)
-        {
-            result.Success = false;
-            result.Message = "El recurso debe tener 30 caracteres.";
-            return result;
-        
-        }
-        this.rolRepository.Save(new Dominio.Entities.Rol()
-        {
-            Descripcion = rolDto.Descripcion,
-            EsActivo = rolDto.EsActivo,
-            IdUsuario = rolDto.IdUsuario,
-            FechaEliminar = rolDto.FechaEliminar,
-        });
-        catch (Exception ex)
-            {
-
-            result.Success = false;
-            result.Message = "Error guardando la configuracion";
-            this.logger.LogError(result.Message, ex.ToString());
-        }
+        throw new NotImplementedException();
     }
 
         public ServiceResult<RolGetModel> Update(RolUpdateDto rolUpdateDto)
         {
-        ServiceResult<RolGetModel> result = new ServiceResult<RolGetModel>();
-
-        try
-        {
-            var resultIsValid = this.Isvalid(rolUpdateDto, DtoAction.Save);
-
-            if (!resultIsValid.Success)
-            {
-                result.Message = resultIsValid.Message;
-            }
-            this.rolRepository.Save(new Dominio.Entities.Rol()
-                {
-                    Descripcion = rolUpdateDto.Descripcion,
-                    EsActivo = rolUpdateDto.EsActivo,
-                    IdUsuario = rolUpdateDto.IdUsuario,
-                    FechaEliminar = rolUpdateDto.FechaEliminar,
-                });
+        throw new NotImplementedException();
     }
-            catch (Exception ex)
-            {
-
-                result.Success = false;
-                result.Message = "Error guardando el rol";
-                logger.LogError(result.Message, ex.ToString());
-            }
-            return result;
-        }
-        }
-    private ServiceResult<string> IsValid(RolDtoBase rolsDtoBase, DtoAction action)
-{
-    ServiceResult<string> result = new ServiceResult<string>();
-
-    if (string.IsNullOrEmpty(rolDto.Descripcion))
+    private ServiceResult<string> IsValid(RolDtoBase rolsDtoBase, DtoAction action) 
     {
-        result.Success = false;
-        result.Message = "La descripcion es requerida";
-        return result;
+        throw new NotImplementedException();
     }
-    if (authorDto.state.Length > 30)
-    {
-        result.Success = false;
-        result.Message = "El recurso debe tener 30 caracteres.";
-        return result;
 
-    }
-    if (action == DtoAction.Save)
-    {
-        if (this.rolRepository.Exists(ca => ca.rolname == rolDtoBase.Descripcion))
-        {
-            result.Success = false;
-            result.Message = $"El rol {rolDtoBase.Phone} ya existe.";
-        }
-        return result;
-
-    }
+    
 }
 

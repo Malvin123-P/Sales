@@ -29,6 +29,14 @@ builder.Services.AddTransient<IRolService, RolRepository>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+// Conn Strings
+builder.Services.AddDbContext<SalesContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("SalesContext")));
+
+//Repositories
+
+builder.Services.AddScoped<IAuthorsRepository, AuthorsRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

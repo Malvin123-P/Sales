@@ -82,7 +82,7 @@ namespace Sales.Infraestructura.Repositories
             return base.FinAll(filter);
         }
 
-        public override void Remove(Rol entity)
+        public void Remove(Rol entity)
         {
             try
             {

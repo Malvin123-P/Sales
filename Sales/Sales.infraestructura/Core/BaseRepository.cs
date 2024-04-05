@@ -18,6 +18,11 @@ namespace Sales.Infraestructura.Core
             this.DbEntity = context.Set<TEntity>();
         }
 
+        public static object GetEntity(Sales.AplicacionCasosDEusos.Service.Author author)
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual bool Exists(Func<TEntity, bool> filter)
         {
             return DbEntity.Any(filter);

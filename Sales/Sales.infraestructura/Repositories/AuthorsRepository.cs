@@ -82,7 +82,7 @@ namespace Sales.Infraestructura.Repositories
             return base.FinAll(filter);
         }
 
-        public override void Remove(Authors entity)
+        public void Remove(Authors entity)
         {
             try
             {
@@ -100,7 +100,6 @@ namespace Sales.Infraestructura.Repositories
                 this.context.Authors.Update(authorToRemove);
                 this.context.SaveChanges();
 
-
             }
             catch (Exception ex)
             {
@@ -109,8 +108,6 @@ namespace Sales.Infraestructura.Repositories
             };
 
         }
-
-
     }
-    
+
 }

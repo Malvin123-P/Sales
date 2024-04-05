@@ -10,5 +10,7 @@ namespace Sales.AplicacionCasosDEusos.Contract.Author
 {
     public interface IAuthorNewService : IBaseService<AuthorDto, AuthorsUpdateDto, AuthorsRemoveDto, AuthorGetModel>
     {
+        ServiceResult<AuthorGetModel> Get(int authorId);
+        ServiceResult<List<AuthorGetModel>> GetAll();
     }
 }

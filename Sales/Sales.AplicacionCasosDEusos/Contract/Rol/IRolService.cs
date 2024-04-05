@@ -8,7 +8,7 @@ namespace Sales.AplicacionCasosDEusos.Contract.Rol
         ServiceResult<List<RolGetModel>> GetRols();
         ServiceResult<RolGetModel> GetRol(int rolId);
 
-        ServiceResult<RolGetModel> SaveRol(RolDto rolDto);
+        //ServiceResult<RolGetModel> SaveRol(RolDto rolDto);
 
         ServiceResult<RolGetModel> UpdateRol(RolUpdateDto rolDto);
 

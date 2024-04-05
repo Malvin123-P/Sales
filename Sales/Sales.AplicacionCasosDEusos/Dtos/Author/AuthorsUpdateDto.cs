@@ -2,7 +2,7 @@
 {
     public class AuthorsUpdateDto : AuthorsDtoBase
     {
-        public int phone { get; set; }
+        public string? phone { get; set; }
 
         public string? address { get; set; }
 
