@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Sales.Dominio.Entities;
 using Sales.Infraestructura.Context;
-using Sales.Infraestructura.Core;
+using Sales.Infraestructure.Core;
 using Sales.Infraestructura.Interfaces;
 
 namespace Sales.Infraestructura.Repositories

@@ -19,9 +19,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales.PruebaDeIntegracion",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales.ManejoDependencia", "Sales.ManejoDependencia\Sales.ManejoDependencia.csproj", "{C8854A50-A9BA-445B-968F-56A8030DD3DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.WebApp", "Sales.WebApp\Sales.WebApp.csproj", "{070DDBD6-0982-4AEB-A13B-063ADBAA7829}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales.WebApp", "Sales.WebApp\Sales.WebApp.csproj", "{070DDBD6-0982-4AEB-A13B-063ADBAA7829}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.Ioc", "Sales.Ioc\Sales.Ioc.csproj", "{7782EBEA-A0B0-4222-9FFE-5D4D2CE580AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales.Ioc", "Sales.Ioc\Sales.Ioc.csproj", "{7782EBEA-A0B0-4222-9FFE-5D4D2CE580AA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9550F590-4571-4273-8428-E56DB1989290}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

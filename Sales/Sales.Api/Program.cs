@@ -4,8 +4,9 @@ using Sales.AplicacionCasosDEusos.Service;
 using Sales.Infraestructura.Context;
 using Sales.Infraestructura.Interfaces;
 using Sales.Infraestructura.Repositories;
-using Sales.Ioc.CategoryDependecy;
-using Sales.Ioc.TDocumentDependency;
+using Sales.Ioc.AuthorDependecy;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +24,7 @@ builder.Services.AddRolDependecy();
 
 
 // Repositories
-builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+builder.Services.AddScoped<IAuthorRepository, IAuthorRepository>();
 
 builder.Services.AddScoped<IConfiguracionRepository, ConfiguracionRepository>();
 

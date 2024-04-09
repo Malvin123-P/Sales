@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sales.AplicacionCasosDEusos.Dtos.Author
+namespace Sales.Infraestructura.Extentions
 {
-    public class AuthorDtoAdd : AuthorDtoBase
+    internal class ConfiguracionExtension
     {
-
-
     }
 }

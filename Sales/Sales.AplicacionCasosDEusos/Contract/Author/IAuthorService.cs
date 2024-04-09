@@ -1,4 +1,4 @@
-﻿using Sales.AplicacionCasosDEusos.Core;
+﻿using Sales.Application.Core;
 using Sales.AplicacionCasosDEusos.Dtos.Author;
 using Sales.AplicacionCasosDEusos.Models.Author;
 using System;

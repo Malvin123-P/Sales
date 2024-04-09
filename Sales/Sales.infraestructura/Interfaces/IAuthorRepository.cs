@@ -1,5 +1,5 @@
-﻿using Sales.Dominio.Entities;
-using Sales.Dominio.Repository;
+﻿using Sales.Domain.Repository;
+using Sales.Dominio.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Sales.Infraestructura.Interfaces
 {
-    public interface IAuthorsRepository : IBaseRepository<Author>
+    public interface IAuthorRepository : IBaseRepository<Author>
     {
-        void Remove(Author entity);
+      
     }
 }

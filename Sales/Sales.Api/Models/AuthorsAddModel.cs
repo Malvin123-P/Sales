@@ -1,4 +1,8 @@
-﻿namespace Sales.Api.Models.Core;
+﻿
+
+
+namespace Sales.Api.Models 
+{ 
 
 public class AuthorsAddModel
 {

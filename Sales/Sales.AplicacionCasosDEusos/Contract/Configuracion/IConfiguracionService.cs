@@ -1,6 +1,6 @@
 ﻿using Sales.AplicacionCasosDEusos.Contract;
-using Sales.AplicacionCasosDEusos.Core;
-using Sales.AplicacionCasosDEusos.Dtos.Configuracion;
+using Sales.Application.Core;
+using Sales.Application.Dtos.Configuracion;
 using Sales.AplicacionCasosDEusos.Models.Configuracion;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Sales.Application.Contract
 {
-    public interface IConfiguracionService : IBaseServices<ConfiguracionDtoAdd, ConfiguracionDtoUpdate, ConfiguracionDtoRemove, ConfiguracionGetModel>
+    public interface IConfiguracionService : IBaseServices<ConfiguracionDtoAdd, ConfiguracionDtoUpdate, ConfiguracionRemoveDto, ConfiguracionGetModel>
     {
 
     }

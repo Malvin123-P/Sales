@@ -13,12 +13,12 @@ namespace Sales.Infraestructure.Exceptions
         {
         }
 
-        public ConfiguracionException(string message)
+        public RolException(string message)
             : base(message)
         {
         }
 
-        public ConfiguracionException(string message, Exception innerException)
+        public RolException(string message, Exception innerException)
             : base(message, innerException)
         {
         }

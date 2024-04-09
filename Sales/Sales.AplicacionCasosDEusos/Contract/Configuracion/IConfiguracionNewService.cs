@@ -1,7 +1,7 @@
-﻿using Sales.AplicacionCasosDEusos.Core;
-using Sales.AplicacionCasosDEusos.Dtos.Configuracion;
+﻿using Microsoft.Exchange.WebServices.Data;
 using Sales.AplicacionCasosDEusos.Models.Configuracion;
-using Sales.AplicacionCasosDEusos.Models.Configuracion;
+using Sales.Application.Core;
+using Sales.Application.Dtos.Configuracion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Sales.AplicacionCasosDEusos.Contract.Configuracion
 {
-    public interface IConfiguracionNewService : IBaseService<ConfiguracionDto, ConfiguracionDtoUpdate, ConfiguracionRemoveDto, ConfiguracionGetModel>
+    public interface IConfiguracionNewService : IBaseServices<ConfiguracionDtoAdd, ConfiguracionDtoUpdate, ConfiguracionRemoveDto, ConfiguracionGetModel>
     {
-        ServiceResult<ConfiguracionGetModel> Get(int configuracionId);
-        ServiceResult<List<ConfiguracionGetModel>> GetAll();
+        ServicesResult<ConfiguracionGetModel> Get(int configuracionId);
+        ServicesResult<List<ConfiguracionGetModel>> GetAll();
     }
 }

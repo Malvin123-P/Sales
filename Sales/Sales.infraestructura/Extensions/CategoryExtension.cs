@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sales.Infraestructura.Extentions
+namespace Sales.Infraestructura.Extensions
 {
-    public static class CategoryExtention
+    public static class CategoryExtension
     {
     }
 }

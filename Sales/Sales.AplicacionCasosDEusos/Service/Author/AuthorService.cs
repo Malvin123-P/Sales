@@ -12,9 +12,9 @@ namespace Sales.AplicacionCasosDEusos.Service.Author
     internal class AuthorService : IAuthorService
     {
         private readonly ILogger<AuthorService> logger;
-        private readonly IAuthorsRepository authorRepository;
+        private readonly IAuthorRepository authorRepository;
         public AuthorService(ILogger<AuthorService> logger,
-                                    IAuthorsRepository authorRepository)
+                                    IAuthorRepository authorRepository)
         {
             this.logger = logger;
             this.authorRepository = authorRepository;

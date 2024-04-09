@@ -1,6 +1,7 @@
 ﻿using Sales.AplicacionCasosDEusos.Core;
 using Sales.AplicacionCasosDEusos.Dtos.Author;
 using Sales.AplicacionCasosDEusos.Models.Author;
+using Sales.Application.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,13 @@ using System.Threading.Tasks;
 
 namespace Sales.AplicacionCasosDEusos.Contract.Author
 {
-    public interface IAuthorNewService : IBaseService<AuthorDto, AuthorDtoUpdate, AuthorRemoveDto, AuthorGetModel>
+    public interface IAuthorNewService : IBaseServices<AuthorDtoUpdate, AuthorDtoUpdate, AuthorRemoveDto, AuthorGetModel>
     {
-        ServiceResult<AuthorGetModel> Get(int authorId);
-        ServiceResult<List<AuthorGetModel>> GetAll();
+        ServicesResult<AuthorGetModel> Get(int authorId);
+        ServicesResult<List<AuthorGetModel>> GetAll();
+
+        ServicesResult<AuthorGetModel> GetAuthor();
+
+        ServicesResult<List<AuthorGetModel>> Save(AuthorDtoAdd authorsAddModel);
     }
 }

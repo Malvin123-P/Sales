@@ -1,5 +1,5 @@
 ﻿using Sales.Dominio.Entities;
-using Sales.Dominio.Repository;
+using Sales.Domain.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;

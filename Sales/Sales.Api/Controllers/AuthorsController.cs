@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Sales.AplicacionCasosDEusos.Contract;
+using Sales.AplicacionCasosDEusos.Contract.Author;
+using Sales.AplicacionCasosDEusos.Dtos.Author;
 using Sales.AplicacionCasosDEusos.Dtos.Author;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -10,9 +11,9 @@ namespace Sales.Api.Controllers
     [ApiController]
     public class AuthorsController : ControllerBase
     {
-        private readonly IAuthorService authorService;
+        private readonly IAuthorNewService authorService;
 
-        public AuthorsController(IAuthorService authorService)
+        public AuthorsController(IAuthorNewService authorService)
         {
             this.authorService = authorService;
         }
@@ -36,7 +37,7 @@ namespace Sales.Api.Controllers
         [HttpGet("GetAuthorById")]
         public IActionResult Get(int id)
         {
-            var result = this.authorService.GetAuthor(id);
+            var result = this.authorService.Get(id);
             {
                 if (!result.Success)
                 {
@@ -48,9 +49,9 @@ namespace Sales.Api.Controllers
         }
 
         [HttpPost("SaveAuthor")]
-        private IActionResult Post([FromBody] AplicacionCasosDEusos.Dtos.Author.AuthorDto authorsAddModel)
+        private IActionResult Post([FromBody] AuthorDtoAdd authorsAddModel)
         {
-            var result = this.authorService.SaveAuthor(authorsAddModel);
+            var result = this.authorService.Save(authorsAddModel);
 
             if (!result.Success)
             {
@@ -61,9 +62,9 @@ namespace Sales.Api.Controllers
         }
 
         [HttpDelete("UpdateAuthor")]
-        private IActionResult Put([FromBody] AplicacionCasosDEusos.Dtos.Author.AuthorDtoUpdate authorsUpdate)
+        private IActionResult Put([FromBody] AuthorDtoUpdate authorsUpdate)
         {
-            var result = this.authorService.UpdateAuthor(authorsUpdate);
+            var result = this.authorService.Update(authorsUpdate);
             {
                 if (!result.Success)
                 {
@@ -75,9 +76,9 @@ namespace Sales.Api.Controllers
         }
 
         [HttpPost("RemoveAuthor")]
-        private IActionResult Remove([FromBody] AplicacionCasosDEusos.Dtos.Author.AuthorRemoveDto authorsRemove)
+        private IActionResult Remove([FromBody] AuthorRemoveDto authorsRemove)
         {
-            var result = this.authorService.RemoveAuthor(authorsRemove);
+            var result = this.authorService.Remove(authorsRemove);
             {
                 if (!result.Success)
                 {

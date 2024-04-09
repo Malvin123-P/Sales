@@ -1,12 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
 using Sales.Dominio.Entities;
 using Sales.Infraestructura.Context;
-using Sales.Infraestructura.Core;
 using Sales.Infraestructura.Interfaces;
+using Sales.Infraestructure.Exceptions;
+using Sales.Infraestructure.Core;
 
 namespace Sales.Infraestructura.Repositories
 {
-    public class AuthorsRepository : BaseRepository<Author>, IAuthorsRepository
+    public class AuthorsRepository : BaseRepository<Author>, IAuthorRepository
     {
         private readonly SalesContext context;
         private readonly ILogger<AuthorsRepository> logger;
@@ -40,7 +41,7 @@ namespace Sales.Infraestructura.Repositories
                 authorsToUpdate.city = entity.city;
 
 
-                this.context.Authors.Update(authorsToUpdate);
+                this.context.Author.Update(authorsToUpdate);
                 this.context.SaveChanges();
             }
             catch (Exception ex)
@@ -58,7 +59,7 @@ namespace Sales.Infraestructura.Repositories
                     this.logger.LogWarning("El autor ya se encuentra registrado");
                 }
 
-                context.Authors.Add(entity);
+                context.Author.Add(entity);
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -69,7 +70,7 @@ namespace Sales.Infraestructura.Repositories
 
         public override Author GetEntity(int id)
         {
-            return this.context.Authors.Find(id);
+            return this.context.Author.Find(id);
         }
 
         public override bool Exists(Func<Author, bool> filter)
@@ -97,7 +98,7 @@ namespace Sales.Infraestructura.Repositories
                 authorToRemove.zip = entity.zip;
                 authorToRemove.city = entity.city;
 
-                this.context.Authors.Update(authorToRemove);
+                this.context.Author.Update(authorToRemove);
                 this.context.SaveChanges();
 
             }

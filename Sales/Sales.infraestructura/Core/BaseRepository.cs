@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Sales.Dominio.Entities;
-using Sales.Dominio.Repository;
+using Sales.Domain.Repository;
 using Sales.Infraestructura.Context;
-using Sales.Infraestructura.Exceptions;
+using Sales.Infraestructure.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
