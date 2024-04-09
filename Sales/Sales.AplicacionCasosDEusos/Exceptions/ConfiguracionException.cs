@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Sales.AplicacionCasosDEusos.Exceptions
 {
-    public class AuthorException : Exception
+    internal class ConfiguracionException : Exception
     {
-        public AuthorException(string Message) : base(Message)
+        public ConfiguracionException(string message) : base(message)
         {
 
         }

@@ -1,4 +1,5 @@
-﻿using Sales.AplicacionCasosDEusos.Dtos.Configuracion;
+﻿using Sales.AplicacionCasosDEusos.Core;
+using Sales.AplicacionCasosDEusos.Dtos.Configuracion;
 using Sales.AplicacionCasosDEusos.Models.Configuracion;
 using Sales.AplicacionCasosDEusos.Models.Configuracion;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Sales.AplicacionCasosDEusos.Contract.Configuracion
 {
-    public interface IConfiguracionNewService : IBaseService<ConfiguracionDto, ConfiguracionUpdateDto, ConfiguracionRemoveDto, ConfiguracionGetModel>
+    public interface IConfiguracionNewService : IBaseService<ConfiguracionDto, ConfiguracionDtoUpdate, ConfiguracionRemoveDto, ConfiguracionGetModel>
     {
         ServiceResult<ConfiguracionGetModel> Get(int configuracionId);
         ServiceResult<List<ConfiguracionGetModel>> GetAll();

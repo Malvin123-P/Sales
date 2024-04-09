@@ -1,7 +1,6 @@
-﻿
-namespace Sales.AplicacionCasosDEusos.Dtos.Configuracion
+﻿namespace Sales.Api.Models.Core
 {
-    public class ConfiguracionDto
+    public class ConfiguracionAddModel
     {
         public string? recurso { get; set; }
         public string? propiedad { get; set; }

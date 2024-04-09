@@ -1,6 +1,18 @@
-﻿namespace Sales.AplicacionCasosDEusos.Dtos.Rol
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+
+
+
+namespace Sales.Application.Dtos.Rol
+
 {
-    public class RolDtoBase 
+
+    public class RolDtoBase : DtoBase
     {
         public string nombre;
 
@@ -9,4 +21,5 @@
         public string? IdUsuario { get; set; }
         public string? FechaEliminar { get; set; }
     }
+
 }

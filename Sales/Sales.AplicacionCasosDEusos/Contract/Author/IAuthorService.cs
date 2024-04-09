@@ -1,17 +1,18 @@
 ﻿using Sales.AplicacionCasosDEusos.Core;
 using Sales.AplicacionCasosDEusos.Dtos.Author;
 using Sales.AplicacionCasosDEusos.Models.Author;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Sales.AplicacionCasosDEusos.Contract.Author
 {
-    public interface IAuthorService
+    namespace Sales.Application.Contract
     {
-        ServiceResult<List<AuthorGetModel>> GetAuthors();
-        ServiceResult<AuthorGetModel> GetAuthor(int authorId);
-        ServiceResult<AuthorGetModel> SaveAuthor(AuthorDto authorDto);
+        public interface IAuthorService : IBaseServices<AuthorDtoAdd, AuthorDtoUpdate, AuthorRemoveDto, AuthorGetModel>
+        {
 
-        ServiceResult<AuthorGetModel> UpdateRol(AuthorsUpdateDto authorsUpdateDto);
-
-        ServiceResult<AuthorGetModel> RemoveRol(AuthorsRemoveDto authorsRemoveDto);
+        }
     }
-}

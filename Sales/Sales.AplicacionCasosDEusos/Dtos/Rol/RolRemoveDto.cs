@@ -1,6 +1,12 @@
-﻿namespace Sales.AplicacionCasosDEusos.Dtos.Rol
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Sales.Application.Dtos.Rol
 {
-    public class RolRemoveDto : RolDtoBase
+    public class RolRemoveDto : DtoBase
     {
         public string nombre;
 

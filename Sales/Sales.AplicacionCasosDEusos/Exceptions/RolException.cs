@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 
+
 namespace Sales.AplicacionCasosDEusos.Exceptions
 {
-    public class AuthorException : Exception
+    internal class RolException : Exception
     {
-        public AuthorException(string Message) : base(Message)
+        public RolException(string message) : base(message)
         {
 
         }

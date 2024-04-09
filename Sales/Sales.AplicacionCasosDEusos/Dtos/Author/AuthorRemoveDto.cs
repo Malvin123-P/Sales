@@ -1,6 +1,14 @@
-﻿namespace Sales.AplicacionCasosDEusos.Dtos.Author
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+
+namespace Sales.AplicacionCasosDEusos.Dtos.Author
 {
-    public class AuthorsRemoveDto : AuthorsDtoBase
+    public class AuthorRemoveDto : DtoBase
     {
         public int phone { get; set; }
 

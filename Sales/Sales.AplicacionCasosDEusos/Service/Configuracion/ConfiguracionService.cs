@@ -42,7 +42,7 @@ namespace Sales.AplicacionCasosDEusos.Service.Configuracion
             throw new NotImplementedException();
         }
 
-        public global::ServiceResult<ConfiguracionGetModel> UpdateConfiguracion(ConfiguracionUpdateDto configuracionDto)
+        public global::ServiceResult<ConfiguracionGetModel> UpdateConfiguracion(ConfiguracionDtoUpdate configuracionDto)
         {
             throw new NotImplementedException();
         }

@@ -6,7 +6,7 @@ using Sales.Infraestructura.Interfaces;
 
 namespace Sales.Infraestructura.Repositories
 {
-    public class AuthorsRepository : BaseRepository<Authors>, IAuthorsRepository
+    public class AuthorsRepository : BaseRepository<Author>, IAuthorsRepository
     {
         private readonly SalesContext context;
         private readonly ILogger<AuthorsRepository> logger;
@@ -17,12 +17,12 @@ namespace Sales.Infraestructura.Repositories
             this.logger = logger;
         }
 
-        public override List<Authors> GetEntities()
+        public override List<Author> GetEntities()
         {
             return this.GetEntities().Where(ca => !ca.Eliminado).ToList();
         }
 
-        public override void Update(Authors entity)
+        public override void Update(Author entity)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace Sales.Infraestructura.Repositories
             }
         }
 
-        public override void Save(Authors entity)
+        public override void Save(Author entity)
         {
             try
             {
@@ -67,26 +67,26 @@ namespace Sales.Infraestructura.Repositories
             }
         }
 
-        public override Authors GetEntity(int id)
+        public override Author GetEntity(int id)
         {
             return this.context.Authors.Find(id);
         }
 
-        public override bool Exists(Func<Authors, bool> filter)
+        public override bool Exists(Func<Author, bool> filter)
         {
             return base.Exists(filter);
         }
 
-        public override List<Authors> FinAll(Func<Authors, bool> filter)
+        public override List<Author> FinAll(Func<Author, bool> filter)
         {
             return base.FinAll(filter);
         }
 
-        public void Remove(Authors entity)
+        public void Remove(Author entity)
         {
             try
             {
-                Authors authorToRemove = this.GetEntity(entity.phone);
+                Author authorToRemove = this.GetEntity(entity.phone);
 
                 if (authorToRemove is null)
                     throw new AuthorException("El autor no existe.");

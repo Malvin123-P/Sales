@@ -8,9 +8,9 @@ namespace Sales.AplicacionCasosDEusos.Models.Rol
 {
     public class RolGetModel
     {
-        public string? FechaEliminar { get; internal set; }
-        public string? IdUsuario { get; internal set; }
-        public bool? EsActivo { get; internal set; }
-        public string? Descripcion { get; internal set; }
+        public string? FechaEliminar { get; set; }
+        public string? IdUsuario { get; set; }
+        public bool? EsActivo { get; set; }
+        public int? Descripcion { get; set; }
     }
 }

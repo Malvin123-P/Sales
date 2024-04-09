@@ -1,11 +1,16 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Sales.Dominio.Entities;
 using Sales.Dominio.Repository;
 using Sales.Infraestructura.Context;
+using Sales.Infraestructura.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Sales.Infraestructura.Core
+namespace Sales.Infraestructure.Core
 {
     public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
@@ -18,11 +23,6 @@ namespace Sales.Infraestructura.Core
             this.DbEntity = context.Set<TEntity>();
         }
 
-        public static object GetEntity(Sales.AplicacionCasosDEusos.Service.Author author)
-        {
-            throw new NotImplementedException();
-        }
-
         public virtual bool Exists(Func<TEntity, bool> filter)
         {
             return DbEntity.Any(filter);
@@ -33,11 +33,13 @@ namespace Sales.Infraestructura.Core
             return DbEntity.Where(filter).ToList();
         }
 
- 
+
         public virtual List<TEntity> GetEntities()
         {
-            return DbEntity.ToList();
+            // Filtra las entidades para excluir aquellas que contienen valores nulos
+            return DbEntity.Where(entity => entity != null).ToList();
         }
+
 
         public virtual TEntity GetEntity(int id)
         {

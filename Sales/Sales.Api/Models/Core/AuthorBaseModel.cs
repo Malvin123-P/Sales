@@ -1,8 +1,8 @@
-﻿namespace Sales.Api.Models.Core;
-
-public class AuthorsAddModel
+﻿namespace Sales.Api.Models.Core
 {
-    public int? phone { get; set; }
+    public class AuthorBaseModel {
+       
+    public int phone { get; set; }
 
     public string? address { get; set; }
 
@@ -11,4 +11,5 @@ public class AuthorsAddModel
     public string? state { get; set; }
 
     public string? zip { get; set; }
+    }
 }

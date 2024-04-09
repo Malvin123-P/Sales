@@ -30,7 +30,7 @@ namespace Sales.AplicacionCasosDEusos.Service.Author
             throw new NotImplementedException();
         }
 
-        public ServiceResult<AuthorGetModel> RemoveRol(AuthorsRemoveDto authorsRemoveDto)
+        public ServiceResult<AuthorGetModel> RemoveRol(AuthorRemoveDto authorsRemoveDto)
         {
             throw new NotImplementedException();
         }
@@ -101,7 +101,7 @@ namespace Sales.AplicacionCasosDEusos.Service.Author
                     result.Message = "El codigo postal debe tener 5 caracteres.";
                     return result;
                 }
-                authorRepository.Save(new Dominio.Entities.Authors()
+                authorRepository.Save(new Dominio.Entities.Author()
                 {
                     state = authorDto.state,
                     city = authorDto.city,
@@ -121,7 +121,7 @@ namespace Sales.AplicacionCasosDEusos.Service.Author
             return result;
         }
 
-        public ServiceResult<AuthorGetModel> UpdateAuthor(AuthorsUpdateDto authorUpdateDto)
+        public ServiceResult<AuthorGetModel> UpdateAuthor(AuthorDtoUpdate authorUpdateDto)
         {
             ServiceResult<AuthorGetModel> result = new ServiceResult<AuthorGetModel>();
 
@@ -187,7 +187,7 @@ namespace Sales.AplicacionCasosDEusos.Service.Author
                     result.Message = "El codigo postal debe tener 5 caracteres.";
                     return result;
                 }
-                authorRepository.Save(new Dominio.Entities.Authors()
+                authorRepository.Save(new Dominio.Entities.Author()
                 {
                     state = authorUpdateDto.state,
                     city = authorUpdateDto.city,
@@ -204,7 +204,7 @@ namespace Sales.AplicacionCasosDEusos.Service.Author
             return result;
         }
 
-        public ServiceResult<AuthorGetModel> UpdateRol(AuthorsUpdateDto authorsUpdateDto)
+        public ServiceResult<AuthorGetModel> UpdateRol(AuthorDtoUpdate authorsUpdateDto)
         {
             throw new NotImplementedException();
         }

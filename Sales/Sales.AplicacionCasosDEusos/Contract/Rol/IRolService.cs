@@ -1,17 +1,17 @@
-﻿using Sales.AplicacionCasosDEusos.Core;
-using Sales.AplicacionCasosDEusos.Dtos.Rol;
-using Sales.AplicacionCasosDEusos.Models.Rol;
-namespace Sales.AplicacionCasosDEusos.Contract.Rol
+﻿using Sales.AplicacionCasosDEusos.Contract;
+using Sales.AplicacionCasosDEusos.Core;
+using Sales.AplicacionCasosDEusos.Dtos.Configuracion;
+using Sales.AplicacionCasosDEusos.Models.Configuracion;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 {
-    public interface IRolService
+    namespace Sales.Application.Contract
+{
+    public interface IRolService : IBaseServices<RolDtoAdd, RolDtoUpdate, RolDtoRemove, RolGetModel>
     {
-        ServiceResult<List<RolGetModel>> GetRols();
-        ServiceResult<RolGetModel> GetRol(int rolId);
 
-        //ServiceResult<RolGetModel> SaveRol(RolDto rolDto);
-
-        ServiceResult<RolGetModel> UpdateRol(RolUpdateDto rolDto);
-
-        ServiceResult<RolGetModel> RemoveRol(RolRemoveDto rolDto);
     }
 }

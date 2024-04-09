@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Sales.Infraestructure.Exceptions
 {
-    public class RolException : Exception
+    public class ConfiguracionException : Exception
     {
-        public RolException()
+        public ConfiguracionException()
             : base("Ocurrió un error relacionado con los productos.")
         {
         }

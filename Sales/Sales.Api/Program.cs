@@ -1,42 +1,48 @@
 using Microsoft.EntityFrameworkCore;
+using Sales.AplicacionCasosDEusos.Contract;
+using Sales.AplicacionCasosDEusos.Service;
 using Sales.Infraestructura.Context;
 using Sales.Infraestructura.Interfaces;
 using Sales.Infraestructura.Repositories;
+using Sales.Ioc.CategoryDependecy;
+using Sales.Ioc.TDocumentDependency;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// **Agrega el contexto de la base de datos aquí:**
+builder.Services.AddDbContext<SalesContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SalesContext")));
 
 
 
+builder.Services.AddAuthorDependency();
 
-// Conn Strings
-builder.Services.AddDbContext<SalesContext>(options => 
-options.UseSqlServer(builder.Configuration.GetConnectionString("SalesContext")));
+builder.Services.AddConfiguracionDependecy();
 
-//Repositories
+builder.Services.AddRolDependecy();
 
-builder.Services.AddScoped<IAuthorsRepository, AuthorsRepository>();
 
-// config services cors
+// Repositories
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+
+builder.Services.AddScoped<IConfiguracionRepository, ConfiguracionRepository>();
+
+builder.Services.AddScoped<IRolRepository, RolRepository>();
 
 
 // App Services
+builder.Services.AddTransient<IAuthorService, AuthorNewService>();
+
+builder.Services.AddTransient<IConfiguracionService, ConfiguracionService>();
+
+builder.Services.AddTransient<IRolService, RolServiceNew>();
+
+// Add services to the container.
+
 builder.Services.AddControllers();
-builder.Services.AddTransient<IAuthorService, AuthorsRepository>();
-builder.Services.AddTransient<IConfiguracionService, ConfiguracionRepository>();
-builder.Services.AddTransient<IRolService, RolRepository>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
-// Conn Strings
-builder.Services.AddDbContext<SalesContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("SalesContext")));
-
-//Repositories
-
-builder.Services.AddScoped<IAuthorsRepository, AuthorsRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -48,7 +54,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 
 app.UseAuthorization();
 

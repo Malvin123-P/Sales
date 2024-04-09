@@ -1,6 +1,13 @@
-﻿namespace Sales.AplicacionCasosDEusos.Dtos.Author
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace Sales.AplicacionCasosDEusos.Dtos.Author
 {
-    public class AuthorsUpdateDto : AuthorsDtoBase
+    public class AuthorDtoUpdate : AuthorDtoBase
     {
         public string? phone { get; set; }
 

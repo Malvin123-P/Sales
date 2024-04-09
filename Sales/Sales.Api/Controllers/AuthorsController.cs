@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Sales.Api.Dtos.Authors;
-using Sales.Api.Models;
-using Sales.AplicacionCasosDEusos.Contract.Author;
-using Sales.Infraestructura.Interfaces;
-using System.DirectoryServices.ActiveDirectory;
+using Sales.AplicacionCasosDEusos.Contract;
+using Sales.AplicacionCasosDEusos.Dtos.Author;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,26 +21,16 @@ namespace Sales.Api.Controllers
         [HttpGet("GetAuthors")]
         public IActionResult Get()
         {
-            // var authors = this.author.GetEntities().Select(cd => new AuthorGetModel()
-            // {
-            //  phone = cd.phone,
-            //  address = cd.address,
-            // city = cd.city,
-            // state = cd.state,
-            // zip = cd.zip,
-            // });
-
-
-
-            var result = this.authorService.GetAuthors();
+            var result = this.authorService.GetAll();
 
             if (!result.Success)
             {
                 return BadRequest(result);
             }
 
-            return Ok(result);
+            return Ok(result.Data);
         }
+
 
         // GET api/<AuthorsController>/5
         [HttpGet("GetAuthorById")]
@@ -74,7 +61,7 @@ namespace Sales.Api.Controllers
         }
 
         [HttpDelete("UpdateAuthor")]
-        private IActionResult Put([FromBody] AplicacionCasosDEusos.Dtos.Author.AuthorsUpdateDto authorsUpdate)
+        private IActionResult Put([FromBody] AplicacionCasosDEusos.Dtos.Author.AuthorDtoUpdate authorsUpdate)
         {
             var result = this.authorService.UpdateAuthor(authorsUpdate);
             {
@@ -88,7 +75,7 @@ namespace Sales.Api.Controllers
         }
 
         [HttpPost("RemoveAuthor")]
-        private IActionResult Remove([FromBody] AplicacionCasosDEusos.Dtos.Author.AuthorsRemoveDto authorsRemove)
+        private IActionResult Remove([FromBody] AplicacionCasosDEusos.Dtos.Author.AuthorRemoveDto authorsRemove)
         {
             var result = this.authorService.RemoveAuthor(authorsRemove);
             {

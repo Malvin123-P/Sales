@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sales.Dominio.Repository
+namespace Sales.Domain.Repository
 {
-     public interface IBaseRepository<TEntity> where TEntity: class
+    public interface IBaseRepository<TEntity> where TEntity : class
     {
         TEntity GetEntity(int id);
         List<TEntity> GetEntities();
@@ -15,8 +15,7 @@ namespace Sales.Dominio.Repository
         void Save(TEntity entity);
         void Update(TEntity entity);
         void Remove(TEntity entity);
-        void Remove(Sales.AplicacionCasosDEusos.Service.Author author);
-    }
 
+    }
 }
 

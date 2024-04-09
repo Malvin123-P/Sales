@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Sales.Api.Dtos.Authors;
-using Sales.Api.Dtos.Rol;
-using Sales.Api.Models;
-using Sales.Infraestructura.Interfaces;
+using Sales.Application.Contract;
+using Sales.Application.Dtos.Category;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,7 +22,35 @@ namespace Sales.Api.Controllers
         [HttpGet("GetRol")]
         public IActionResult Get()
         {
-            var result = this.rolService.GetRols();
+            var result = this.rolService.GetAll();
+
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Data);
+        }
+
+        // GET api/<RolController>/5
+        [HttpGet("GetAuthorById")]
+        public IActionResult Get(int id)
+        {
+            var result = this.rolService.Get(id);
+
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Data);
+        }
+
+        // POST api/<RolController>
+        [HttpPost("SaveRol")]
+        public IActionResult Post([FromBody] RolDtoAdd rolAddModel)
+        {
+            var result = this.rolService.Save(rolAddModel);
 
             if (!result.Success)
             {
@@ -34,64 +60,36 @@ namespace Sales.Api.Controllers
             return Ok(result);
         }
 
-        // GET api/<RolController>/5
-        [HttpGet("GetAuthorById")]
-        public IActionResult Get(int id)
-        {
-            var result = this.rolService.GetRol(id);
-            {
-                if (!result.Success)
-                {
-                    return BadRequest(result);
-                }
-
-                return Ok(result);
-            }
-
-            // POST api/<RolController>
-            [HttpPost("SaveRol")]
-            public IActionResult Post([FromBody] AplicacionCasosDEusos.Dtos.Rol.RolDto rolsAddModel)
-            {
-                var result = this.rolService.SaveRol(rolsAddModel);
-
-                if (!result.Success)
-                {
-                    return BadRequest(result);
-                }
-
-                return Ok(result);
-            }
-
         // PUT api/<RolController>/5
         [HttpDelete("UpdateRol")]
-            public IActionResult Put([FromBody] AplicacionCasosDEusos.Dtos.Rol.RolsUpdateDto rolsUpdate)
+        public IActionResult Put([FromBody] RolDtoUpdate rolUpdate)
+        {
+            var result = this.rolService.Update(rolUpdate);
+
+            if (!result.Success)
             {
-                var result = this.rolService.UpdateAuthor(rolsUpdate);
-                {
-                    if (!result.Success)
-                    {
-                        return BadRequest(result);
-                    }
+                return BadRequest(result);
+            }
 
-                    return Ok(result);
-                }
+            return Ok(result);
+        }
 
 
-                // DELETE api/<RolController>/5
-                [HttpPost("RemoveRol")]
-                public IActionResult Remove([FromBody] AplicacionCasosDEusos.Dtos.Rol.RolsRemoveDto rolsRemove)
-                {
-                    var result = this.rolService.RemoveRol(rolsRemove);
-                    {
-                        if (!result.Success)
-                        {
-                            return BadRequest(result);
-                        }
+        // DELETE api/<RolController>/5
+        [HttpPost("RemoveRol")]
+        public IActionResult Delete([FromBody] RolRemoveDto rolRemove)
+        {
+            var result = this.rolService.Remove(rolRemove);
 
-                        return Ok(result);
-                    }
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
 
-                }
+            return Ok(result);
+        }
+    }
+}
 
 
 

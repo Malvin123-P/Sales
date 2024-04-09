@@ -1,21 +1,32 @@
-﻿public class AuthorException : Exception
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Sales.Infraestructure.Exceptions
 {
-    public AuthorException()
-        : base("Ocurrió un error relacionado con los autores.")
+    public class AuthorException : Exception
     {
+
+        public AuthorException()
+            : base("Ocurrió un error relacionado con los autores.")
+        {
+        }
+
+        public AuthorException(string message)
+            : base(message)
+        {
+        }
+
+        public AuthorException(string message, Exception innerException)
+            : base(message, innerException)
+        {
+        }
+
+        public int? AuthorId { get; set; }
+
+        public string AuthorName { get; set; }
+
     }
-
-    public AuthorException(string message)
-        : base(message)
-    {
-    }
-
-    public AuthorException(string message, Exception innerException)
-        : base(message, innerException)
-    {
-    }
-
-    public int? phone { get; set; }
-
-    public string address { get; set; }
 }

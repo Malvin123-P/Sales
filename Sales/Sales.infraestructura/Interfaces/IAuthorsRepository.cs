@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Sales.Infraestructura.Interfaces
 {
-    public interface IAuthorsRepository : IBaseRepository<Authors>
+    public interface IAuthorsRepository : IBaseRepository<Author>
     {
-        void Remove(Authors entity);
+        void Remove(Author entity);
     }
 }

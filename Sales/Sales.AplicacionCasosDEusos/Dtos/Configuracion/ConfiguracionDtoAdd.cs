@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Sales.Application.Dtos.Configuracion
+
 {
-    public class ConfiguracionDtoBase : DtoBase
+    public class ConfiguracionDtoAdd : ConfiguracionDtoBase
     {
-        public string? Recurso { get; set; }
-        public string? Propiedad { get; set; }
-        public string? Valor { get; set; }
+
+
     }
 }

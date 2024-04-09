@@ -1,18 +1,17 @@
-﻿using Sales.AplicacionCasosDEusos.Core;
+﻿using Sales.AplicacionCasosDEusos.Contract;
+using Sales.AplicacionCasosDEusos.Core;
 using Sales.AplicacionCasosDEusos.Dtos.Configuracion;
 using Sales.AplicacionCasosDEusos.Models.Configuracion;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Sales.AplicacionCasosDEusos.Contract.Configuracion
+namespace Sales.Application.Contract
 {
-    public interface IConfiguracionService
+    public interface IConfiguracionService : IBaseServices<ConfiguracionDtoAdd, ConfiguracionDtoUpdate, ConfiguracionDtoRemove, ConfiguracionGetModel>
     {
-        ServiceResult<List<ConfiguracionGetModel>> GetConfiguraciones();
-        ServiceResult<ConfiguracionGetModel> GetConfiguracion(int configuracionId);
 
-        ServiceResult<ConfiguracionGetModel> SaveConfiguracion(ConfiguracionDto configuracionDto);
-
-        ServiceResult<ConfiguracionGetModel> UpdateConfiguracion(ConfiguracionUpdateDto configuracionDto);
-
-        ServiceResult<ConfiguracionGetModel> RemoveConfiguracion(ConfiguracionRemoveDto configuracionDto);
     }
 }
